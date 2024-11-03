@@ -4,27 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="push test">
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/homePage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/reviewPage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/sidebar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/homePage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/back.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/maintenance.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/oilchange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/picture.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/tire.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/reviewPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/rewardsPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/sidebar.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/reportWebVitals.js" afterDir="false" />
+    <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="homepage and review page done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/src/hi.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/reviewPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/reviewPage.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -62,21 +49,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/godzd/Desktop/AutoCare Connect/frontend/autocareconnect/src/react/images",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;edison&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/godzd/Desktop/AutoCare Connect/frontend/autocareconnect/src/react/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\godzd\Desktop\AutoCare Connect\frontend\autocareconnect\src\react\images" />
@@ -102,7 +89,9 @@
       <updated>1730420702767</updated>
       <workItem from="1730420703806" duration="220000" />
       <workItem from="1730420935924" duration="3628000" />
-      <workItem from="1730604362455" duration="12799000" />
+      <workItem from="1730604362455" duration="13280000" />
+      <workItem from="1730617817588" duration="618000" />
+      <workItem from="1730622408364" duration="971000" />
     </task>
     <task id="LOCAL-00001" summary="new folders">
       <option name="closed" value="true" />
@@ -128,7 +117,23 @@
       <option name="project" value="LOCAL" />
       <updated>1730421341362</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="homepage and review page done">
+      <option name="closed" value="true" />
+      <created>1730617689581</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730617689581</updated>
+    </task>
+    <task id="LOCAL-00005" summary="homepage and review page done">
+      <option name="closed" value="true" />
+      <created>1730617697931</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730617697931</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,6 +142,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new folders" />
     <MESSAGE value="push test" />
-    <option name="LAST_COMMIT_MESSAGE" value="push test" />
+    <MESSAGE value="homepage and review page done" />
+    <option name="LAST_COMMIT_MESSAGE" value="homepage and review page done" />
   </component>
 </project>
