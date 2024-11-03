@@ -1,0 +1,219 @@
+/* Base styles */
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+    background-color: #E5F4FA;
+}
+
+/* Main container */
+.review-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+/* Header banner */
+.header-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+}
+
+.menu-icon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+}
+
+.banner-title {
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Title styling for 'Reviews' */
+.title {
+    font-size: 2rem;
+    color: #333333;
+    margin: 20px 0 30px;
+    text-align: center;
+}
+
+/* Reviews grid container */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two-column layout */
+    gap: 20px 30px; /* Space between cards */
+    max-width: 1100px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+
+    .review-card {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}
+
+/* Review card styling */
+.review-card {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 1rem;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    color: #666666;
+    margin-bottom: 8px;
+}
+
+.review-author {
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.review-rating {
+    font-size: 1.1rem;
+    color: #ffcc00;
+}
+
+/* Write Review button */
+.write-review-button {
+    margin-top: 20px;
+    margin-bottom: 60px; /* Increased gap between button and footer */
+    padding: 12px 36px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.write-review-button:hover {
+    background-color: #0056b3;
+}
+
+/* Custom Modal Styling */
+.custom-modal .p-dialog-content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    padding: 20px;
+}
+
+.p-dialog {
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content {
+    text-align: center;
+    padding: 10px;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+.star-rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.modal-content h3 {
+    font-size: 1.2rem;
+    color: #666666;
+    margin-bottom: 5px;
+}
+
+/* Adjust input fields for the modal */
+.p-field {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.p-field input, .p-field textarea {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.non-resizable-textarea {
+    resize: none;
+}
+
+.character-count {
+    font-size: 0.85rem;
+    color: #666666;
+    margin-top: 3px;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 8px 64px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* Footer styling */
+.footer-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px; /* Reduced padding for a smaller footer height */
+    box-sizing: border-box;
+}
+
+.footer-description {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.footer-logo {
+    width: 120px;
+    height: auto;
+}
