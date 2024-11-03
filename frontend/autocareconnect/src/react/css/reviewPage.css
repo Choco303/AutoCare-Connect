@@ -10,15 +10,14 @@ body, html {
 
 /* Main container */
 .review-container {
-    width: 100%;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     align-items: center;
     padding: 0;
 }
 
-/* Header banner */
+/* Header banner - fixed size */
 .header-banner {
     width: 100%;
     background-color: #003366;
@@ -53,20 +52,21 @@ body, html {
     text-align: center;
 }
 
-/* Reviews grid container */
+/* Reviews grid container - fixed 2x3 layout */
 .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two-column layout */
-    gap: 20px 30px; /* Space between cards */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px;
+    width: 90%;
     max-width: 1100px;
-    width: 100%;
     margin-bottom: 40px;
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .reviews-grid {
-        grid-template-columns: 1fr; /* Single column on smaller screens */
+        grid-template-columns: 1fr;
     }
 
     .review-card {
@@ -78,15 +78,17 @@ body, html {
 /* Review card styling */
 .review-card {
     background-color: #ffffff;
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
     font-size: 1rem;
+    min-height: 200px;
 }
 
+/* Review text and author */
 .review-text {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #666666;
     margin-bottom: 8px;
 }
@@ -102,97 +104,157 @@ body, html {
     color: #ffcc00;
 }
 
-/* Write Review button */
+/* Write Review button with same color as banner */
 .write-review-button {
     margin-top: 20px;
-    margin-bottom: 60px; /* Increased gap between button and footer */
+    margin-bottom: 20px;
     padding: 12px 36px;
     font-size: 1rem;
-    background-color: #007bff;
+    background-color: #003366;
     color: #ffffff;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .write-review-button:hover {
-    background-color: #0056b3;
+    background-color: #002244;
 }
 
 /* Custom Modal Styling */
-.custom-modal .p-dialog-content {
-    background-color: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #000000;
-    padding: 20px;
-}
-
 .p-dialog {
     max-width: 90vw;
     max-height: 90vh;
     overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.custom-modal .p-dialog-content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    border: 1px solid #000;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Modal content styling */
 .modal-content {
+    position: relative;
     text-align: center;
-    padding: 10px;
 }
 
+/* Custom Close Button Styling */
+.custom-close-button {
+    position: absolute;
+    top: -50px; /* Moves closer to the top corner */
+    right: -30px; /* Moves closer to the right corner */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #ffffff;
+    background-color: #ff4d4d; /* Red background */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+.custom-close-button:hover {
+    background-color: #e60000;
+}
+
+
+/* Modal title styling */
 .modal-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #333333;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
+.modal-subtitle {
+    font-size: 1.1rem;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+/* Star rating alignment */
 .star-rating {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
-}
-.modal-content h3 {
-    font-size: 1.2rem;
-    color: #666666;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
-/* Adjust input fields for the modal */
-.p-field {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.p-field input, .p-field textarea {
+/* Enhanced styling for InputText (Name input field) */
+.p-field .p-inputtext {
     width: 100%;
-    max-width: 400px;
-    padding: 10px;
+    padding: 12px;
+    margin: 12px 0;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.p-field .p-inputtext:focus {
+    border-color: #003366;
+    box-shadow: 0 0 5px rgba(0, 51, 102, 0.5);
+    outline: none;
+}
+
+/* Enhanced styling for InputTextarea (Message input field) */
 .non-resizable-textarea {
-    resize: none;
-}
-
-.character-count {
-    font-size: 0.85rem;
-    color: #666666;
-    margin-top: 3px;
-}
-
-.submit-button {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 8px 64px;
-    border: none;
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
-    margin-top: 10px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+    resize: none;
+    height: 120px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.non-resizable-textarea:focus {
+    border-color: #003366;
+    box-shadow: 0 0 5px rgba(0, 51, 102, 0.5);
+    outline: none;
+}
+
+/* Styled Send button */
+.submit-button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background-color: #003366;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.submit-button:hover {
+    background-color: #002244;
+    transform: translateY(-2px);
 }
 
 /* Footer styling */
@@ -203,8 +265,9 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 40px; /* Reduced padding for a smaller footer height */
+    padding: 15px 40px;
     box-sizing: border-box;
+    margin-top: auto;
 }
 
 .footer-description {
@@ -213,6 +276,24 @@ body, html {
 }
 
 .footer-logo {
-    width: 120px;
+    width: 100px;
     height: auto;
+}
+
+/* Responsive scaling - adjust sizes on larger screens */
+@media (min-width: 1440px) {
+    .review-card {
+        padding: 25px;
+        font-size: 1.1rem;
+    }
+
+    .write-review-button {
+        font-size: 1.1rem;
+        padding: 14px 40px;
+        margin-bottom: 30px;
+    }
+
+    .footer-description {
+        font-size: 1.1rem;
+    }
 }

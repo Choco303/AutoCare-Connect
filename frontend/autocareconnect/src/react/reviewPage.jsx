@@ -81,8 +81,11 @@ const ReviewPage = () => {
             </div>
             <Button label="Write Review" className="write-review-button" onClick={openModal} />
 
-            <Dialog visible={displayModal} style={{ width: '50vw' }} onHide={closeModal} className="custom-modal">
+            <Dialog visible={displayModal} style={{ width: '50vw' }} onHide={closeModal} className="custom-modal" closable={false}>
                 <div className="modal-content">
+                    {/* Custom Close Button */}
+                    <button className="custom-close-button" onClick={closeModal}>×</button>
+
                     <h3>Contact Us</h3>
                     <h2 className="modal-title">Write A Review</h2>
                     <div className="star-rating">
@@ -106,6 +109,7 @@ const ReviewPage = () => {
                     <Button label="Send" className="p-button-primary submit-button" onClick={handleSubmit} />
                 </div>
             </Dialog>
+
 
             <footer className="footer-banner">
                 <div className="footer-description">Providing quality car management services for your convenience.</div>

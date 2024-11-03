@@ -2,8 +2,6 @@
 
 /* Full-width container setup */
 .container {
-    display: flex;
-    flex-direction: column;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -160,4 +158,10 @@
 .footer-logo {
     width: 100px;
     height: auto;
+}
+
+/* Ensure no gap or overlap */
+body, html {
+    margin: 0;
+    padding: 0;
 }
