@@ -1,0 +1,101 @@
+.rewards-page {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #ffffff;
+    background-color: #E5F4FA;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #003366;
+}
+
+.menu-icon {
+    cursor: pointer;
+}
+
+.steps-background {
+    text-align: center;
+    padding: 2rem 35rem;
+    background-color: #0056b3;
+}
+
+
+.steps-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+/* Flex container for steps */
+.steps-align {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+/* Each step box */
+.step-space {
+    text-align: center;
+    flex: 1; /* Allow each step to grow equally */
+    max-width: 200px;
+}
+
+.rewards {
+    padding: 3rem;
+    color: black;
+}
+.reward-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.reward-card {
+    color: black;
+    padding: 1rem;
+    width: 180px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.sign-up-button {
+    margin-top: 2rem;
+    border: none;
+    padding: 12px 36px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin-bottom: 13rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
+    background-color: #003366;
+}
+
+.footer-description {
+    font-size: 1rem;
+}
+
+.footer-logo {
+    width: 120px;
+    height: auto;
+}
