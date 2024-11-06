@@ -19,41 +19,69 @@
 
 .steps-background {
     text-align: center;
-    padding: 2rem 35rem;
+    padding: 1.2rem 0.5rem;
     background-color: #0056b3;
 }
 
-
 .steps-title {
     font-size: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
     color: #ffffff;
 }
 
-/* Flex container for steps */
 .steps-align {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-/* Each step box */
 .step-space {
     text-align: center;
-    flex: 1; /* Allow each step to grow equally */
-    max-width: 200px;
+    width: 180px;
+    height: auto;
+    padding: 1.5rem; /* Increased padding to accommodate larger text */
+    background-color: #004a9f;
+    color: #ffffff;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    margin: 0.5rem 0; /* Adds vertical spacing */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.step-space h2 {
+    font-size: 2rem; /* Increase font size for better visibility */
+    margin: 0;
+}
+
+.step-space h3 {
+    margin: 0.2rem 0;
+}
+
+.step-space p {
+    font-size: 1rem;
+}
+
+.step-space:hover {
+    transform: scale(1.05);
+    background-color: #007bff;
 }
 
 .rewards {
-    padding: 3rem;
+    padding: 1.5rem;
     color: black;
 }
+
 .reward-cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
@@ -68,12 +96,12 @@
 }
 
 .sign-up-button {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     border: none;
     padding: 12px 36px;
     font-size: 1rem;
     border-radius: 8px;
-    margin-bottom: 13rem;
+    margin-bottom: 8rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -98,4 +126,37 @@
 .footer-logo {
     width: 120px;
     height: auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .steps-align {
+        display: flex;
+        flex-direction: column; /* Force single-column layout */
+        align-items: center;
+    }
+
+    .step-space {
+        width: 90%; /* Takes up most of the container width in single column */
+        max-width: 400px; /* Keeps boxes from getting too wide */
+        padding: 1.5rem; /* Increased padding for consistent sizing */
+    }
+}
+
+@media (max-width: 768px) {
+    .steps-align {
+        flex-direction: column; /* Ensure single-column layout for smaller screens */
+        align-items: center;
+        gap: 1rem; /* Adds consistent spacing between items */
+    }
+
+    .step-space {
+        width: 100%; /* Full width on mobile */
+        max-width: 300px; /* Limit width for mobile view */
+        padding: 1.5rem;
+    }
+
+    .steps-title {
+        font-size: 1.5rem;
+    }
 }

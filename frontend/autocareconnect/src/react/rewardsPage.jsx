@@ -5,7 +5,6 @@ import { Card } from 'primereact/card';
 import './css/rewardsPage.css';
 
 const RewardsPage = () => {
-    // State to control sidebar visibility
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     // Toggle sidebar visibility
@@ -20,8 +19,8 @@ const RewardsPage = () => {
         { title: "Half off Service", points: 7000, image: './images/half_off_logo.png', alt: "Half Off Service" },
         { title: "Free set of Tires", points: 10000, image: './images/free_tires_logo.png', alt: "Free Set Of Tires" }
     ];
-    return (
 
+    return (
         <div className="rewards-page">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
@@ -35,7 +34,7 @@ const RewardsPage = () => {
                 <h1>AutoCare Connect</h1>
             </header>
 
-            {/* Section explaining steps to earn and redeem rewards */}
+            {/* Responsive Steps Section */}
             <section className="steps-background">
                 <h2 className="steps-title">How it Works</h2>
                 <div className="steps-align">
@@ -43,13 +42,19 @@ const RewardsPage = () => {
                         <div key={index} className="step-space">
                             <h2>{index + 1}</h2>
                             <h3>{step}</h3>
-                            <p>{index === 0 ? "Join the AutoCare club to start earning" : index === 1 ? "Earn reward points every time you receive a service" : "Redeem points for exclusive rewards & discounts"}</p>
+                            <p>
+                                {index === 0
+                                    ? "Join the AutoCare club to start earning"
+                                    : index === 1
+                                        ? "Earn reward points every time you receive a service"
+                                        : "Redeem points for exclusive rewards & discounts"}
+                            </p>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* Section displaying reward cards */}
+            {/* Rewards Section */}
             <section className="rewards">
                 <h2>Rewards</h2>
                 <div className="reward-cards">
@@ -61,7 +66,6 @@ const RewardsPage = () => {
                         </Card>
                     ))}
                 </div>
-                {/* Hey listen! This is the signup button. This needs to connect to sign log screen! */}
                 <Button label="Sign Up" className="sign-up-button" />
             </section>
 
