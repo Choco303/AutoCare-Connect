@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="homepage and review page done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/reviewPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/reviewPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/rewardsPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/css/rewardsPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/rewardsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/rewardsPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,12 +34,12 @@
     &quot;assignee&quot;: &quot;hyemdanu&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Choco303/AutoCare-Connect.git",
-    "accountId": "98757768-1fd8-4c67-a9cf-44a0b9cda94a"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Choco303/AutoCare-Connect.git&quot;,
+    &quot;accountId&quot;: &quot;98757768-1fd8-4c67-a9cf-44a0b9cda94a&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -52,21 +48,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "edison",
-    "last_opened_file_path": "C:/Users/godzd/Desktop/AutoCare Connect/frontend/autocareconnect/src/react/images",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/godzd/Desktop/AutoCare Connect/frontend/autocareconnect/src/react/images&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/larry/AppData/Roaming/JetBrains/IntelliJIdea2024.2/node/versions/22.11.0/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\godzd\Desktop\AutoCare Connect\frontend\autocareconnect\src\react\images" />
@@ -78,7 +77,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -97,6 +97,8 @@
       <workItem from="1730622408364" duration="971000" />
       <workItem from="1730667543514" duration="6238000" />
       <workItem from="1730853289047" duration="1747000" />
+      <workItem from="1730856322207" duration="319000" />
+      <workItem from="1730856657322" duration="1173000" />
     </task>
     <task id="LOCAL-00001" summary="new folders">
       <option name="closed" value="true" />
@@ -149,5 +151,9 @@
     <MESSAGE value="push test" />
     <MESSAGE value="homepage and review page done" />
     <option name="LAST_COMMIT_MESSAGE" value="homepage and review page done" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
