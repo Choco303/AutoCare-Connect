@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="homepage and review page done">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="homepage and review page done" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,12 +32,12 @@
     &quot;assignee&quot;: &quot;hyemdanu&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Choco303/AutoCare-Connect.git&quot;,
-    &quot;accountId&quot;: &quot;98757768-1fd8-4c67-a9cf-44a0b9cda94a&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Choco303/AutoCare-Connect.git",
+    "accountId": "4d47c2c6-ab26-4a61-a695-e0ca51041aab"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -98,7 +96,7 @@
       <workItem from="1730667543514" duration="6238000" />
       <workItem from="1730853289047" duration="1747000" />
       <workItem from="1730856322207" duration="319000" />
-      <workItem from="1730856657322" duration="1173000" />
+      <workItem from="1730856657322" duration="2293000" />
     </task>
     <task id="LOCAL-00001" summary="new folders">
       <option name="closed" value="true" />
@@ -140,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730617697931</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="homepage and review page done">
+      <option name="closed" value="true" />
+      <created>1730859501510</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730859501510</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
