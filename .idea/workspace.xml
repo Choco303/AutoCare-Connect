@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="updated rewards page for responsiveness">
-      <change afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/autocareconnect/backend/SignupController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/autocareconnect/backend/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/autocareconnect/backend/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/autocareconnect/backend/BackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/rewardsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/rewardsPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +22,7 @@
       <list>
         <option value="JSX File" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -39,12 +40,12 @@
     &quot;assignee&quot;: &quot;hyemdanu&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Choco303/AutoCare-Connect.git&quot;,
-    &quot;accountId&quot;: &quot;98757768-1fd8-4c67-a9cf-44a0b9cda94a&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Choco303/AutoCare-Connect.git",
+    "accountId": "b6ffbb26-beb0-4cec-8fad-8152f0ca7f40"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -97,8 +98,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
       </set>
     </attachedChunks>
   </component>
@@ -122,6 +122,7 @@
       <workItem from="1731013763312" duration="133000" />
       <workItem from="1731014128677" duration="498000" />
       <workItem from="1731014827200" duration="328000" />
+      <workItem from="1731032853425" duration="1907000" />
     </task>
     <task id="LOCAL-00001" summary="new folders">
       <option name="closed" value="true" />
@@ -183,10 +184,6 @@
     <MESSAGE value="homepage and review page done" />
     <MESSAGE value="updated rewards page for responsiveness" />
     <option name="LAST_COMMIT_MESSAGE" value="updated rewards page for responsiveness" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
