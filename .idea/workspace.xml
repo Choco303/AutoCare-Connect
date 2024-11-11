@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="updated rewards page for responsiveness">
-      <change afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/car_inspection_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/car_inspection_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_oil_change.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_oil_change.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_tires_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_tires_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/half_off_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/half_off_logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +41,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Choco303/AutoCare-Connect.git&quot;,
-    &quot;accountId&quot;: &quot;98757768-1fd8-4c67-a9cf-44a0b9cda94a&quot;
+    &quot;accountId&quot;: &quot;19b50c29-3192-4a99-ac5d-ecf9f0d112cb&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -56,7 +55,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;edison&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/godzd/Desktop/AutoCare Connect&quot;,
@@ -65,11 +64,12 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/Ruben/AppData/Roaming/JetBrains/IntelliJIdea2024.2/node/versions/22.11.0/node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -122,6 +122,8 @@
       <workItem from="1731013763312" duration="133000" />
       <workItem from="1731014128677" duration="498000" />
       <workItem from="1731014827200" duration="328000" />
+      <workItem from="1731292485172" duration="341000" />
+      <workItem from="1731292864661" duration="670000" />
     </task>
     <task id="LOCAL-00001" summary="new folders">
       <option name="closed" value="true" />
@@ -183,10 +185,6 @@
     <MESSAGE value="homepage and review page done" />
     <MESSAGE value="updated rewards page for responsiveness" />
     <option name="LAST_COMMIT_MESSAGE" value="updated rewards page for responsiveness" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
