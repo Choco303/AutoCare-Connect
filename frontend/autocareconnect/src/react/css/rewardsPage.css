@@ -1,23 +1,71 @@
+/* Reset root and body for full viewport */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Container for the entire page using Flexbox layout */
 .rewards-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
     font-family: Arial, sans-serif;
     text-align: center;
     color: #ffffff;
     background-color: #E5F4FA;
 }
 
+/* Standardized Header (Top Bar) */
 .header {
+    width: 100%;
+    background-color: #003366;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 15px 20px;
     box-sizing: border-box;
-    background-color: #003366;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 60px;
 }
 
 .menu-icon {
     cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
 }
 
+.header-title {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+}
+
+/* Main content area with flex-grow */
+.main-content {
+    flex: 1;
+    padding: 60px 1.5rem 1.5rem;
+    color: black;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Full-width Steps Section */
 .steps-background {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     text-align: center;
     padding: 1.2rem 0.5rem;
     background-color: #0056b3;
@@ -33,19 +81,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 2rem;
 }
 
 .step-space {
     text-align: center;
-    width: 180px;
+    width: 240px;
     height: auto;
-    padding: 1.5rem; /* Increased padding to accommodate larger text */
+    padding: 1.5rem;
     background-color: #004a9f;
     color: #ffffff;
     border-radius: 8px;
     transition: transform 0.3s ease;
-    margin: 0.5rem 0; /* Adds vertical spacing */
+    margin: 0.5rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,16 +102,20 @@
 }
 
 .step-space h2 {
-    font-size: 2rem; /* Increase font size for better visibility */
+    font-size: 1.5rem;
     margin: 0;
+    line-height: 2;
 }
 
 .step-space h3 {
-    margin: 0.2rem 0;
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    line-height: 1.2;
 }
 
 .step-space p {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.2;
 }
 
 .step-space:hover {
@@ -71,18 +123,26 @@
     background-color: #007bff;
 }
 
+/* Rewards Section */
 .rewards {
-    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0; /* Optional: Adjusts vertical padding */
     color: black;
 }
 
 .reward-cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
+    gap: 1.5rem; /* Increases spacing between cards */
+    justify-content: center; /* Centers cards horizontally */
+    align-items: center; /* Ensures cards are centered vertically within the container */
+    max-width: 1000px; /* Optional: Restricts max width of the container */
+    width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
 .reward-card {
@@ -93,6 +153,10 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .sign-up-button {
@@ -101,7 +165,7 @@
     padding: 12px 36px;
     font-size: 1rem;
     border-radius: 8px;
-    margin-bottom: 8rem;
+    margin-bottom: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -109,50 +173,54 @@
     color: #ffffff;
 }
 
+/* Footer Section */
 .footer {
     width: 100%;
+    background-color: #003366;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 40px;
     box-sizing: border-box;
-    background-color: #003366;
+    position: relative;
+    bottom: 0;
 }
 
 .footer-description {
     font-size: 1rem;
+    color: #ffffff;
 }
 
 .footer-logo {
-    width: 120px;
+    width: 100px;
     height: auto;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 992px) {
     .steps-align {
-        display: flex;
-        flex-direction: column; /* Force single-column layout */
+        flex-direction: column;
         align-items: center;
     }
 
     .step-space {
-        width: 90%; /* Takes up most of the container width in single column */
-        max-width: 400px; /* Keeps boxes from getting too wide */
-        padding: 1.5rem; /* Increased padding for consistent sizing */
+        width: 90%;
+        max-width: 400px;
+        padding: 1.5rem;
     }
 }
 
 @media (max-width: 768px) {
     .steps-align {
-        flex-direction: column; /* Ensure single-column layout for smaller screens */
+        flex-direction: column;
         align-items: center;
-        gap: 1rem; /* Adds consistent spacing between items */
+        gap: 1rem;
     }
 
     .step-space {
-        width: 100%; /* Full width on mobile */
-        max-width: 300px; /* Limit width for mobile view */
+        width: 100%;
+        max-width: 300px;
         padding: 1.5rem;
     }
 
