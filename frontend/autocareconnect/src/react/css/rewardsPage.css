@@ -2,8 +2,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     overflow-x: hidden;
     box-sizing: border-box;
 }
@@ -13,14 +13,14 @@ html, body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    width: 100%;
+    width: 100vw;
     font-family: Arial, sans-serif;
     text-align: center;
     color: #ffffff;
     background-color: #E5F4FA;
 }
 
-/* Standardized Header (Top Bar) */
+/* Standard Header (Top Bar) */
 .header {
     width: 100%;
     background-color: #003366;
@@ -30,19 +30,17 @@ html, body {
     justify-content: center;
     padding: 15px 20px;
     box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
     height: 60px;
+    position: relative; /* Ensure it scrolls with the page */
 }
 
 .menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
-    position: absolute;
+    position: absolute; /* Keeps it within the header */
     left: 20px;
+    top: 15px; /* Vertically align within header */
 }
 
 .header-title {
@@ -56,7 +54,7 @@ html, body {
 /* Main content area with flex-grow */
 .main-content {
     flex: 1;
-    padding: 60px 1.5rem 1.5rem;
+    padding: 0;
     color: black;
     width: 100%;
     box-sizing: border-box;
@@ -64,11 +62,12 @@ html, body {
 
 /* Full-width Steps Section */
 .steps-background {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    width: 100%;
     text-align: center;
     padding: 1.2rem 0.5rem;
     background-color: #0056b3;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .steps-title {
@@ -128,17 +127,17 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem 0; /* Optional: Adjusts vertical padding */
+    padding: 1.5rem 0;
     color: black;
 }
 
 .reward-cards {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem; /* Increases spacing between cards */
-    justify-content: center; /* Centers cards horizontally */
-    align-items: center; /* Ensures cards are centered vertically within the container */
-    max-width: 1000px; /* Optional: Restricts max width of the container */
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
     width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -149,6 +148,7 @@ html, body {
     color: black;
     padding: 1rem;
     width: 180px;
+    height: 220px; /* Fixed height for consistent card size */
     text-align: center;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -157,6 +157,13 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+}
+
+.reward-card img {
+    max-width: 100%; /* Ensure image fits within the card */
+    max-height: 100px; /* Restrict image height for consistent card layout */
+    object-fit: contain; /* Maintain aspect ratio */
 }
 
 .sign-up-button {
