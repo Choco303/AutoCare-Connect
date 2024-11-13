@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="homepage and review page done">
+    <list default="true" id="9eb3544d-7b8a-424d-a2c2-84aa0fba64ff" name="Changes" comment="updated rewards page for responsiveness">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/car_inspection_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/car_inspection_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_oil_change.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_oil_change.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_tires_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/free_tires_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/half_off_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/autocareconnect/src/react/images/half_off_logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,13 +22,6 @@
         <option value="JSX File" />
         <option value="CSS File" />
       </list>
-    </option>
-  </component>
-  <component name="Git.Pull.Settings">
-    <option name="OPTIONS">
-      <set>
-        <option value="NO_VERIFY" />
-      </set>
     </option>
   </component>
   <component name="Git.Settings">
@@ -44,7 +41,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Choco303/AutoCare-Connect.git&quot;,
-    &quot;accountId&quot;: &quot;4d47c2c6-ab26-4a61-a695-e0ca51041aab&quot;
+    &quot;accountId&quot;: &quot;19b50c29-3192-4a99-ac5d-ecf9f0d112cb&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -59,15 +56,19 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/godzd/Desktop/AutoCare Connect/frontend/autocareconnect/src/react/images&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/godzd/Desktop/AutoCare Connect&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/larry/AppData/Roaming/JetBrains/IntelliJIdea2024.2/node/versions/22.11.0/node&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;C:/Users/Ruben/AppData/Roaming/JetBrains/IntelliJIdea2024.2/node/versions/22.11.0/node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -78,14 +79,26 @@
       <recent name="C:\Users\godzd\Desktop\AutoCare Connect\frontend\autocareconnect\src\react\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\godzd\Desktop\AutoCare Connect\backend\src\main\java" />
+      <recent name="C:\Users\godzd\Desktop\AutoCare Connect\backend" />
       <recent name="C:\Users\godzd\Desktop\AutoCare Connect\frontend\autocareconnect\src\react" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.autocareconnect.backend.BackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -103,10 +116,14 @@
       <workItem from="1730617817588" duration="618000" />
       <workItem from="1730622408364" duration="971000" />
       <workItem from="1730667543514" duration="6238000" />
-      <workItem from="1730853289047" duration="1747000" />
-      <workItem from="1730856322207" duration="319000" />
-      <workItem from="1730856657322" duration="3102000" />
-      <workItem from="1731468231564" duration="822000" />
+      <workItem from="1730853289047" duration="4081000" />
+      <workItem from="1730858952132" duration="127000" />
+      <workItem from="1731012573362" duration="1139000" />
+      <workItem from="1731013763312" duration="133000" />
+      <workItem from="1731014128677" duration="498000" />
+      <workItem from="1731014827200" duration="328000" />
+      <workItem from="1731292485172" duration="341000" />
+      <workItem from="1731292864661" duration="670000" />
     </task>
     <task id="LOCAL-00001" summary="new folders">
       <option name="closed" value="true" />
@@ -148,23 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730617697931</updated>
     </task>
-    <task id="LOCAL-00006" summary="homepage and review page done">
+    <task id="LOCAL-00006" summary="updated rewards page for responsiveness">
       <option name="closed" value="true" />
-      <created>1730859501510</created>
+      <created>1730855259830</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1730859501510</updated>
+      <updated>1730855259830</updated>
     </task>
-    <task id="LOCAL-00007" summary="homepage and review page done">
-      <option name="closed" value="true" />
-      <created>1730859826181</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1730859826181</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +183,8 @@
     <MESSAGE value="new folders" />
     <MESSAGE value="push test" />
     <MESSAGE value="homepage and review page done" />
-    <option name="LAST_COMMIT_MESSAGE" value="homepage and review page done" />
+    <MESSAGE value="updated rewards page for responsiveness" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated rewards page for responsiveness" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
