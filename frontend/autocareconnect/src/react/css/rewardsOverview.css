@@ -1,0 +1,250 @@
+/* Main container */
+.overview-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #ffffff;
+    background-color: #E5F4FA;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #003366;
+}
+
+.points-balance-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2vh 4vw;
+    min-height: 175px;
+    max-width: 250px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #0056a3;
+}
+
+/* Points balance font adjust */
+.points-balance-box h3 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+}
+
+/* Points font adjust */
+.points-balance-box p {
+    font-size: 1.6em;
+}
+
+/* Layout of Offers and Points Balance */
+.offers-balance {
+    display: flex;
+    flex-grow: 1;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 1000px;
+    padding: 20px;
+    margin: 40px auto 0 auto;
+    gap: 20px;
+}
+
+.offers {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Offers header font adjust */
+.offers h2 {
+    font-size: 1.5em;
+    color: black;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.offers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 200px;      /* height to fit three offers */
+    overflow-y: auto;       /* vertical scrolling */
+    padding-right: 10px;    /* Scrollbar spacing */
+}
+
+
+.offers-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.offers-list::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+.offer-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #003366;
+    background-color: #ffffff;
+}
+
+/* Spacing between description and code */
+.offer-description {
+    flex: 1;
+    font-weight: bold;
+    color: #003366;
+}
+
+.offer-code {
+    flex: 1;
+    font-size: 1em;
+    text-align: center;
+    color: #000000;
+}
+
+.copy-button {
+    display: flex;
+    flex-shrink: 0;              /* Prevents shrinking */
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 5px;
+    align-items: center;
+    background-color: #d4edda;
+    color: #155724;
+    transition: background-color 0.3s;
+}
+
+.copy-button:hover {
+    background-color: #c3e6cb;
+}
+
+.copy-button.copied {
+    background-color: #c3e6cb;
+    color: #155724;
+}
+
+.reward-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    transition: transform 0.3s;
+}
+
+.rewards {
+    padding: 1.5rem;
+    color: black;
+    text-align: center;
+    border-top: 2px solid #003366;
+    background-color: #d9e8f5;
+}
+
+/* Reward card container */
+.reward-card {
+    color: black;
+    padding: 1rem;
+    width: 275px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.reward-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);   /* 3 columns */
+    max-width: 600px;
+    column-gap: 5.5rem;                      /* Horizontal spacing */
+    row-gap: 2rem;                           /* Vertical spacing */
+    justify-items: center;
+    margin: 1rem auto;
+}
+
+
+.reward-image {
+    max-width: 80%;
+    margin-bottom: 10px;
+}
+
+
+.redeem-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #0056a3;
+}
+
+.redeemed {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.history {
+    padding: 20px;
+    border-top: 2px solid #003366;
+    text-align: center;
+    font-size: 1.5em;
+    color: #000000;
+}
+
+.history-entry {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;    /* Adjusts width spacing of title, points, and date */
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+    margin: 0 25%;
+    gap: 10px;
+    color: #000000;
+}
+
+.history-title, .history-points, .history-date {
+    white-space: nowrap;
+    padding: 5px 10px;
+    margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .history-entry {
+        display: flex;
+        flex-direction: column; /* Single-column layout */
+        align-items: center;
+    }
+}
+
+.top-section {
+    background-color: #ffffff;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
+    background-color: #003366;
+}
+
+.footer-description {
+    font-size: 1rem;
+}
+
+.footer-logo {
+    width: 120px;
+    height: auto;
+}
