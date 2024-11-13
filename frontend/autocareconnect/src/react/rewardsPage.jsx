@@ -6,10 +6,25 @@ import './css/rewardsPage.css';
 
 const RewardsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [signUpMessage, setSignUpMessage] = useState("");
 
     // Toggle sidebar visibility
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    // Function to test backend connection with "Sign Up" button
+    const onSignUp = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/api/signup", {
+                method: "POST",
+            });
+            const message = await response.text();
+            setSignUpMessage(message);  // Set the response message
+        } catch (error) {
+            console.error("Error connecting to backend:", error);
+            setSignUpMessage("Failed to connect to backend.");
+        }
     };
 
     const rewards = [
@@ -66,7 +81,8 @@ const RewardsPage = () => {
                         </Card>
                     ))}
                 </div>
-                <Button label="Sign Up" className="sign-up-button" />
+                <Button label="Sign Up" className="sign-up-button" onClick={onSignUp} />
+                {signUpMessage && <p className="signup-message">{signUpMessage}</p>}
             </section>
 
             <footer className="footer">
