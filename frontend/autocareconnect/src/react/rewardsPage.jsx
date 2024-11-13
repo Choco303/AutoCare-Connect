@@ -6,8 +6,8 @@ import './css/rewardsPage.css';
 
 const RewardsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [signUpMessage, setSignUpMessage] = useState("");
 
-    // Toggle sidebar visibility
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -34,40 +34,41 @@ const RewardsPage = () => {
                 <h1>AutoCare Connect</h1>
             </header>
 
-            {/* Responsive Steps Section */}
-            <section className="steps-background">
-                <h2 className="steps-title">How it Works</h2>
-                <div className="steps-align">
-                    {["Sign Up", "Earn Points", "Redeem Points"].map((step, index) => (
-                        <div key={index} className="step-space">
-                            <h2>{index + 1}</h2>
-                            <h3>{step}</h3>
-                            <p>
-                                {index === 0
-                                    ? "Join the AutoCare club to start earning"
-                                    : index === 1
-                                        ? "Earn reward points every time you receive a service"
-                                        : "Redeem points for exclusive rewards & discounts"}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            <div className="main-content">
+                <section className="steps-background">
+                    <h2 className="steps-title">How it Works</h2>
+                    <div className="steps-align">
+                        {["Sign Up", "Earn Points", "Redeem Points"].map((step, index) => (
+                            <div key={index} className="step-space">
+                                <h2>{index + 1}</h2>
+                                <h3>{step}</h3>
+                                <p>
+                                    {index === 0
+                                        ? "Join the AutoCare club to start earning"
+                                        : index === 1
+                                            ? "Earn reward points every time you receive a service"
+                                            : "Redeem points for exclusive rewards & discounts"}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
 
-            {/* Rewards Section */}
-            <section className="rewards">
-                <h2>Rewards</h2>
-                <div className="reward-cards">
-                    {rewards.map((reward, index) => (
-                        <Card key={index} className="reward-card">
-                            <h4>{reward.title}</h4>
-                            <p>{reward.points} Points</p>
-                            <img src={require(`${reward.image}`)} alt={reward.alt} className="reward-image" />
-                        </Card>
-                    ))}
-                </div>
-                <Button label="Sign Up" className="sign-up-button" />
-            </section>
+                <section className="rewards">
+                    <h2>Rewards</h2>
+                    <div className="reward-cards">
+                        {rewards.map((reward, index) => (
+                            <Card key={index} className="reward-card">
+                                <h4>{reward.title}</h4>
+                                <p>{reward.points} Points</p>
+                                <img src={require(`${reward.image}`)} alt={reward.alt} className="reward-image" />
+                            </Card>
+                        ))}
+                    </div>
+                    <Button label="Sign Up" className="sign-up-button" />
+                    {signUpMessage && <p className="signup-message">{signUpMessage}</p>}
+                </section>
+            </div>
 
             <footer className="footer">
                 <div className="footer-description">

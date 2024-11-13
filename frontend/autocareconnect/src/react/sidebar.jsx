@@ -1,10 +1,11 @@
 // Sidebar.jsx
 import React, { useState } from 'react';
 import './css/sidebar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const [showProfileModal, setShowProfileModal] = useState(false);
+    const navigate = useNavigate();
 
     const openProfileModal = (e) => {
         e.preventDefault();
@@ -17,6 +18,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     };
 
     const handleRoleClick = (role) => {
+        if (role === 'Customer') {
+            navigate('/login'); // Navigate to the CustomerLogin page
+        }
         console.log(`${role} login page clicked`);
         closeProfileModal();
     };
