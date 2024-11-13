@@ -1,13 +1,24 @@
+/* Reset root and body for full viewport */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
 /* Container for the Customer Login page */
 .customer-login-page {
     display: flex;
-    background-color: #e0f7fa;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E5F4FA;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    padding-top: 20px;
 }
 
-/* Header (top bar) */
+/* Standard Header (Top Bar) */
 .header-banner {
     width: 100%;
     background-color: #003366;
@@ -15,12 +26,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
+    padding: 15px 20px;
     box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    height: 60px;
+    position: relative;
 }
 
 .menu-icon {
@@ -29,14 +38,17 @@
     height: 30px;
     position: absolute;
     left: 20px;
+    top: 15px;
 }
 
 .banner-title {
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
 }
 
-/* Main login container offset for sidebar and header */
+/* Main login container */
 .login-container {
     display: flex;
     flex-direction: column;
@@ -44,10 +56,14 @@
     justify-content: center;
     width: 100%;
     max-width: 400px;
-    margin: 5vh auto;
+    margin-top: 10vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive Logo */
+/* Logo */
 .logo {
     width: 50vw;
     max-width: 300px;
@@ -61,7 +77,6 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 300px;
 }
 
 /* Style for the input fields */
@@ -77,30 +92,28 @@
     font-size: 1rem;
     border-radius: 8px;
     border: 1px solid #ccc;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
     transition: all 0.3s ease;
 }
 
-/* Animation for input focus */
+/* Input focus */
 .p-float-label input:focus {
     border-color: #003366;
     box-shadow: 0 0 8px rgba(0, 51, 102, 0.2);
-    transform: scale(1.02);
 }
 
-/* Adjust label positioning */
+/* Adjusted label styling to remove blue highlight */
 .p-float-label label {
     position: absolute;
     top: -10px;
     left: 5px;
-    color: #006064;
+    color: #333; /* Set to a neutral color */
     font-size: 0.85rem;
-    background-color: #e0f7fa;
+    background-color: #E5F4FA;
     padding: 0 4px;
 }
 
-/* Style for buttons matching the top bar color */
+/* Style for buttons */
 .login-button {
     width: 100%;
     background-color: #003366;
@@ -117,9 +130,10 @@
     background-color: #002244;
 }
 
+/* Register button in blue */
 .register-button {
     width: 100%;
-    background-color: #003366;
+    background-color: #007bff; /* Blue color for register button */
     border: none;
     font-size: 1rem;
     padding: 0.75rem;
@@ -129,15 +143,23 @@
 }
 
 .register-button:hover {
-    background-color: #002244;
+    background-color: #0056b3;
 }
 
-.p-button:focus {
-    box-shadow: none;
-    outline: none;
+/* Success and error messages */
+.success-message {
+    color: green;
+    margin-top: 1em;
+    text-align: center;
 }
 
-/* Media Queries for Smaller Screens */
+.error-message {
+    color: red;
+    margin-top: 1em;
+    text-align: center;
+}
+
+/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     .banner-title {
         font-size: 1.25rem;
@@ -148,19 +170,16 @@
         height: 24px;
     }
 
-    /* Adjust login container padding and margins */
     .login-container {
-        padding-top: 40px;
-        margin-top: 3vh;
+        margin-top: 8vh;
+        padding: 20px 10px;
     }
 
-    /* Adjust logo size for smaller screens */
     .logo {
         width: 60vw;
         max-width: 200px;
     }
 
-    /* Adjust button font size and padding */
     .login-button,
     .register-button {
         font-size: 0.9rem;
@@ -171,10 +190,6 @@
 @media (max-width: 480px) {
     .banner-title {
         font-size: 1rem;
-    }
-
-    .customer-login-page {
-        padding: 10px;
     }
 
     .logo {

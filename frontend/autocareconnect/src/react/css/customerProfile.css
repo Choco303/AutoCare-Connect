@@ -1,0 +1,51 @@
+/* Container */
+.customer-profile-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #E5F4FA; /* Consistent background color */
+    color: #003366;
+    font-family: Arial, sans-serif; /* Consistent font */
+}
+
+/* Header (Top Bar) */
+.header-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.menu-icon {
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.banner-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Centered Profile Content */
+.profile-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+    color: #003366;
+    text-align: center;
+}
+
+.profile-content h2 {
+    font-size: 2em;
+    font-weight: bold;
+}

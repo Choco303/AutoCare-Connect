@@ -4,6 +4,7 @@ import HomePage from './react/homePage';
 import ReviewPage from './react/reviewPage';
 import RewardsPage from './react/rewardsPage';
 import CustomerLogin from './react/customerLogin';
+import CustomerProfile from "./react/customerProfile";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/reviews" element={<ReviewPage />} />
                     <Route path="/rewards" element={<RewardsPage />} />
                     <Route path="/login" element={<CustomerLogin />} />
+                    <Route path="/customerProfile" element={<CustomerProfile />} />
                 </Routes>
             </div>
         </Router>

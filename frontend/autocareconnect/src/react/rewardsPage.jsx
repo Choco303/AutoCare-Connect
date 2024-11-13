@@ -31,7 +31,7 @@ const RewardsPage = () => {
                     onClick={toggleSidebar}
                     className="menu-icon"
                 />
-                <h1>AutoCare Connect</h1>
+                <h1 className="banner-title">AutoCare Connect</h1>
             </header>
 
             <div className="main-content">
