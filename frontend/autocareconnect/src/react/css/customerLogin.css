@@ -148,7 +148,7 @@ html, body {
 
 /* Success and error messages */
 .success-message {
-    color: green;
+    color: #53ff00;
     margin-top: 1em;
     text-align: center;
 }

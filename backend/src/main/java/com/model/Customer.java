@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "users")  // Specifies the correct table name in the database
+@Table(name = "customers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
