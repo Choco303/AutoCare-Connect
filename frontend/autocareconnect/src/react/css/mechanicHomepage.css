@@ -1,168 +1,96 @@
-/*TEST ONLY*/
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
-
-/* Full-width container setup */
-.container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-}
-
-/* Header banner */
-.header-banner {
-    width: 100%;
-    background-color: #003366;
-    color: white;
+.mechanic-info-screen {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 15px 20px;
-    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f0f8ff;
 }
 
-.menu-icon {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    left: 20px;
-}
-
-.banner-title {
-    font-size: 2.5rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    margin: 0;
-}
-
-/* Hero section with consistent spacing and centered content */
-.hero-section {
-    width: 100%;
-    background-color: #e5f4fa;
+.header {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 0;
-}
-
-.hero-content {
-    display: flex;
-    align-items: center;
-    gap: 40px; /* Add space between logo and description */
-}
-
-.hero-logo {
-    width: 300px;
-    height: auto;
-}
-
-.hero-description h2 {
-    font-size: 2rem;
-    color: #003366;
-    margin: 0;
-}
-
-.hero-description p {
-    font-size: 1.1rem;
-    color: #555;
-}
-
-/* Full-width image section with no gaps */
-.full-width-image {
-    width: 100%;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-.full-width-image img {
-    width: 100%;
-    height: 400px; /* Fixed height for consistent sizing */
-    object-fit: cover;
-    display: block;
-}
-
-/* Appointments and end banners with centered text */
-.appointments-banner, .end-banner {
-    width: 100%;
-    background-color: #0056a3;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
-    text-align: center;
-}
-
-.appointments-banner h3, .end-banner h3 {
-    font-size: 2rem;
-    margin: 0;
-}
-
-/* Service sections with alternating colors and larger gap */
-.service-section {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    background-color: #f4f9fd;
-    gap: 120px;
-}
-
-.service-section.reverse {
-    flex-direction: row-reverse;
-    background-color: #d9e8f5;
-}
-
-.service-section .service-image {
-    width: 250px;
-    height: 250px;
-    border-radius: 10px;
-}
-
-.service-description {
-    max-width: 600px;
-    padding: 0 20px;
-    text-align: left;
-}
-
-.service-description h4 {
-    font-size: 1.5rem;
-    color: #003366;
-}
-
-.service-description p {
-    font-size: 1rem;
-    color: #555;
-}
-
-/* Footer styling */
-.footer-banner {
-    width: 100%;
-    background-color: #003366;
-    color: white;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 15px 40px; /* Slightly reduced padding for height */
-    box-sizing: border-box;
+    width: 100%;
+    background-color: #e6e9ef;
+    padding: 10px;
 }
 
-.footer-description {
-    font-size: 1rem;
-    color: #ffffff;
+.profile-btn,
+.clock-btn,
+.logout-btn {
+    background-color: #5372f0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-.footer-logo {
-    width: 100px;
-    height: auto;
+.clock-btn {
+    background-color: #4caf50;
 }
 
-/* Ensure no gap or overlap */
-body, html {
-    margin: 0;
-    padding: 0;
+.logout-btn {
+    background-color: #ff4444;
+}
+
+.task-section {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.assigned-tasks,
+.resources,
+.upcoming-tasks,
+.current-task {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 20%;
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #5372f0;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+select {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.clock-btn,
+button {
+    background-color: #3c80f7;
+    color: #fff;
+}
+
+.clocked-in {
+    background-color: #4caf50;
+}
+
+.logout-btn {
+    background-color: #ff4444;
 }
