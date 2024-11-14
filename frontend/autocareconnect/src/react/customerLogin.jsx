@@ -49,7 +49,7 @@ const CustomerLogin = () => {
                     className="menu-icon"
                     onClick={toggleSidebar}
                 />
-                <h1 className="banner-title">Customer Login</h1>
+                <h1 className="banner-title">AutoCare Connect</h1>
             </div>
 
             {/* Login Form */}
@@ -83,7 +83,7 @@ const CustomerLogin = () => {
 
                 {/* Display Login Message */}
                 {loginMessage && (
-                    <p className={isError ? 'error-message' : 'success-message'}>
+                    <p className={isError ? 'success-message' : 'error-message'}>
                         {loginMessage}
                     </p>
                 )}
