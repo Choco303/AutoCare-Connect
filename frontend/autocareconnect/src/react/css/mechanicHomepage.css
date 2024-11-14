@@ -94,3 +94,56 @@ button {
 .logout-btn {
     background-color: #ff4444;
 }
+.mechanic-info-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.task-section {
+    flex: 1; /* Takes up remaining space */
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
+    gap: 20px; /* Space between each section */
+    padding: 20px;
+}
+
+.task-section > div {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 200px; /* Ensures equal width for each section */
+    text-align: center;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1d3b5e; /* Dark blue background */
+    color: white;
+    padding: 15px 20px;
+    position: sticky; /* Keeps the footer at the bottom */
+    bottom: 0;
+    width: 100%;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer-logo img {
+    width: 50px; /* Adjust based on actual logo size */
+    height: auto;
+}
