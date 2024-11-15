@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="autocareconnect" uuid="ce9f0f46-e52f-49b5-beaf-6bf50d092f7d">
+    <data-source source="LOCAL" name="autocareconnect" uuid="632e7e8b-a5b1-412d-8112-fb42904e4160">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
