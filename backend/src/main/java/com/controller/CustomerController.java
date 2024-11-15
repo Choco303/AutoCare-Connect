@@ -1,20 +1,31 @@
 package com.controller;
 
-// CustomerController.java
 import com.model.Customer;
 import com.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend to access the backend
 public class CustomerController {
+
     @Autowired
     private CustomerRepository customerRepository;
 
     @PostMapping("/login")
-    public Customer saveCustomer(@RequestBody Customer customer) {
-        return customerRepository.save(customer);
+    public String login(@RequestBody Customer loginDetails) {
+        Customer customer = customerRepository.findByUsernameAndPassword(loginDetails.getUsername(), loginDetails.getPassword());
+        if (customer != null) {
+            return "Login successful!";
+        } else {
+            return "Login failed.";
+        }
+    }
+
+    @GetMapping("/customers")
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
     }
 }

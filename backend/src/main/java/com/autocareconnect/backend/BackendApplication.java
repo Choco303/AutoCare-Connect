@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.repository")
-@ComponentScan(basePackages = {"com.controller", "com.model", "com.repository", "com.autocareconnect.backend"})
+@ComponentScan(basePackages = {"com.controller", "com.model", "com.repository","com.service","com.autocareconnect.backend"})
 @EntityScan(basePackages = "com.model")
 public class BackendApplication {
     public static void main(String[] args) {

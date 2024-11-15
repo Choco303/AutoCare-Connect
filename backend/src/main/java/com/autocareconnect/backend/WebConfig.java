@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig {
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
@@ -18,7 +19,11 @@ public class WebConfig {
                                 "http://localhost:3001",
                                 "http://localhost:3002",
                                 "http://localhost:3003"
-                        );
+                        )
+                        .allowedMethods("GET", "POST") // Restrict methods to GET and POST
+                        .allowedHeaders("Content-Type", "Authorization") // Specify allowed headers
+                        .allowCredentials(true) // Allow credentials if needed
+                        .maxAge(3600); // Cache the CORS response for 1 hour
             }
         };
     }
