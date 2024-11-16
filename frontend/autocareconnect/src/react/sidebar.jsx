@@ -20,6 +20,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         if (role === 'Customer') {
             navigate('/login'); // Navigate to the CustomerLogin page
         }
+        if (role === 'Admin') {
+            navigate('/adminLogin'); // Navigate to the CustomerLogin page
+        }
         console.log(`${role} login page clicked`);
         closeProfileModal();
     };
