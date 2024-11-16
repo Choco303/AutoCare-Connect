@@ -57,11 +57,14 @@
 @media (max-width: 768px) {
     .review-page-reviews-grid {
         grid-template-columns: 1fr;
+        gap: 60px;
     }
 
     .review-page-review-card {
-        max-width: 90%;
-        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
     }
 }
 
