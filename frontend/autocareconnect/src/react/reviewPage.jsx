@@ -35,7 +35,6 @@ const ReviewPage = () => {
         }
     };
 
-
     const openModal = () => setDisplayModal(true);
     const closeModal = () => {
         setDisplayModal(false);
@@ -68,8 +67,6 @@ const ReviewPage = () => {
         }
     };
 
-
-
     const handleTextChange = (e) => {
         const text = e.target.value;
         if (text.length <= maxChars) {
@@ -78,9 +75,14 @@ const ReviewPage = () => {
         }
     };
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
     return (
         <div className="review-container">
-            <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+            <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
             <header className="header-banner">
                 <img
@@ -99,13 +101,14 @@ const ReviewPage = () => {
                         <p className="review-text">{review.reviewText}</p>
                         <p className="review-author">{review.reviewerName}</p>
                         <p className="review-rating">{"⭐".repeat(review.rating)}</p>
+                        <p className="review-date">{formatDate(review.reviewDate)}</p>
                     </div>
                 ))}
             </div>
 
-            <Button label="Write Review" className="write-review-button" onClick={openModal}/>
+            <Button label="Write Review" className="write-review-button" onClick={openModal} />
 
-            <Dialog visible={displayModal} style={{width: '50vw'}} onHide={closeModal} className="custom-modal"
+            <Dialog visible={displayModal} style={{ width: '50vw' }} onHide={closeModal} className="custom-modal"
                     closable={false}>
                 <div className="modal-content">
                     {/* Custom Close Button */}
@@ -117,13 +120,13 @@ const ReviewPage = () => {
                         <Rating value={rating} onChange={(e) => {
                             setRating(e.value);
                             console.log('Rating updated:', e.value);
-                        }} stars={5} cancel={false}/>
+                        }} stars={5} cancel={false} />
                     </div>
                     <div className="p-field">
                         <InputText placeholder="Name" value={name} onChange={(e) => {
                             setName(e.target.value);
                             console.log('Name updated:', e.target.value);
-                        }}/>
+                        }} />
                     </div>
                     <div className="p-field">
                         <InputTextarea
@@ -137,14 +140,14 @@ const ReviewPage = () => {
                         />
                         <small className="character-count">{`${reviewText.length}/${maxChars} characters`}</small>
                     </div>
-                    <Button label="Send" className="p-button-primary submit-button" onClick={handleSubmit}/>
+                    <Button label="Send" className="p-button-primary submit-button" onClick={handleSubmit} />
                 </div>
             </Dialog>
 
             <footer className="footer-banner">
                 <div className="footer-description">Providing quality car management services for your convenience.
                 </div>
-                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo"/>
+                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo" />
             </footer>
         </div>
     );
