@@ -5,6 +5,7 @@ import ReviewPage from './react/reviewPage';
 import RewardsPage from './react/rewardsPage';
 import CustomerLogin from './react/customerLogin';
 import CustomerProfile from "./react/customerProfile";
+import RewardsOverview from "./react/rewardsOverview";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/rewards" element={<RewardsPage />} />
                     <Route path="/login" element={<CustomerLogin />} />
                     <Route path="/customerProfile" element={<CustomerProfile />} />
+                    <Route path="/rewardsOverview" element={<RewardsOverview />} />
                 </Routes>
             </div>
         </Router>
