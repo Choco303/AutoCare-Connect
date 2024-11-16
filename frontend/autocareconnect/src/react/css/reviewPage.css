@@ -104,6 +104,13 @@ body, html {
     color: #ffcc00;
 }
 
+.review-date {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 5px;
+}
+
+
 /* Write Review button with same color as banner */
 .write-review-button {
     margin-top: 20px;
@@ -119,7 +126,7 @@ body, html {
 }
 
 .write-review-button:hover {
-    background-color: #002244;
+    background-color: #0056b3;
 }
 
 /* Custom Modal Styling */

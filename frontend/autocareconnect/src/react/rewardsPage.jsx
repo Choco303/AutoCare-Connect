@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Sidebar from './sidebar';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './css/rewardsPage.css';
 
 const RewardsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [signUpMessage, setSignUpMessage] = useState("");
+    const navigate = useNavigate(); // Initialize the navigate function
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -20,26 +22,30 @@ const RewardsPage = () => {
         { title: "Free set of Tires", points: 10000, image: './images/free_tires_logo.png', alt: "Free Set Of Tires" }
     ];
 
+    const handleSignUpClick = () => {
+        navigate('/rewardsOverview'); // Navigate to /rewardsOverview
+    };
+
     return (
-        <div className="rewards-page">
+        <div className="rewards-page-container">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-            <header className="header">
+            <header className="rewards-page-header">
                 <img
                     src={require('./images/menu.png')}
                     alt="Menu"
                     onClick={toggleSidebar}
-                    className="menu-icon"
+                    className="rewards-page-menu-icon"
                 />
-                <h1 className="banner-title">AutoCare Connect</h1>
+                <h1 className="rewards-page-banner-title">AutoCare Connect</h1>
             </header>
 
-            <div className="main-content">
-                <section className="steps-background">
-                    <h2 className="steps-title">How it Works</h2>
-                    <div className="steps-align">
+            <div className="rewards-page-main-content">
+                <section className="rewards-page-steps-background">
+                    <h2 className="rewards-page-steps-title">How it Works</h2>
+                    <div className="rewards-page-steps-align">
                         {["Sign Up", "Earn Points", "Redeem Points"].map((step, index) => (
-                            <div key={index} className="step-space">
+                            <div key={index} className="rewards-page-step-space">
                                 <h2>{index + 1}</h2>
                                 <h3>{step}</h3>
                                 <p>
@@ -54,27 +60,27 @@ const RewardsPage = () => {
                     </div>
                 </section>
 
-                <section className="rewards">
+                <section className="rewards-page-rewards">
                     <h2>Rewards</h2>
-                    <div className="reward-cards">
+                    <div className="rewards-page-reward-cards">
                         {rewards.map((reward, index) => (
-                            <Card key={index} className="reward-card">
+                            <Card key={index} className="rewards-page-reward-card">
                                 <h4>{reward.title}</h4>
                                 <p>{reward.points} Points</p>
-                                <img src={require(`${reward.image}`)} alt={reward.alt} className="reward-image" />
+                                <img src={require(`${reward.image}`)} alt={reward.alt} className="rewards-page-reward-image" />
                             </Card>
                         ))}
                     </div>
-                    <Button label="Sign Up" className="sign-up-button" />
-                    {signUpMessage && <p className="signup-message">{signUpMessage}</p>}
+                    <Button label="Sign Up" className="rewards-page-sign-up-button" onClick={handleSignUpClick} />
+                    {signUpMessage && <p className="rewards-page-signup-message">{signUpMessage}</p>}
                 </section>
             </div>
 
-            <footer className="footer">
-                <div className="footer-description">
+            <footer className="rewards-page-footer">
+                <div className="rewards-page-footer-description">
                     Providing quality car management services for your convenience.
                 </div>
-                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo" />
+                <img src={require('./images/logo.png')} alt="Logo" className="rewards-page-footer-logo" />
             </footer>
         </div>
     );

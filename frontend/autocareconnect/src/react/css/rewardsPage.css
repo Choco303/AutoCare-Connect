@@ -1,15 +1,4 @@
-/* Reset root and body for full viewport */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
-/* Container for the entire page using Flexbox layout */
-.rewards-page {
+.rewards-page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -20,8 +9,7 @@ html, body {
     background-color: #E5F4FA;
 }
 
-/* Standard Header (Top Bar) */
-.header {
+.rewards-page-header {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -31,207 +19,129 @@ html, body {
     padding: 15px 20px;
     box-sizing: border-box;
     height: 60px;
-    position: relative; /* Ensure it scrolls with the page */
 }
 
-.menu-icon {
+.rewards-page-menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
-    position: absolute; /* Keeps it within the header */
+    position: absolute;
     left: 20px;
-    top: 15px; /* Vertically align within header */
+    top: 15px;
 }
 
-.header-title {
+.rewards-page-banner-title {
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     margin: 0;
-    line-height: 1;
 }
 
-/* Main content area with flex-grow */
-.main-content {
+.rewards-page-main-content {
     flex: 1;
     padding: 0;
     color: black;
-    width: 100%;
-    box-sizing: border-box;
 }
 
-/* Full-width Steps Section */
-.steps-background {
-    width: 100%;
-    text-align: center;
-    padding: 1.2rem 0.5rem;
+.rewards-page-steps-background {
     background-color: #0056b3;
-    margin: 0;
-    box-sizing: border-box;
+    padding: 1.5rem 0;
 }
 
-.steps-title {
+.rewards-page-steps-title {
     font-size: 2rem;
+    color: white;
     margin-bottom: 1.2rem;
-    color: #ffffff;
 }
 
-.steps-align {
+.rewards-page-steps-align {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
 }
 
-.step-space {
-    text-align: center;
+.rewards-page-step-space {
     width: 240px;
-    height: auto;
     padding: 1.5rem;
     background-color: #004a9f;
-    color: #ffffff;
+    color: white;
     border-radius: 8px;
-    transition: transform 0.3s ease;
-    margin: 0.5rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    cursor: pointer;
 }
 
-.step-space h2 {
-    font-size: 1.5rem;
-    margin: 0;
-    line-height: 2;
+.rewards-page-step-space:hover {
+    transform: translateY(-10px) scale(1.05); /* Slight lift and scale */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Larger shadow */
 }
 
-.step-space h3 {
-    margin: 0.3rem 0;
-    font-size: 1rem;
-    line-height: 1.2;
-}
-
-.step-space p {
-    font-size: 0.9rem;
-    line-height: 1.2;
-}
-
-.step-space:hover {
-    transform: scale(1.05);
-    background-color: #007bff;
-}
-
-/* Rewards Section */
-.rewards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.rewards-page-rewards {
     padding: 1.5rem 0;
     color: black;
 }
 
-.reward-cards {
+.rewards-page-reward-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
-    align-items: center;
-    max-width: 1000px;
-    width: 100%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
 }
 
-.reward-card {
-    color: black;
-    padding: 1rem;
+.rewards-page-reward-card {
     width: 180px;
-    height: 220px; /* Fixed height for consistent card size */
+    padding: 1rem;
+    background-color: white;
     text-align: center;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    cursor: pointer; /* Change cursor on hover */
 }
 
-.reward-card img {
-    max-width: 100%; /* Ensure image fits within the card */
-    max-height: 100px; /* Restrict image height for consistent card layout */
-    object-fit: contain; /* Maintain aspect ratio */
+.rewards-page-reward-card:hover {
+    transform: translateY(-10px) scale(1.05); /* Slight lift and scale */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Larger shadow */
+    background-color: #f9f9f9; /* Optional: Slightly lighter background */
 }
 
-.sign-up-button {
+.rewards-page-reward-image {
+    max-width: 100%;
+    max-height: 100px;
+}
+
+.rewards-page-sign-up-button {
     margin-top: 1.5rem;
-    border: none;
     padding: 12px 36px;
-    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
     border-radius: 8px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
-    background-color: #007bff;
-    color: #ffffff;
 }
 
-/* Footer Section */
-.footer {
+.rewards-page-sign-up-button:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
+
+
+.rewards-page-footer {
     width: 100%;
     background-color: #003366;
     color: white;
+    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 40px;
-    box-sizing: border-box;
-    position: relative;
-    bottom: 0;
 }
 
-.footer-description {
+.rewards-page-footer-description {
     font-size: 1rem;
-    color: #ffffff;
 }
 
-.footer-logo {
+.rewards-page-footer-logo {
     width: 100px;
-    height: auto;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .steps-align {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .step-space {
-        width: 90%;
-        max-width: 400px;
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .steps-align {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .step-space {
-        width: 100%;
-        max-width: 300px;
-        padding: 1.5rem;
-    }
-
-    .steps-title {
-        font-size: 1.5rem;
-    }
 }
