@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import React, { useState } from 'react';
 import './css/sidebar.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -28,23 +27,23 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
         <div>
             {/* Sidebar */}
-            <div className={`sidebar ${isOpen ? 'open' : ''}`}>
-                <button className="close-btn" onClick={toggleSidebar}>
+            <div className={`sidebar-container ${isOpen ? 'open' : ''}`}>
+                <button className="sidebar-close-btn" onClick={toggleSidebar}>
                     &times;
                 </button>
                 <nav>
                     <ul>
-                        <li className="nav-item" onClick={openProfileModal}>
+                        <li className="sidebar-nav-item" onClick={openProfileModal}>
                             <span className="profile-link">Profile</span>
                         </li>
                         <div className="sidebar-gap"></div>
-                        <li className="nav-item">
+                        <li className="sidebar-nav-item">
                             <Link to="/" onClick={toggleSidebar}>Home</Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="sidebar-nav-item">
                             <Link to="/reviews" onClick={toggleSidebar}>Reviews</Link>
                         </li>
-                        <li className="nav-item">
+                        <li className="sidebar-nav-item">
                             <Link to="/rewards" onClick={toggleSidebar}>Rewards</Link>
                         </li>
                     </ul>
@@ -53,13 +52,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
             {/* Profile Modal Overlay */}
             {showProfileModal && (
-                <div className="profile-modal-overlay">
-                    <div className="profile-modal">
+                <div className="sidebar-profile-modal-overlay">
+                    <div className="sidebar-profile-modal">
                         <h3>Select Role</h3>
-                        <button onClick={() => handleRoleClick('Customer')} className="role-button">Customer</button>
-                        <button onClick={() => handleRoleClick('Mechanic')} className="role-button">Mechanic</button>
-                        <button onClick={() => handleRoleClick('Admin')} className="role-button">Admin</button>
-                        <button onClick={closeProfileModal} className="close-modal-button">Close</button>
+                        <button onClick={() => handleRoleClick('Customer')} className="sidebar-role-button">Customer</button>
+                        <button onClick={() => handleRoleClick('Mechanic')} className="sidebar-role-button">Mechanic</button>
+                        <button onClick={() => handleRoleClick('Admin')} className="sidebar-role-button">Admin</button>
+                        <button onClick={closeProfileModal} className="sidebar-close-modal-button">Close</button>
                     </div>
                 </div>
             )}

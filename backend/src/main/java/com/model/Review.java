@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
-@Data // Generates getters, setters, equals, hashcode, and toString
-@NoArgsConstructor // Generates a no-arguments constructor
-@AllArgsConstructor // Generates an all-arguments constructor
-@Builder // Enables the builder pattern for creating instances
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Review {
 
     @Id

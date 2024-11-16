@@ -3,6 +3,7 @@ import Sidebar from './sidebar';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './css/base.css'
 import './css/rewardsPage.css';
 
 const RewardsPage = () => {

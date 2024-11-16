@@ -1,15 +1,5 @@
-/* Reset root and body for full viewport */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    box-sizing: border-box;
-}
-
 /* Container for the Customer Login page */
-.customer-login-page {
+.customer-login-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +9,7 @@ html, body {
 }
 
 /* Standard Header (Top Bar) */
-.header-banner {
+.customer-login-header-banner {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -32,7 +22,7 @@ html, body {
     position: relative;
 }
 
-.menu-icon {
+.customer-login-menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -41,7 +31,7 @@ html, body {
     top: 15px;
 }
 
-.banner-title {
+.customer-login-banner-title {
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -49,7 +39,7 @@ html, body {
 }
 
 /* Main login container */
-.login-container {
+.customer-login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,7 +54,7 @@ html, body {
 }
 
 /* Logo */
-.logo {
+.customer-login-logo {
     width: 50vw;
     max-width: 300px;
     height: auto;
@@ -72,7 +62,7 @@ html, body {
 }
 
 /* Style for the form */
-.login-container form {
+.customer-login-container form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,13 +70,13 @@ html, body {
 }
 
 /* Style for the input fields */
-.field {
+.customer-login-field {
     margin-bottom: 1.5rem;
     width: 100%;
     position: relative;
 }
 
-.p-float-label input {
+.customer-login-float-label input {
     width: 100%;
     padding: 0.75rem;
     font-size: 1rem;
@@ -97,24 +87,24 @@ html, body {
 }
 
 /* Input focus */
-.p-float-label input:focus {
+.customer-login-float-label input:focus {
     border-color: #003366;
     box-shadow: 0 0 8px rgba(0, 51, 102, 0.2);
 }
 
 /* Adjusted label styling to remove blue highlight */
-.p-float-label label {
+.customer-login-float-label label {
     position: absolute;
     top: -10px;
     left: 5px;
-    color: #333; /* Set to a neutral color */
+    color: #333;
     font-size: 0.85rem;
     background-color: #E5F4FA;
     padding: 0 4px;
 }
 
 /* Style for buttons */
-.login-button {
+.customer-login-button {
     width: 100%;
     background-color: #003366;
     border: none;
@@ -126,14 +116,14 @@ html, body {
     transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
+.customer-login-button:hover {
     background-color: #002244;
 }
 
 /* Register button in blue */
-.register-button {
+.customer-login-register-button {
     width: 100%;
-    background-color: #007bff; /* Blue color for register button */
+    background-color: #007bff;
     border: none;
     font-size: 1rem;
     padding: 0.75rem;
@@ -142,18 +132,18 @@ html, body {
     transition: background-color 0.3s ease;
 }
 
-.register-button:hover {
+.customer-login-register-button:hover {
     background-color: #0056b3;
 }
 
 /* Success and error messages */
-.success-message {
+.customer-login-success-message {
     color: #53ff00;
     margin-top: 1em;
     text-align: center;
 }
 
-.error-message {
+.customer-login-error-message {
     color: red;
     margin-top: 1em;
     text-align: center;
@@ -161,47 +151,47 @@ html, body {
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {
-    .banner-title {
+    .customer-login-banner-title {
         font-size: 1.25rem;
     }
 
-    .menu-icon {
+    .customer-login-menu-icon {
         width: 24px;
         height: 24px;
     }
 
-    .login-container {
+    .customer-login-container {
         margin-top: 8vh;
         padding: 20px 10px;
     }
 
-    .logo {
+    .customer-login-logo {
         width: 60vw;
         max-width: 200px;
     }
 
-    .login-button,
-    .register-button {
+    .customer-login-button,
+    .customer-login-register-button {
         font-size: 0.9rem;
         padding: 0.65rem;
     }
 }
 
 @media (max-width: 480px) {
-    .banner-title {
+    .customer-login-banner-title {
         font-size: 1rem;
     }
 
-    .logo {
+    .customer-login-logo {
         width: 70vw;
         max-width: 150px;
     }
 
-    .field {
+    .customer-login-field {
         margin-bottom: 1.25rem;
     }
 
-    .p-float-label input {
+    .customer-login-float-label input {
         padding: 0.6rem;
         font-size: 0.9rem;
     }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './sidebar';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
+import './css/base.css'
 import './css/rewardsOverview.css';
 
 const RewardsOverview = () => {

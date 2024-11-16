@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 /* Sidebar styles */
-.sidebar {
+.sidebar-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -15,11 +15,11 @@
     z-index: 1000;
 }
 
-.sidebar.open {
+.sidebar-container.open {
     transform: translateX(0);
 }
 
-.sidebar .close-btn {
+.sidebar-close-btn {
     position: absolute;
     top: 10px;
     right: 20px;
@@ -30,13 +30,13 @@
     cursor: pointer;
 }
 
-.sidebar nav ul {
+.sidebar-container nav ul {
     list-style-type: none;
     padding: 0;
 }
 
 /* Style for each nav item with consistent font size and left alignment */
-.nav-item {
+.sidebar-nav-item {
     padding: 15px 20px;
     margin: 10px 0;
     border-radius: 8px;
@@ -44,26 +44,26 @@
     cursor: pointer;
     text-align: left;
     font-size: 1.2em;
-    background-color: transparent; /* Blend with sidebar background */
+    background-color: transparent;
     transition: background-color 0.3s ease;
 }
 
-.nav-item:hover {
-    background-color: #0056a3; /* Highlight color on hover */
+.sidebar-nav-item:hover {
+    background-color: #0056a3;
 }
 
-.nav-item a {
+.sidebar-nav-item a {
     color: white;
     text-decoration: none;
-    display: block; /* Make the entire box clickable */
+    display: block;
 }
 
 .sidebar-gap {
-    height: 20px; /* Adjust height to create the desired gap */
+    height: 20px;
 }
 
 /* Profile Modal Overlay */
-.profile-modal-overlay {
+.sidebar-profile-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -73,16 +73,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1500; /* Higher than sidebar */
+    z-index: 1500;
 }
 
 /* Enhanced Profile Modal Content */
-.profile-modal {
+.sidebar-profile-modal {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border: 1px solid #d9e2ec; /* Light border for subtle detail */
+    border: 1px solid #d9e2ec;
     background-image: linear-gradient(135deg, #f9fafb, #ffffff);
     text-align: center;
     width: 320px;
@@ -90,8 +90,7 @@
     position: relative;
 }
 
-/* Optional decorative pattern (soft dots) */
-.profile-modal::before {
+.sidebar-profile-modal::before {
     content: "";
     position: absolute;
     top: 0;
@@ -101,10 +100,10 @@
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
     background-size: 20px 20px;
     border-radius: 12px;
-    z-index: -1; /* Keeps the pattern behind content */
+    z-index: -1;
 }
 
-.profile-modal h3 {
+.sidebar-profile-modal h3 {
     font-size: 1.8rem;
     color: #003366;
     margin-bottom: 10px;
@@ -112,8 +111,7 @@
     position: relative;
 }
 
-/* Divider below title for structure */
-.profile-modal h3::after {
+.sidebar-profile-modal h3::after {
     content: "";
     display: block;
     width: 60%;
@@ -123,8 +121,7 @@
     border-radius: 4px;
 }
 
-/* Role Selection Buttons with Enhanced Styling */
-.role-button {
+.sidebar-role-button {
     display: block;
     width: 100%;
     margin: 10px 0;
@@ -138,13 +135,12 @@
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.role-button:hover {
+.sidebar-role-button:hover {
     background-color: #002244;
     transform: scale(1.02);
 }
 
-/* Close Button in Modal styled in red with rounded corners */
-.close-modal-button {
+.sidebar-close-modal-button {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
@@ -157,7 +153,7 @@
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.close-modal-button:hover {
+.sidebar-close-modal-button:hover {
     background-color: #c9302c;
     transform: scale(1.02);
 }

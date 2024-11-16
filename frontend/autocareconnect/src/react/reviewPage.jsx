@@ -5,6 +5,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
 import { Rating } from 'primereact/rating';
 import Sidebar from './sidebar';
+import './css/base.css'
 import './css/reviewPage.css';
 import axios from 'axios';
 
@@ -81,42 +82,42 @@ const ReviewPage = () => {
     };
 
     return (
-        <div className="review-container">
+        <div className="review-page-container">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-            <header className="header-banner">
+            <header className="review-page-header-banner">
                 <img
                     src={require('./images/menu.png')}
                     alt="Menu"
                     onClick={toggleSidebar}
-                    className="menu-icon"
+                    className="review-page-menu-icon"
                 />
-                <h1 className="banner-title">AutoCare Connect</h1>
+                <h1 className="review-page-banner-title">AutoCare Connect</h1>
             </header>
 
-            <h2 className="title">Recent Reviews</h2>
-            <div className="reviews-grid">
+            <h2 className="review-page-title">Recent Reviews</h2>
+            <div className="review-page-reviews-grid">
                 {reviews.map((review, index) => (
-                    <div key={index} className="review-card">
-                        <p className="review-text">{review.reviewText}</p>
-                        <p className="review-author">{review.reviewerName}</p>
-                        <p className="review-rating">{"⭐".repeat(review.rating)}</p>
-                        <p className="review-date">{formatDate(review.reviewDate)}</p>
+                    <div key={index} className="review-page-review-card">
+                        <p className="review-page-review-text">{review.reviewText}</p>
+                        <p className="review-page-review-author">{review.reviewerName}</p>
+                        <p className="review-page-review-rating">{"⭐".repeat(review.rating)}</p>
+                        <p className="review-page-review-date">{formatDate(review.reviewDate)}</p>
                     </div>
                 ))}
             </div>
 
-            <Button label="Write Review" className="write-review-button" onClick={openModal} />
+            <Button label="Write Review" className="review-page-write-review-button" onClick={openModal} />
 
-            <Dialog visible={displayModal} style={{ width: '50vw' }} onHide={closeModal} className="custom-modal"
+            <Dialog visible={displayModal} style={{ width: '50vw' }} onHide={closeModal} className="review-page-custom-modal"
                     closable={false}>
-                <div className="modal-content">
+                <div className="review-page-modal-content">
                     {/* Custom Close Button */}
-                    <button className="custom-close-button" onClick={closeModal}>×</button>
+                    <button className="review-page-custom-close-button" onClick={closeModal}>×</button>
 
                     <h3>Contact Us</h3>
-                    <h2 className="modal-title">Write A Review</h2>
-                    <div className="star-rating">
+                    <h2 className="review-page-modal-title">Write A Review</h2>
+                    <div className="review-page-star-rating">
                         <Rating value={rating} onChange={(e) => {
                             setRating(e.value);
                             console.log('Rating updated:', e.value);
@@ -140,14 +141,14 @@ const ReviewPage = () => {
                         />
                         <small className="character-count">{`${reviewText.length}/${maxChars} characters`}</small>
                     </div>
-                    <Button label="Send" className="p-button-primary submit-button" onClick={handleSubmit} />
+                    <Button label="Send" className="p-button-primary review-page-submit-button" onClick={handleSubmit} />
                 </div>
             </Dialog>
 
-            <footer className="footer-banner">
-                <div className="footer-description">Providing quality car management services for your convenience.
+            <footer className="review-page-footer-banner">
+                <div className="review-page-footer-description">Providing quality car management services for your convenience.
                 </div>
-                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo" />
+                <img src={require('./images/logo.png')} alt="Logo" className="review-page-footer-logo" />
             </footer>
         </div>
     );

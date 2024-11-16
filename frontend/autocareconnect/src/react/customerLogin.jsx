@@ -4,6 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './css/base.css'
 import './css/customerLogin.css';
 
 const CustomerLogin = () => {
@@ -38,26 +39,26 @@ const CustomerLogin = () => {
     };
 
     return (
-        <div className="customer-login-page">
+        <div className="customer-login-page-container">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
             {/* Top Bar */}
-            <div className="header-banner">
+            <div className="customer-login-header-banner">
                 <img
                     src={require('./images/menu.png')}
                     alt="Menu Icon"
-                    className="menu-icon"
+                    className="customer-login-menu-icon"
                     onClick={toggleSidebar}
                 />
-                <h1 className="banner-title">AutoCare Connect</h1>
+                <h1 className="customer-login-banner-title">AutoCare Connect</h1>
             </div>
 
             {/* Login Form */}
-            <div className="login-container">
-                <img src={require('./images/logo.png')} alt="Logo" className="logo" />
+            <div className="customer-login-container">
+                <img src={require('./images/logo.png')} alt="Logo" className="customer-login-logo" />
                 <form onSubmit={handleSubmit}>
-                    <div className="field">
-                        <span className="p-float-label">
+                    <div className="customer-login-field">
+                        <span className="customer-login-float-label">
                             <InputText
                                 id="username"
                                 value={username}
@@ -66,8 +67,8 @@ const CustomerLogin = () => {
                             <label htmlFor="username">Username</label>
                         </span>
                     </div>
-                    <div className="field">
-                        <span className="p-float-label">
+                    <div className="customer-login-field">
+                        <span className="customer-login-float-label">
                             <InputText
                                 id="password"
                                 type="password"
@@ -77,13 +78,13 @@ const CustomerLogin = () => {
                             <label htmlFor="password">Password</label>
                         </span>
                     </div>
-                    <Button label="Login" type="submit" className="login-button" />
-                    <Button label="Register New Account" className="register-button" />
+                    <Button label="Login" type="submit" className="customer-login-button" />
+                    <Button label="Register New Account" className="customer-login-register-button" />
                 </form>
 
                 {/* Display Login Message */}
                 {loginMessage && (
-                    <p className={isError ? 'success-message' : 'error-message'}>
+                    <p className={isError ? 'customer-login-error-message' : 'customer-login-success-message'}>
                         {loginMessage}
                     </p>
                 )}

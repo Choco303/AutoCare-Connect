@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
-
 /* Full-width container setup */
-.container {
+.home-page-container {
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
 }
 
 /* Header banner */
-.header-banner {
+.home-page-header-banner {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -21,7 +19,7 @@
     box-sizing: border-box;
 }
 
-.menu-icon {
+.home-page-menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -29,15 +27,15 @@
     left: 20px;
 }
 
-.banner-title {
-    font-size: 2.5rem;
+.home-page-banner-title {
+    font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     margin: 0;
 }
 
 /* Hero section with consistent spacing and centered content */
-.hero-section {
+.home-page-hero-section {
     width: 100%;
     background-color: #e5f4fa;
     display: flex;
@@ -46,45 +44,46 @@
     padding: 40px 0;
 }
 
-.hero-content {
+.home-page-hero-content {
     display: flex;
     align-items: center;
-    gap: 40px; /* Add space between logo and description */
+    gap: 40px;
 }
 
-.hero-logo {
+.home-page-hero-logo {
     width: 300px;
     height: auto;
 }
 
-.hero-description h2 {
+.home-page-hero-description h2 {
     font-size: 2rem;
     color: #003366;
     margin: 0;
 }
 
-.hero-description p {
+.home-page-hero-description p {
     font-size: 1.1rem;
     color: #555;
 }
 
 /* Full-width image section with no gaps */
-.full-width-image {
+.home-page-full-width-image {
     width: 100%;
     overflow: hidden;
     margin: 0;
     padding: 0;
 }
 
-.full-width-image img {
+.home-page-full-width-image img {
     width: 100%;
-    height: 400px; /* Fixed height for consistent sizing */
+    height: 400px;
     object-fit: cover;
     display: block;
 }
 
 /* Appointments and end banners with centered text */
-.appointments-banner, .end-banner {
+.home-page-appointments-banner,
+.home-page-end-banner {
     width: 100%;
     background-color: #0056a3;
     color: white;
@@ -95,13 +94,14 @@
     text-align: center;
 }
 
-.appointments-banner h3, .end-banner h3 {
+.home-page-appointments-banner h3,
+.home-page-end-banner h3 {
     font-size: 2rem;
     margin: 0;
 }
 
 /* Service sections with alternating colors and larger gap */
-.service-section {
+.home-page-service-section {
     width: 100%;
     display: flex;
     align-items: center;
@@ -111,57 +111,51 @@
     gap: 120px;
 }
 
-.service-section.reverse {
+.home-page-service-section.reverse {
     flex-direction: row-reverse;
     background-color: #d9e8f5;
 }
 
-.service-section .service-image {
+.home-page-service-section .home-page-service-image {
     width: 250px;
     height: 250px;
     border-radius: 10px;
 }
 
-.service-description {
+.home-page-service-description {
     max-width: 600px;
     padding: 0 20px;
     text-align: left;
 }
 
-.service-description h4 {
+.home-page-service-description h4 {
     font-size: 1.5rem;
     color: #003366;
 }
 
-.service-description p {
+.home-page-service-description p {
     font-size: 1rem;
     color: #555;
 }
 
 /* Footer styling */
-.footer-banner {
+.home-page-footer-banner {
     width: 100%;
     background-color: #003366;
     color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 40px; /* Slightly reduced padding for height */
+    padding: 15px 40px;
     box-sizing: border-box;
 }
 
-.footer-description {
+.home-page-footer-description {
     font-size: 1rem;
     color: #ffffff;
 }
 
-.footer-logo {
+.home-page-footer-logo {
     width: 100px;
     height: auto;
-}
-
-/* Ensure no gap or overlap */
-body, html {
-    margin: 0;
-    padding: 0;
 }
