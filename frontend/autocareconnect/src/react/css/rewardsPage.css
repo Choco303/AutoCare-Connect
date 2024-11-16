@@ -128,14 +128,15 @@
 }
 
 
-.rewards-page-footer {
+.rewards-page-footer-banner {
     width: 100%;
     background-color: #003366;
     color: white;
-    padding: 15px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
 }
 
 .rewards-page-footer-description {
@@ -144,4 +145,5 @@
 
 .rewards-page-footer-logo {
     width: 100px;
+    height: auto;
 }

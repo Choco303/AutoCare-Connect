@@ -77,7 +77,7 @@ const RewardsPage = () => {
                 </section>
             </div>
 
-            <footer className="rewards-page-footer">
+            <footer className="rewards-page-footer-banner">
                 <div className="rewards-page-footer-description">
                     Providing quality car management services for your convenience.
                 </div>
