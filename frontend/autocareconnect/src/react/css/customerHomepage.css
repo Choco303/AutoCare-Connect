@@ -1,5 +1,5 @@
 /* Main Container */
-.admin-homepage-container {
+.customer-homepage-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -9,7 +9,7 @@
 }
 
 /* Header (Top Bar) */
-.admin-homepage-header {
+.customer-homepage-header {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -22,7 +22,7 @@
     position: relative;
 }
 
-.admin-homepage-menu-icon {
+.customer-homepage-menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -31,7 +31,7 @@
     top: 15px;
 }
 
-.admin-homepage-banner-title {
+.customer-homepage-banner-title {
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -39,7 +39,7 @@
 }
 
 /* Content Section */
-.admin-homepage-content {
+.customer-homepage-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,38 +49,38 @@
     text-align: center;
 }
 
-.admin-homepage-title {
+.customer-homepage-title {
     font-size: 2em;
     font-weight: bold;
 }
 
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {
-    .admin-homepage-banner-title {
+    .customer-homepage-banner-title {
         font-size: 1.25rem;
     }
 
-    .admin-homepage-menu-icon {
+    .customer-homepage-menu-icon {
         width: 24px;
         height: 24px;
     }
 
-    .admin-homepage-title {
+    .customer-homepage-title {
         font-size: 1.5em;
     }
 }
 
 @media (max-width: 480px) {
-    .admin-homepage-banner-title {
+    .customer-homepage-banner-title {
         font-size: 1rem;
     }
 
-    .admin-homepage-menu-icon {
+    .customer-homepage-menu-icon {
         width: 20px;
         height: 20px;
     }
 
-    .admin-homepage-title {
+    .customer-homepage-title {
         font-size: 1.2em;
     }
 }

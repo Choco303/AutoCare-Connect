@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from './sidebar';
 import Logout from './logout';
-import './css/customerProfile.css';
+import './css/customerHomepage.css';
 
-const CustomerProfile = () => {
+const CustomerHomepage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -11,27 +11,28 @@ const CustomerProfile = () => {
     };
 
     return (
-        <div className="customer-profile-container">
+        <div className="customer-homepage-container">
             {/* Sidebar */}
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
             {/* Top Bar */}
-            <header className="header-banner">
+            <header className="customer-homepage-header">
                 <img
                     src={require('./images/menu.png')}
                     alt="Menu"
                     onClick={toggleSidebar}
-                    className="menu-icon"
+                    className="customer-homepage-menu-icon"
                 />
-                <h1 className="banner-title">Customer Profile</h1>
+                <h1 className="customer-homepage-banner-title">Customer Homepage</h1>
+                <Logout />
             </header>
 
             {/* Centered Content */}
-            <div className="profile-content">
-                <h2>Customer Profile</h2>
+            <div className="customer-homepage-content">
+                <h2 className="customer-homepage-title">Customer Homepage</h2>
             </div>
         </div>
     );
 };
 
-export default CustomerProfile;
+export default CustomerHomepage;

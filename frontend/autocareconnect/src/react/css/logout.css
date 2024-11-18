@@ -1,18 +1,18 @@
 /* Container for the logout dropdown */
 .logout-container {
-    position: absolute; /* Position at the top-right of the screen */
+    position: absolute;
     top: 10px;
     right: 10px;
     display: flex;
     align-items: center;
-    z-index: 1000; /* Ensure it appears above other elements */
+    z-index: 1000;
 }
 
 /* Username button */
 .username-button {
     background-color: transparent;
     border: none;
-    color: white; /* White text for the username */
+    color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     cursor: pointer;
@@ -22,19 +22,19 @@
 }
 
 .username-button:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Slight hover effect */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Dropdown menu */
 .logout-dropdown {
     position: absolute;
-    top: 35px; /* Position below the username button */
-    right: 0; /* Align to the right */
+    top: 35px;
+    right: 0;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 200px;
-    z-index: 2000; /* Ensure dropdown appears above other elements */
+    z-index: 2000;
     overflow: hidden;
 }
 
@@ -59,13 +59,15 @@
 }
 
 /* Special styling for the logout option */
-.logout-option {
-    color: #d9534f;
+.logout-dropdown-menu .logout-option {
+    color: #d9534f !important;
+    font-weight: bold;
 }
 
-.logout-option:hover {
+.logout-dropdown-menu .logout-option:hover {
     background-color: #f8d7da;
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

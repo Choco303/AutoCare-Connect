@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './sidebar';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './css/base.css'
+import './css/base.css';
 import './css/adminLogin.css';
 
 const AdminLogin = () => {
@@ -14,7 +14,14 @@ const AdminLogin = () => {
     const [loginMessage, setLoginMessage] = useState('');
     const [isError, setIsError] = useState(false);
 
-    const navigate = useNavigate(); // Initialize useNavigate hook
+    const navigate = useNavigate();
+
+    // Redirect to admin homepage if already logged in
+    useEffect(() => {
+        if (localStorage.getItem('adminUsername')) {
+            navigate('/adminHomepage');
+        }
+    }, [navigate]);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -22,21 +29,33 @@ const AdminLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Check if fields are empty
+        if (!username || !password) {
+            setLoginMessage('Please fill out all fields.');
+            setIsError(true);
+            return;
+        }
+
         try {
-            const response = await axios.post('http://localhost:8080/api/login', { username, password });
-            setLoginMessage(response.data);
+            // Ensure the correct endpoint for admin login
+            const response = await axios.post('http://localhost:8080/api/admin/login', { username, password });
+            localStorage.setItem('adminUsername', response.data); // Store admin username in localStorage
+            setLoginMessage('Login successful!');
             setIsError(false);
 
-            // Navigate to profile page if login is successful
-            if (response.data === "Login successful!") {
-                navigate('/adminHomepage');
-            }
+            // Navigate to admin homepage after successful login
+            navigate('/adminHomepage');
         } catch (error) {
-            console.error('Error logging in', error);
-            setLoginMessage('Login failed. Please check your username and password.');
+            if (error.response && error.response.status === 401) {
+                setLoginMessage('Username or Password is incorrect. Please try again.');
+            } else {
+                setLoginMessage('An unexpected error occurred. Please try again later.');
+            }
             setIsError(true);
         }
     };
+
 
     return (
         <div className="admin-login-page-container">
@@ -56,7 +75,7 @@ const AdminLogin = () => {
             {/* Login Form */}
             <div className="admin-login-container">
                 <img src={require('./images/logo.png')} alt="Logo" className="admin-login-logo" />
-                <h1 className="admin-login-title">Admin Login</h1>
+                <h1 className="admin-login-title">Admin</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="admin-login-field">
                         <span className="admin-login-float-label">
@@ -64,6 +83,7 @@ const AdminLogin = () => {
                                 id="username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                                required
                             />
                             <label htmlFor="username">Username</label>
                         </span>
@@ -75,6 +95,7 @@ const AdminLogin = () => {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                required
                             />
                             <label htmlFor="password">Password</label>
                         </span>

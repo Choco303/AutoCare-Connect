@@ -4,14 +4,21 @@ import './css/logout.css';
 
 const Logout = () => {
     const [username, setUsername] = useState(null);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to control dropdown visibility
+    const [role, setRole] = useState(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Retrieve the logged-in username from localStorage
-        const storedUsername = localStorage.getItem('customerUsername');
-        if (storedUsername) {
-            setUsername(storedUsername);
+        // Retrieve the logged-in username and role from localStorage
+        const customerUsername = localStorage.getItem('customerUsername');
+        const adminUsername = localStorage.getItem('adminUsername');
+
+        if (customerUsername) {
+            setUsername(customerUsername);
+            setRole('customer');
+        } else if (adminUsername) {
+            setUsername(adminUsername);
+            setRole('admin');
         }
 
         // Close dropdown if clicked outside
@@ -28,18 +35,25 @@ const Logout = () => {
     }, []);
 
     const handleLogout = () => {
-        localStorage.removeItem('customerUsername'); // Clear login state
+        // Clear login state
+        if (role === 'customer') {
+            localStorage.removeItem('customerUsername');
+        } else if (role === 'admin') {
+            localStorage.removeItem('adminUsername');
+        }
+
         setUsername(null);
+        setRole(null);
         navigate('/'); // Redirect to the home page
-        window.location.reload(); // Refresh the page to ensure session is cleared
+        window.location.reload(); // refresh the page
     };
 
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+        setIsDropdownOpen(!isDropdownOpen); // dropdown visibility
     };
 
     if (!username) {
-        return null; // Don't display if no user is logged in
+        return null; // do not display if logged in
     }
 
     return (

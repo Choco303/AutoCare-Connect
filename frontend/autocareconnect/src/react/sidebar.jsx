@@ -5,19 +5,28 @@ import { Link, useNavigate } from 'react-router-dom';
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [username, setUsername] = useState(null); // Tracks the logged-in user
+    const [role, setRole] = useState(null); // Tracks the role (customer/admin)
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if a user is logged in
-        const storedUsername = localStorage.getItem('customerUsername');
-        if (storedUsername) {
-            setUsername(storedUsername);
+        // Check if a customer or admin is logged in
+        const customerUsername = localStorage.getItem('customerUsername');
+        const adminUsername = localStorage.getItem('adminUsername');
+
+        if (customerUsername) {
+            setUsername(customerUsername);
+            setRole('customer');
+        } else if (adminUsername) {
+            setUsername(adminUsername);
+            setRole('admin');
         }
     }, []);
 
     const openProfile = () => {
-        if (username) {
-            navigate('/customerProfile'); // Navigate directly to profile if logged in
+        if (username && role === 'customer') {
+            navigate('/customerHomepage'); // Navigate to customer homepage
+        } else if (username && role === 'admin') {
+            navigate('/adminHomepage'); // Navigate to admin homepage
         } else {
             setShowProfileModal(true); // Show modal to choose login page
         }
@@ -33,16 +42,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             navigate('/login'); // Navigate to the CustomerLogin page
         }
         if (role === 'Admin') {
-            navigate('/adminLogin'); // Navigate to the CustomerLogin page
+            navigate('/adminLogin'); // Navigate to the AdminLogin page
         }
         console.log(`${role} login page clicked`);
         closeProfileModal();
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('customerUsername'); // Clear login state
-        setUsername(null);
-        navigate('/'); // Redirect to home page
     };
 
     return (
@@ -55,7 +58,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 <nav>
                     <ul>
                         <li className="sidebar-nav-item" onClick={openProfile}>
-                            <span className="profile-link">{username ? `Profile` : 'Profile'}</span>
+                            <span className="profile-link">
+                                Profile
+                            </span>
                         </li>
                         <div className="sidebar-gap"></div>
                         <li className="sidebar-nav-item">

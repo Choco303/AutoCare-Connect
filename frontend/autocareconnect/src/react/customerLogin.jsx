@@ -23,16 +23,16 @@ const CustomerLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/login', { username, password });
+            const response = await axios.post('http://localhost:8080/api/customer/login', { username, password });
             localStorage.setItem('customerUsername', response.data); // Store username in localStorage
             setLoginMessage('Login successful!');
             setIsError(false);
 
             // Navigate to profile page after successful login
-            navigate('/customerProfile');
+            navigate('/customerHomepage');
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                setLoginMessage('Invalid credentials. Please try again.');
+                setLoginMessage('Username or Password is incorrect. Please try again.');
             } else {
                 setLoginMessage('An unexpected error occurred. Please try again later.');
             }

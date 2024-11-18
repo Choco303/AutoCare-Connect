@@ -94,6 +94,7 @@ const ReviewPage = () => {
                     className="review-page-menu-icon"
                 />
                 <h1 className="review-page-banner-title">AutoCare Connect</h1>
+                <Logout />
             </header>
 
             <h2 className="review-page-title">Recent Reviews</h2>

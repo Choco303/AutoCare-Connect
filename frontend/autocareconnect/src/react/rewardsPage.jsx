@@ -40,6 +40,7 @@ const RewardsPage = () => {
                     className="rewards-page-menu-icon"
                 />
                 <h1 className="rewards-page-banner-title">AutoCare Connect</h1>
+                <Logout />
             </header>
 
             <div className="rewards-page-main-content">

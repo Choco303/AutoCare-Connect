@@ -66,6 +66,7 @@ const RewardsOverview = () => {
                     className="overview-menu-icon"
                 />
                 <h1 className="overview-banner-title">AutoCare Connect</h1>
+                <Logout />
             </header>
 
             <div className="overview-offers-balance">
