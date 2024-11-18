@@ -1,0 +1,85 @@
+/* Container for the logout dropdown */
+.logout-container {
+    position: absolute; /* Position at the top-right of the screen */
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Username button */
+.username-button {
+    background-color: transparent;
+    border: none;
+    color: white; /* White text for the username */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.username-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Slight hover effect */
+}
+
+/* Dropdown menu */
+.logout-dropdown {
+    position: absolute;
+    top: 35px; /* Position below the username button */
+    right: 0; /* Align to the right */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 2000; /* Ensure dropdown appears above other elements */
+    overflow: hidden;
+}
+
+/* Dropdown menu items */
+.logout-dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.logout-dropdown-menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: #003366;
+    transition: background-color 0.3s ease;
+}
+
+.logout-dropdown-menu li:hover {
+    background-color: #f4f4f4;
+}
+
+/* Special styling for the logout option */
+.logout-option {
+    color: #d9534f;
+}
+
+.logout-option:hover {
+    background-color: #f8d7da;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .username-button {
+        font-size: 0.9rem;
+        padding: 5px;
+    }
+
+    .logout-dropdown {
+        width: 90%;
+        top: 40px;
+    }
+
+    .logout-dropdown-menu li {
+        font-size: 0.85rem;
+    }
+}

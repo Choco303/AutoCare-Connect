@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/sidebar.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const [showProfileModal, setShowProfileModal] = useState(false);
+    const [username, setUsername] = useState(null); // Tracks the logged-in user
     const navigate = useNavigate();
 
-    const openProfileModal = (e) => {
-        e.preventDefault();
-        setShowProfileModal(true);
-        toggleSidebar(); // Close the sidebar when opening the profile modal
+    useEffect(() => {
+        // Check if a user is logged in
+        const storedUsername = localStorage.getItem('customerUsername');
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
+
+    const openProfile = () => {
+        if (username) {
+            navigate('/customerProfile'); // Navigate directly to profile if logged in
+        } else {
+            setShowProfileModal(true); // Show modal to choose login page
+        }
+        toggleSidebar(); // Close the sidebar
     };
 
     const closeProfileModal = () => {
@@ -27,6 +39,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         closeProfileModal();
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('customerUsername'); // Clear login state
+        setUsername(null);
+        navigate('/'); // Redirect to home page
+    };
+
     return (
         <div>
             {/* Sidebar */}
@@ -36,8 +54,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 </button>
                 <nav>
                     <ul>
-                        <li className="sidebar-nav-item" onClick={openProfileModal}>
-                            <span className="profile-link">Profile</span>
+                        <li className="sidebar-nav-item" onClick={openProfile}>
+                            <span className="profile-link">{username ? `Profile` : 'Profile'}</span>
                         </li>
                         <div className="sidebar-gap"></div>
                         <li className="sidebar-nav-item">
