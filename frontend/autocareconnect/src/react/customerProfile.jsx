@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './sidebar';
+import Logout from './logout';
 import './css/customerProfile.css';
 
 const CustomerProfile = () => {

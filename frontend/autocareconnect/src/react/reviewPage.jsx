@@ -5,6 +5,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { InputText } from 'primereact/inputtext';
 import { Rating } from 'primereact/rating';
 import Sidebar from './sidebar';
+import Logout from './logout';
 import './css/base.css'
 import './css/reviewPage.css';
 import axios from 'axios';

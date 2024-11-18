@@ -4,7 +4,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './css/base.css'
+import './css/base.css';
 import './css/customerLogin.css';
 
 const CustomerLogin = () => {
@@ -24,19 +24,22 @@ const CustomerLogin = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/login', { username, password });
-            setLoginMessage(response.data);
+            localStorage.setItem('customerUsername', response.data); // Store username in localStorage
+            setLoginMessage('Login successful!');
             setIsError(false);
 
-            // Navigate to profile page if login is successful
-            if (response.data === "Login successful!") {
-                navigate('/customerProfile');
-            }
+            // Navigate to profile page after successful login
+            navigate('/customerProfile');
         } catch (error) {
-            console.error('Error logging in', error);
-            setLoginMessage('Login failed. Please check your username and password.');
+            if (error.response && error.response.status === 401) {
+                setLoginMessage('Invalid credentials. Please try again.');
+            } else {
+                setLoginMessage('An unexpected error occurred. Please try again later.');
+            }
             setIsError(true);
         }
     };
+
 
     return (
         <div className="customer-login-page-container">
@@ -79,7 +82,11 @@ const CustomerLogin = () => {
                         </span>
                     </div>
                     <Button label="Login" type="submit" className="customer-login-button" />
-                    <Button label="Register New Account" className="customer-login-register-button" />
+                    <Button
+                        label="Register New Account"
+                        className="customer-login-register-button"
+                        onClick={() => navigate('/register')} // Redirect to a registration page
+                    />
                 </form>
 
                 {/* Display Login Message */}

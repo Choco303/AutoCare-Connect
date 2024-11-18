@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Sidebar from './sidebar';
+import Logout from './logout';
 import './css/homePage.css';
-import './css/base.css'
+import './css/base.css';
 
 const HomePage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,7 +15,7 @@ const HomePage = () => {
         <div className="home-page-container">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-            {/* Header banner with menu icon and centered title */}
+            {/* Header banner with menu icon, centered title, and logout */}
             <header className="home-page-header-banner">
                 <img
                     src={require('./images/menu.png')}
@@ -23,6 +24,7 @@ const HomePage = () => {
                     className="home-page-menu-icon"
                 />
                 <h1 className="home-page-banner-title">AutoCare Connect</h1>
+                <Logout />
             </header>
 
             {/* Hero section */}
