@@ -6,6 +6,7 @@ import RewardsPage from './react/rewardsPage';
 import CustomerLogin from './react/customerLogin';
 import CustomerProfile from "./react/customerProfile";
 import RewardsOverview from "./react/rewardsOverview";
+import AdminLogin from "./react/adminLogin";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/login" element={<CustomerLogin />} />
                     <Route path="/customerProfile" element={<CustomerProfile />} />
                     <Route path="/rewardsOverview" element={<RewardsOverview />} />
+                    <Route path="/adminLogin" element={<AdminLogin />} />
                 </Routes>
             </div>
         </Router>
