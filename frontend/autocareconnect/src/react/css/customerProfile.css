@@ -1,55 +1,55 @@
-
+/* Container */
 .customer-profile-container {
     display: flex;
-    flex-direction: column;      
-    min-height: 100vh;            
+    flex-direction: column;       /* Aligns elements vertically */
+    min-height: 100vh;            /* Ensures full viewport height */
     background-color: #E5F4FA;    /* Light background color for the whole page */
     color: #003366;               /* Dark blue text color */
     font-family: Arial, sans-serif;
 }
 
 /* Header (Top Bar) */
-.header-banner {
-    width: 100%;                 
-    background-color: #003366;    
-    color: white;               
+.customer-profile-header-banner {
+    width: 100%;                  /* Full width */
+    background-color: #003366;    /* Dark blue background */
+    color: white;                 /* White text color */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 15px;
-    box-sizing: border-box;      
+    box-sizing: border-box;       /* Includes padding in width calculation */
 }
 
 /* Menu Icon (Back Button or Hamburger Menu Icon) */
-.menu-icon {
+.customer-profile-menu-icon {
     position: absolute;
-    left: 20px;                   
+    left: 20px;                   /* Positions icon on the left */
     cursor: pointer;
     width: 30px;
     height: 30px;
 }
 
-
-.banner-title {
+/* Banner Title (Main Page Title) */
+.customer-profile-banner-title {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
 }
 
-
-.profile-info-container {
+/* Container for the Profile Information Section */
+.customer-profile-profile-info-container {
     display: flex;
-    gap: 20px;                    
+    gap: 20px;                    /* Spacing between profile information boxes */
     padding: 20px;
-    justify-content: center;      
+    justify-content: center;      /* Centers the profile info section */
 }
 
-
-.user-info {
+/* User Info Box (Left Box with User Icon and Username) */
+.customer-profile-user-info {
     display: flex;
     flex-direction: column;
-    align-items: center;         
-    background-color: #003366;    
+    align-items: center;          /* Centers icon and username text */
+    background-color: #003366;    /* Dark blue background for consistency */
     color: white;
     padding: 15px;
     border-radius: 8px;           /* Rounded corners */
@@ -58,7 +58,7 @@
 }
 
 /* User Icon Image */
-.user-info img {
+.customer-profile-user-info img {
     width: 50px;
     height: 50px;
     border-radius: 50%;           /* Circular icon */
@@ -66,23 +66,23 @@
 }
 
 /* Username Text */
-.user-info .username {
+.customer-profile-user-info .username {
     font-size: 18px;
     font-weight: bold;
 }
 
 /* General Info Box (Used for Service Details, Contact Info, etc.) */
-.info-box {
-    background-color: #003366;   
+.customer-profile-info-box {
+    background-color: #003366;    /* Dark blue background for consistency */
     color: white;
     padding: 15px;
     border-radius: 8px;
     width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
 }
 
 /* Input Fields Inside Info Boxes */
-.info-box input {
+.customer-profile-info-box input {
     background-color: #E5F4FA;    /* Light background color for inputs */
     color: #003366;               /* Text color for inputs */
     border: none;
@@ -94,14 +94,14 @@
 }
 
 /* Labels Inside Info Boxes */
-.info-box label {
-    font-weight: bold;          
+.customer-profile-info-box label {
+    font-weight: bold;            /* Bold text for labels */
     display: block;
     margin-bottom: 5px;
 }
 
 /* Receipt Section (Right Box with Receipt Details) */
-.receipt-box {
+.customer-profile-receipt-box {
     background-color: #003366;    /* Dark blue background */
     color: white;
     padding: 15px;
@@ -112,7 +112,7 @@
 }
 
 /* Action Buttons Container (For Buttons Like Rewards, Appointment, etc.) */
-.action-buttons {
+.customer-profile-action-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;                    /* Spacing between buttons */
@@ -120,7 +120,7 @@
 }
 
 /* Action Buttons Styling (Rewards, Appointment, Leave a Review, etc.) */
-.button {
+.customer-profile-button {
     background-color: #003366;    /* Dark blue background */
     color: white;
     padding: 10px 20px;
@@ -133,15 +133,26 @@
 }
 
 /* Hover Effect for Action Buttons */
-.button:hover {
+.customer-profile-button:hover {
     background-color: #005f99;    /* Slightly lighter blue when hovered */
 }
 
 /* Footer (Bottom Text Section) */
-.footer {
+.customer-profile-footer {
     background-color: #003366;    /* Dark blue background */
     color: white;
     text-align: center;
     padding: 15px;
     font-size: 14px;
+}
+
+/* User Icon Specific Styling (Positioning and Styling for User Icon) */
+.customer-profile-user-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 97px;
+    top: 108px;
+    background: #B7F1B9;
+    border-radius: 100px;
 }
