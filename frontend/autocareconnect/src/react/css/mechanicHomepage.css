@@ -1,5 +1,5 @@
 /* General Styles */
-.mechanic-info-screen {
+.mech-homepage {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +10,7 @@
 }
 
 /* Header Styles */
-.header {
+.mech-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,9 +19,9 @@
     padding: 10px;
 }
 
-.profile-btn,
-.clock-btn,
-.logout-btn {
+.mech-profile-btn,
+.mech-clock-btn,
+.mech-logout-btn {
     background-color: #5372f0;
     color: white;
     border: none;
@@ -31,100 +31,91 @@
     font-size: 14px;
 }
 
-.clock-btn {
+.mech-clock-btn {
     background-color: #4caf50;
 }
 
-.logout-btn {
+.mech-logout-btn {
     background-color: #ff4444;
 }
 
-.task-section {
+/* Task Section Container */
+.mech-task-section {
     display: flex;
-    justify-content: space-around;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
     width: 80%;
     margin-top: 20px;
     gap: 20px;
-}
-
-
-/* Task Section Container */
-.task-section {
-    flex: 1; /* Takes up remaining space */
-    display: flex;
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Centers the content vertically */
-    width: 80%;
-    margin-top: 20px;
-    gap: 20px; /* Space between each section */
     padding: 20px;
 }
 
 /* Individual Task Cards */
-.task-section > div {
+.mech-task-section > div {
     background-color: #f8f9fc;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px; /* Ensures equal width for each section */
-    text-align: left; /* Aligns content within each card to the left */
+    width: 250px;
+    text-align: left;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.assigned-tasks,
-.resources,
-.upcoming-tasks,
-.current-task {
+.mech-assigned-tasks,
+.mech-resources,
+.mech-upcoming-tasks,
+.mech-current-task {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h3 {
+.mech-task-section h3 {
     color: #333;
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-p {
+.mech-task-section p {
     font-size: 14px;
     color: #555;
     margin: 4px 0;
 }
 
 /* Input Styles */
-select {
+.mech-select {
     width: 100%;
-    padding: 5px; /* Smaller padding for select */
+    padding: 5px;
     margin-top: 10px;
-    font-size: 12px; /* Smaller font size */
+    font-size: 12px;
     border-radius: 5px;
     border: 1px solid #ccc;
     background-color: #fff;
     cursor: pointer;
 }
 
-mechHomebutton {
+.mech-button {
     width: 100%;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 6px 8px; /* Smaller padding for buttons */
+    padding: 6px 8px;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 12px; /* Smaller font size */
+    font-size: 12px;
     margin-top: 10px;
 }
 
-button:hover {
+.mech-button:hover {
     opacity: 0.9;
 }
 
 /* Button Row for Start and End Time */
-.button-row {
+.mech-button-row {
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -132,11 +123,11 @@ button:hover {
 }
 
 /* Footer Styles */
-.footer {
+.mech-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1d3b5e; /* Dark blue background */
+    background-color: #1d3b5e;
     color: white;
     padding: 15px 20px;
     position: sticky;
@@ -144,12 +135,12 @@ button:hover {
     width: 100%;
 }
 
-.footer p {
+.mech-footer p {
     margin: 0;
     font-size: 14px;
 }
 
-.footer-logo img {
-    width: 50px; /* Adjust based on actual logo size */
+.mech-footer-logo img {
+    width: 50px;
     height: auto;
 }

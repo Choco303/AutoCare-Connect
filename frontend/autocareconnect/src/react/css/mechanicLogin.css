@@ -18,6 +18,8 @@
     justify-content: center;
     padding: 15px 20px;
     box-sizing: border-box;
+    height: 60px;
+    position: relative;
 }
 
 .mechanic-login-menu-icon {
@@ -36,7 +38,7 @@
     margin: 0;
 }
 
-/* Login Form Container */
+/* Login Container */
 .mechanic-login-container {
     display: flex;
     flex-direction: column;
@@ -59,14 +61,22 @@
 }
 
 .mechanic-login-title {
-    color: blue;
+    color: blue; /* Mechanic-specific title color */
     font-size: 20px;
     font-weight: bold;
     text-align: center;
+    margin-top: -40px;
     margin-bottom: 30px;
 }
 
-/* Input Fields */
+/* Login Form */
+.mechanic-login-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .mechanic-login-field {
     margin-bottom: 1.5rem;
     width: 100%;
@@ -115,7 +125,7 @@
     background-color: #002244;
 }
 
-/* Messages */
+/* Success and Error Messages */
 .mechanic-login-success-message {
     color: #53ff00;
     margin-top: 1em;
@@ -126,4 +136,51 @@
     color: red;
     margin-top: 1em;
     text-align: center;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .mechanic-login-banner-title {
+        font-size: 1.25rem;
+    }
+
+    .mechanic-login-menu-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .mechanic-login-container {
+        margin-top: 8vh;
+        padding: 20px 10px;
+    }
+
+    .mechanic-login-logo {
+        width: 60vw;
+        max-width: 200px;
+    }
+
+    .mechanic-login-button {
+        font-size: 0.9rem;
+        padding: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mechanic-login-banner-title {
+        font-size: 1rem;
+    }
+
+    .mechanic-login-logo {
+        width: 70vw;
+        max-width: 150px;
+    }
+
+    .mechanic-login-field {
+        margin-bottom: 1.25rem;
+    }
+
+    .mechanic-login-float-label input {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
 }
