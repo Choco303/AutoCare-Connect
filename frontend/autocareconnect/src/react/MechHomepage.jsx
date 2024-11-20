@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/mechanicHomepage.css';
 
 const MechHomepage = () => {
+    const navigate = useNavigate();
     const [taskStatus, setTaskStatus] = useState('In Progress');
     const [clockedIn, setClockedIn] = useState(false);
     const [startTime, setStartTime] = useState(null);
@@ -20,8 +22,7 @@ const MechHomepage = () => {
     };
 
     const handleBack = () => {
-        // Logic to go back to the previous page
-        alert('Back button clicked!'); // Replace with actual navigation logic
+        navigate('/');
     };
 
     return (
@@ -38,43 +39,44 @@ const MechHomepage = () => {
             <div className="task-section">
                 <div className="assigned-tasks">
                     <h3>Assigned Tasks</h3>
-                    <p>Customer: John Smith</p>
-                    <p>Contact Info: john.smith@gmail.com</p>
-                    <p>Task Name: Oil Change</p>
-                    <p>Status: {taskStatus}</p>
+                    <p><strong>Customer:</strong> John Smith</p>
+                    <p><strong>Contact Info:</strong> john.smith@gmail.com</p>
+                    <p><strong>Task Name:</strong> Oil Change</p>
+                    <p><strong>Status:</strong> In Progress</p>
                 </div>
 
                 <div className="resources">
                     <h3>Resources</h3>
-                    <p>Parts: Oil Filter (x1)</p>
-                    <p>Materials: Oil (1 qt)</p>
+                    <p><strong>Parts:</strong> Oil Filter (x1)</p>
+                    <p><strong>Materials:</strong> Oil (1 qt)</p>
                 </div>
 
                 <div className="upcoming-tasks">
                     <h3>Upcoming Tasks</h3>
-                    <p>Nissan Versa 2007 - Oil Change & Wheel Alignment</p>
-                    <p>Chevrolet Camaro 1983 - Spark Plug Replacement</p>
+                    <p><strong>Nissan Versa 2007</strong> - Oil Change & Wheel Alignment</p>
+                    <p><strong>Chevrolet Camaro 1983</strong> - Spark Plug Replacement</p>
                 </div>
 
                 <div className="current-task">
                     <h3>Current Task</h3>
-                    <p>Status: {taskStatus}</p>
+                    <p><strong>Status:</strong> {taskStatus}</p>
                     <select value={taskStatus} onChange={(e) => setTaskStatus(e.target.value)}>
                         <option value="Start Repair">Start Repair</option>
                         <option value="In Progress">In Progress</option>
                         <option value="Completed">Completed</option>
                     </select>
-                    <button onClick={handleStartTime}>Start Time</button>
-                    <button onClick={handleEndTime}>End Time</button>
+                    <div className="button-row">
+                        <button onClick={handleStartTime}>Start Time</button>
+                        <button onClick={handleEndTime}>End Time</button>
+                    </div>
                     <p>{startTime ? `Started at: ${startTime}` : 'Time not started'}</p>
                     <p>{endTime ? `Ended at: ${endTime}` : 'Time not ended'}</p>
                 </div>
             </div>
             {/* Footer */}
             <footer className="footer-banner">
-                <div className="footer-description">Providing quality car management services for your convenience.
-                </div>
-                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo"/>
+                <div className="footer-description">Providing quality car management services for your convenience.</div>
+                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo" />
             </footer>
         </div>
     );
