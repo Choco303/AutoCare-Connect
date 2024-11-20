@@ -3,6 +3,7 @@ import Sidebar from './sidebar';
 import Logout from './logout';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { useNavigate } from 'react-router-dom';
 import './css/base.css';
 import './css/customerHomepage.css';
 import menuIcon from './images/menu.png';
@@ -10,11 +11,15 @@ import logo from './images/logo.png';
 
 const CustomerHomepage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+    const toEmailPage = () => {
+        navigate('/Change-Email');
+    }
     return (
         <div className="customer-homepage">
             {/* Sidebar */}
@@ -60,7 +65,7 @@ const CustomerHomepage = () => {
                         <label htmlFor="phone">Phone:</label>
                         <InputText id="phone" value="XXX-XXX-XXXX" readOnly />
                         <div className="customer-homepage-action-buttons">
-                            <Button label="Change Email" className="customer-homepage-action-button" />
+                            <Button label="Change Email" className="customer-homepage-action-button" onClick={toEmailPage}/>
                             <Button label="Change Password" className="customer-homepage-action-button" />
                             <Button label="Change Phone Number" className="customer-homepage-action-button" />
                         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './sidebar'; // Adjust the path if necessary
-import './css/changeEmail.css'; // Adjust the path if necessary
+import Logout from "./logout"; // Adjust the path if necessary
+import './css/changeEmail.css';
 
 const ChangeEmailPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -39,6 +40,7 @@ const ChangeEmailPage = () => {
                     className="menu-icon"
                 />
                 <h1 className="banner-title">AutoCare Connect</h1>
+                <Logout />
             </header>
 
             <div className="content-wrapper"> {/* New wrapper */}

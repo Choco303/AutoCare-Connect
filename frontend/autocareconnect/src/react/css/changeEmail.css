@@ -1,11 +1,9 @@
 .changeEmailPage-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
-    background-color: #e6f4ff;
-    padding: 20px;
+    align-items: center;
+    padding: 0;
 }
 
 .content-wrapper {
@@ -19,26 +17,29 @@
 }
 
 .header-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #002d6b;
-    color: white;
-    width: 100%;
-    padding: 15px 0;
-    font-size: 1.5rem;
+    padding: 15px 20px;
+    box-sizing: border-box;
 }
 
 .menu-icon {
     cursor: pointer;
+    width: 30px;
     height: 30px;
     position: absolute;
     left: 20px;
 }
 
 .banner-title {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
     margin: 0;
-    font-weight: bold;
 }
 
 .title {
@@ -90,24 +91,21 @@ label {
 }
 
 .footer-banner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #002d6b;
-    color: white;
     width: 100%;
-    padding: 15px;
-    text-align: center;
-    position: relative;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
 }
 
 .footer-description {
-    font-size: 0.9rem;
-    margin-right: auto;
+    font-size: 1rem;
 }
 
 .footer-logo {
-    width: 70px;
+    width: 100px;
     height: auto;
-    margin-left: auto;
 }
