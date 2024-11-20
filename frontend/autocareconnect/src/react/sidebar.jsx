@@ -12,6 +12,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         // Check if a customer or admin is logged in
         const customerUsername = localStorage.getItem('customerUsername');
         const adminUsername = localStorage.getItem('adminUsername');
+        const mechanicUsername = localStorage.getItem('mechanicUsername');
 
         if (customerUsername) {
             setUsername(customerUsername);
@@ -19,6 +20,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         } else if (adminUsername) {
             setUsername(adminUsername);
             setRole('admin');
+        } else if (mechanicUsername) {
+            setUsername(mechanicUsername);
+            setRole('mechanic');
         }
     }, []);
 
@@ -27,7 +31,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             navigate('/customerHomepage'); // Navigate to customer homepage
         } else if (username && role === 'admin') {
             navigate('/adminHomepage'); // Navigate to admin homepage
-        } else {
+        } else if (username && role === 'mechanic') {
+            navigate('/MechanicHomepage');
+        }else {
             setShowProfileModal(true); // Show modal to choose login page
         }
         toggleSidebar(); // Close the sidebar
@@ -43,6 +49,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         }
         if (role === 'Admin') {
             navigate('/adminLogin'); // Navigate to the AdminLogin page
+        }
+        if (role === 'Mechanic') {
+            navigate('/mechanicLogin');
         }
         console.log(`${role} login page clicked`);
         closeProfileModal();
