@@ -1,75 +1,129 @@
-.mechanic-homepage-container {
+/* Main Container */
+.mechanic-login-page-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #E5F4FA;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #f0f8ff;
 }
 
-.mechanic-homepage-header {
-    display: flex;
-    justify-content: space-between;
+/* Header Banner */
+.mechanic-login-header-banner {
     width: 100%;
-    background-color: #e6e9ef;
-    padding: 10px;
-}
-
-.mechanic-homepage-profile-btn,
-.mechanic-homepage-clock-btn,
-.mechanic-homepage-logout-btn,
-.mechanic-homepage-back-btn {
-    background-color: #5372f0;
+    background-color: #003366;
     color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.mechanic-homepage-clock-btn {
-    background-color: #4caf50;
-}
-
-.mechanic-homepage-logout-btn {
-    background-color: #ff4444;
-}
-
-.mechanic-homepage-task-section {
     display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-top: 20px;
-    gap: 20px;
-}
-
-.mechanic-homepage-assigned-tasks,
-.mechanic-homepage-resources,
-.mechanic-homepage-upcoming-tasks,
-.mechanic-homepage-current-task {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 20%;
-}
-
-.mechanic-homepage-footer-banner {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #1d3b5e;
-    color: white;
+    justify-content: center;
     padding: 15px 20px;
+    box-sizing: border-box;
+}
+
+.mechanic-login-menu-icon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+.mechanic-login-banner-title {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Login Form Container */
+.mechanic-login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    max-width: 400px;
+    margin-top: 10vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.mechanic-homepage-footer-description {
-    font-size: 14px;
-}
-
-.mechanic-homepage-footer-logo {
-    width: 50px;
+.mechanic-login-logo {
+    width: 50vw;
+    max-width: 300px;
     height: auto;
+    margin-bottom: 1rem;
+}
+
+.mechanic-login-title {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Input Fields */
+.mechanic-login-field {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    position: relative;
+}
+
+.mechanic-login-float-label input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.mechanic-login-float-label input:focus {
+    border-color: #003366;
+    box-shadow: 0 0 8px rgba(0, 51, 102, 0.2);
+}
+
+.mechanic-login-float-label label {
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    color: #333;
+    font-size: 0.85rem;
+    background-color: #E5F4FA;
+    padding: 0 4px;
+}
+
+/* Buttons */
+.mechanic-login-button {
+    width: 100%;
+    background-color: #003366;
+    border: none;
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.mechanic-login-button:hover {
+    background-color: #002244;
+}
+
+/* Messages */
+.mechanic-login-success-message {
+    color: #53ff00;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.mechanic-login-error-message {
+    color: red;
+    margin-top: 1em;
+    text-align: center;
 }

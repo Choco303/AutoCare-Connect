@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Sidebar from './sidebar';
 import './css/customerProfile.css';
 import menuIcon from './images/menu.png'; // Ensure this is imported correctly
-import userIcon from './images/user-icon.png'; // Ensure this is imported correctly
-
 const CustomerProfile = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -31,11 +29,6 @@ const CustomerProfile = () => {
             <section className="profile-info-container">
                 {/* User Info Box */}
                 <div className="user-info">
-                    <img
-                        src={userIcon}
-                        alt="User Icon"
-                        className="user-icon"
-                    />
                     <div className="username">User 01</div>
                 </div>
 

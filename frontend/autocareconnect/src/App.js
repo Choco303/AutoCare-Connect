@@ -9,7 +9,7 @@ import RewardsOverview from "./react/rewardsOverview";
 import AdminLogin from "./react/adminLogin";
 import MechanicLogin from "./react/mechanicLogin";
 import AdminHomepage from "./react/adminHomepage"
-import MechHomepage from "./react/MechHomepage"
+import MechanicHomepage from "./react/mechanicHomepage"
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
                     <Route path="/adminLogin" element={<AdminLogin />} />
                     <Route path="/adminHomepage" element={<AdminHomepage />} />
                     <Route path="/mechanicLogin" element={<MechanicLogin />} />
-                    <Route path="/mech" element={<MechHomepage/>} />
+                    <Route path="/mechanicHomepage" element={<MechanicHomepage/>} />
 
                 </Routes>
             </div>
