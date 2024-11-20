@@ -74,9 +74,9 @@ const MechHomepage = () => {
                 </div>
             </div>
             {/* Footer */}
-            <footer className="footer-banner">
-                <div className="footer-description">Providing quality car management services for your convenience.</div>
-                <img src={require('./images/logo.png')} alt="Logo" className="footer-logo" />
+            <footer className="home-page-footer-banner">
+                <div className="home-page-footer-description">Providing quality car management services for your convenience.</div>
+                <img src={require('./images/logo.png')} alt="Logo" className="home-page-footer-logo" />
             </footer>
         </div>
     );
