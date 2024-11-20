@@ -32,7 +32,7 @@ public class MechanicController {
     public ResponseEntity<?> registerMechanic (@RequestBody Mechanic newMechanic ) {
         try {
             mechanicRepository.save(newMechanic );
-            return ResponseEntity.ok( "Mechanic registered successfully!");
+            return ResponseEntity.ok( "Mechanic registered");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register mechanic: " + e.getMessage());
         }

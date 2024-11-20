@@ -7,10 +7,9 @@ import CustomerLogin from './react/customerLogin';
 import CustomerHomepage from "./react/customerHomepage";
 import RewardsOverview from "./react/rewardsOverview";
 import AdminLogin from "./react/adminLogin";
-import MechanicLogin from "./react/mechanicLogin";
 import AdminHomepage from "./react/adminHomepage"
+import MechanicLogin from "./react/mechanicLogin";
 import MechanicHomepage from "./react/mechanicHomepage"
-
 
 function App() {
     return (

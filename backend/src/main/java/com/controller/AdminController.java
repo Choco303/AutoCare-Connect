@@ -32,7 +32,7 @@ public class AdminController {
     public ResponseEntity<?> registerAdmin(@RequestBody Admin newAdmin) {
         try {
             adminRepository.save(newAdmin);
-            return ResponseEntity.ok("Admin registered successfully!");
+            return ResponseEntity.ok("Admin registered");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register admin: " + e.getMessage());
         }

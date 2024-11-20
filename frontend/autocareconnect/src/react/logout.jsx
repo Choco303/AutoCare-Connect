@@ -9,9 +9,9 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Retrieve the logged-in username and role from localStorage
         const customerUsername = localStorage.getItem('customerUsername');
         const adminUsername = localStorage.getItem('adminUsername');
+        const mechanicUsername = localStorage.getItem('mechanicUsername');
 
         if (customerUsername) {
             setUsername(customerUsername);
@@ -19,51 +19,51 @@ const Logout = () => {
         } else if (adminUsername) {
             setUsername(adminUsername);
             setRole('admin');
+        } else if (mechanicUsername) {
+            setUsername(mechanicUsername);
+            setRole('mechanic');
+        } else {
+            setUsername(null);
+            setRole(null);
         }
 
-        // Close dropdown if clicked outside
         const handleClickOutside = (event) => {
             if (!event.target.closest('.logout-container')) {
                 setIsDropdownOpen(false);
             }
         };
-        document.addEventListener('mousedown', handleClickOutside);
 
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
     const handleLogout = () => {
-        // Clear login state
         if (role === 'customer') {
             localStorage.removeItem('customerUsername');
         } else if (role === 'admin') {
             localStorage.removeItem('adminUsername');
+        } else if (role === 'mechanic') {
+            localStorage.removeItem('mechanicUsername');
         }
 
         setUsername(null);
         setRole(null);
-        navigate('/'); // Redirect to the home page
-        window.location.reload(); // refresh the page
+        navigate('/');
+        window.location.reload();
     };
 
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen); // dropdown visibility
+        setIsDropdownOpen(!isDropdownOpen);
     };
 
-    if (!username) {
-        return null; // do not display if logged in
-    }
+    if (!username) return null;
 
     return (
         <div className="logout-container">
-            {/* Username as dropdown toggle button */}
             <button className="username-button" onClick={toggleDropdown}>
                 {username}
             </button>
 
-            {/* Dropdown Menu */}
             {isDropdownOpen && (
                 <div className="logout-dropdown">
                     <ul className="logout-dropdown-menu">

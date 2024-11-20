@@ -36,7 +36,7 @@ public class CustomerController {
         try {
             // Save the customer in the database
             customerRepository.save(newCustomer);
-            return ResponseEntity.ok("Customer registered successfully!");
+            return ResponseEntity.ok("Customer registered");
         } catch (Exception e) {
             // Handle cases like duplicate usernames or emails
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register customer: " + e.getMessage());
