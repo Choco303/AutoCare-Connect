@@ -10,6 +10,7 @@ import AdminLogin from "./react/adminLogin";
 import MechanicLogin from "./react/mechanicLogin";
 import AdminHomepage from "./react/adminHomepage"
 import MechHomepage from "./react/MechHomepage"
+import ChangeEmail from "./react/changeEmail"
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
                     <Route path="/adminHomepage" element={<AdminHomepage />} />
                     <Route path="/mechanicLogin" element={<MechanicLogin />} />
                     <Route path="/mech" element={<MechHomepage/>} />
-
+                    <Route path="/Change-Email" element={<ChangeEmail/>} />
                 </Routes>
             </div>
         </Router>
