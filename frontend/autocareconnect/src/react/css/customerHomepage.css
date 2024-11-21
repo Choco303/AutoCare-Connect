@@ -123,7 +123,7 @@
 }
 
 .customer-homepage-contact-box .customer-homepage-action-button {
-    background-color: #005f99;
+    background-color: #007bff;
     color: white;
     font-weight: bold;
     border-radius: 6px;
@@ -135,7 +135,7 @@
 }
 
 .customer-homepage-contact-box .customer-homepage-action-button:hover {
-    background-color: #007bbf;
+    background-color: #0056b3;
 }
 
 /* Action Buttons Section */
@@ -148,7 +148,7 @@
 }
 
 .customer-homepage-action-button {
-    background-color: #005f99;
+    background-color: #007bff;
     color: white;
     font-weight: bold;
     border-radius: 6px;
@@ -161,7 +161,7 @@
 }
 
 .customer-homepage-action-button:hover {
-    background-color: #007bbf;
+    background-color: #0056b3;
 }
 
 /* Footer */
