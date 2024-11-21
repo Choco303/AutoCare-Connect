@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './sidebar';
 import Logout from './logout';
 import { Button } from 'primereact/button';
@@ -6,11 +6,11 @@ import { InputText } from 'primereact/inputtext';
 import { useNavigate } from 'react-router-dom';
 import './css/base.css';
 import './css/customerHomepage.css';
-import menuIcon from './images/menu.png';
-import logo from './images/logo.png';
+import axios from 'axios';
 
 const CustomerHomepage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [customer, setCustomer] = useState({});
     const navigate = useNavigate();
 
     const toggleSidebar = () => {
@@ -20,6 +20,29 @@ const CustomerHomepage = () => {
     const toEmailPage = () => {
         navigate('/Change-Email');
     }
+
+    const toPasswordPage = () => {
+        navigate('/Change-Password');
+    }
+
+    const toPhonePage = () => {
+        navigate('/Change-Phone');
+    }
+
+    useEffect(() => {
+        const username = localStorage.getItem('customerUsername');
+        if (username) {
+            axios
+                .get(`http://localhost:8080/api/customer/details/${username}`)
+                .then((response) => {
+                    setCustomer(response.data);
+                })
+                .catch((error) => {
+                    console.error('Error fetching customer details:', error);
+                });
+        }
+    }, []);
+
     return (
         <div className="customer-homepage">
             {/* Sidebar */}
@@ -28,7 +51,7 @@ const CustomerHomepage = () => {
             {/* Header */}
             <header className="customer-homepage-header">
                 <img
-                    src={menuIcon}
+                    src={require('./images/menu.png')}
                     alt="Menu"
                     onClick={toggleSidebar}
                     className="customer-homepage-menu-icon"
@@ -41,7 +64,7 @@ const CustomerHomepage = () => {
             <div className="customer-homepage-main">
                 {/* User Box */}
                 <div className="customer-homepage-user-box">
-                    <span>User 01</span>
+                    <span>{customer.username || 'Loading...'}</span>
                 </div>
 
                 {/* Grid Section */}
@@ -61,13 +84,13 @@ const CustomerHomepage = () => {
                     {/* Contact Box */}
                     <div className="customer-homepage-box customer-homepage-contact-box">
                         <label htmlFor="email">Email:</label>
-                        <InputText id="email" value="John.Smith@email.com" readOnly />
+                        <InputText id="email" value={customer.email || 'Loading...'} readOnly />
                         <label htmlFor="phone">Phone:</label>
-                        <InputText id="phone" value="XXX-XXX-XXXX" readOnly />
+                        <InputText id="phone" value={customer.phone || 'Loading...'} readOnly />
                         <div className="customer-homepage-action-buttons">
                             <Button label="Change Email" className="customer-homepage-action-button" onClick={toEmailPage}/>
-                            <Button label="Change Password" className="customer-homepage-action-button" />
-                            <Button label="Change Phone Number" className="customer-homepage-action-button" />
+                            <Button label="Change Password" className="customer-homepage-action-button" onClick={toPasswordPage}/>
+                            <Button label="Change Phone Number" className="customer-homepage-action-button" onClick={toPhonePage} />
                         </div>
                     </div>
 
@@ -91,7 +114,7 @@ const CustomerHomepage = () => {
                 <div className="customer-homepage-footer-text">
                     Providing quality car management services for your convenience.
                 </div>
-                <img src={logo} alt="Logo" className="customer-homepage-footer-logo" />
+                <img src={require('./images/logo.png')} alt="Logo" className="customer-homepage-footer-logo" />
             </footer>
         </div>
     );
