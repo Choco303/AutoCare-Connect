@@ -85,7 +85,7 @@ const CustomerLogin = () => {
                     <Button
                         label="Register New Account"
                         className="customer-login-register-button"
-                        onClick={() => navigate('/register')} // Redirect to a registration page
+                        onClick={() => navigate('/registrationPage')} // Redirect to a registration page
                     />
                 </form>
 

@@ -1,0 +1,130 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e8f5ff;
+    color: #333;
+}
+
+.register-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+.register-header-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    height: 60px;
+    position: relative;
+}
+
+.banner-title {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+.menu-icon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+.register-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    padding: 30px 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register-logo {
+    width: 50vw;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: -3rem;
+}
+
+.register-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: -90x;
+    color: #003366;
+}
+
+.register-field {
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+}
+
+.register-float-label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-float-label input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.register-float-label label {
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    color: #333;
+    font-size: 0.85rem;
+    background-color: #E5F4FA;
+    padding: 0 4px;
+}
+
+.register-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.register-button:hover {
+    background-color: #00509e;
+}
+
+.register-error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 15px;
+}
+
+.register-success-message {
+    color: green;
+    font-size: 0.9rem;
+    margin-top: 15px;
+}
