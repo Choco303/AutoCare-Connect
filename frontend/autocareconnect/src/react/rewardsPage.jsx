@@ -64,7 +64,7 @@ const RewardsPage = () => {
                                 <h3>{step}</h3>
                                 <p>
                                     {index === 0
-                                        ? "Join the AutoCare club to start earning"
+                                        ? "Sign up and join the AutoCare club to start earning"
                                         : index === 1
                                             ? "Earn reward points every time you receive a service"
                                             : "Redeem points for exclusive rewards & discounts"}

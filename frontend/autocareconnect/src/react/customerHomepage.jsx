@@ -29,6 +29,10 @@ const CustomerHomepage = () => {
         navigate('/Change-Phone');
     }
 
+    const toRewardsPage = () => {
+        navigate('/rewardsOverview');
+    }
+
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
         if (username) {
@@ -56,7 +60,7 @@ const CustomerHomepage = () => {
                     onClick={toggleSidebar}
                     className="customer-homepage-menu-icon"
                 />
-                <h1 className="customer-homepage-header-title">Customer Profile</h1>
+                <h1 className="customer-homepage-header-title">AutoCare Connect</h1>
                 <Logout />
             </header>
 
@@ -105,6 +109,7 @@ const CustomerHomepage = () => {
                 <section className="customer-homepage-action-buttons">
                     <Button label="Appointment" className="p-button-rounded customer-homepage-action-button" />
                     <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button" />
+                    <Button label="My Rewards" className="p-button-rounded customer-homepage-action-button" onClick={toRewardsPage}/>
                 </section>
             </div>
 

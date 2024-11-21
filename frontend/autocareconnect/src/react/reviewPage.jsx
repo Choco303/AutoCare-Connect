@@ -97,7 +97,7 @@ const ReviewPage = () => {
                 <Logout />
             </header>
 
-            <h2 className="review-page-title">Recent Reviews</h2>
+            <h2 className="review-page-title">Reviews</h2>
             <div className="review-page-reviews-grid">
                 {reviews.map((review, index) => (
                     <div key={index} className="review-page-review-card">
