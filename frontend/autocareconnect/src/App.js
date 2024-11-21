@@ -13,6 +13,7 @@ import MechanicHomepage from "./react/mechanicHomepage"
 import ChangeEmail from "./react/changeEmail"
 import ChangePassword from "./react/changePassword";
 import ChangePhone from "./react/changePhone";
+import RegisterPage from "./react/registrationPage";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/Change-Email" element={<ChangeEmail/>} />
                     <Route path="/Change-Password" element={<ChangePassword/>} />
                     <Route path="/Change-Phone" element={<ChangePhone/>} />
+                    <Route path="/registrationPage" element={<RegisterPage/>} />
                 </Routes>
             </div>
         </Router>
