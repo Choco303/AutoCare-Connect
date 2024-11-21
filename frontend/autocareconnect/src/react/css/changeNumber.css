@@ -1,4 +1,4 @@
-.Change-Email-Page-container {
+.Change-Number-Page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -6,7 +6,7 @@
     padding: 0;
 }
 
-.Change-Email-content-wrapper {
+.Change-Number-content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +16,7 @@
     margin-bottom: auto;
 }
 
-.Change-Email-header-banner {
+.Change-Number-header-banner {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -27,7 +27,7 @@
     box-sizing: border-box;
 }
 
-.Change-Email-menu-icon {
+.Change-Number-menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -35,14 +35,14 @@
     left: 20px;
 }
 
-.Change-Email-banner-title {
+.Change-Number-banner-title {
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     margin: 0;
 }
 
-.Change-Email-title {
+.Change-Number-title {
     margin: 0;
     margin-bottom: 10px;
     font-size: 1.5rem;
@@ -50,7 +50,7 @@
     font-weight: bold;
 }
 
-.Change-Email-form-container {
+.Change-Number-form-container {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -58,18 +58,18 @@
     max-width: 500px;
 }
 
-.Change-Email-form-group {
+.Change-Number-form-group {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.Change-Email-form-group label {
+.Change-Number-form-group label {
     font-size: 1rem;
     margin-bottom: 5px;
 }
 
-.Change-Email-Page-input {
+.Change-Number-Page-input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -78,15 +78,15 @@
     background-color: #ffffff;
 }
 
-.Change-Email-buttons {
+.Change-Number-buttons {
     display: flex;
     justify-content: center; /* Center the buttons */
     gap: 20px; /* Add space between buttons */
     margin-top: 20px; /* Maintain margin from the top */
 }
 
-.Change-Email-Page-changeButton,
-.Change-Email-backButton {
+.Change-Number-Page-changeButton,
+.Change-Number-backButton {
     background-color: #007bff;
     color: white;
     padding: 10px;
@@ -97,13 +97,40 @@
     width: 150px;
 }
 
-.Change-Email-Page-changeButton:hover,
-.Change-Email-backButton:hover {
+.Change-Number-Page-changeButton:hover,
+.Change-Number-backButton:hover {
     background-color: #0056b3;
 }
 
+.toggle-number-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #007bff;
+    margin-right: 15px;
+    padding: 5px;
+}
 
-.Change-Email-footer-banner {
+.toggle-number-button:hover {
+    color: #0056b3;
+}
+
+.Change-Number-message {
+    margin-top: 10px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.Change-Number-message-success {
+    color: green;
+}
+
+.Change-Number-message-error {
+    color: red;
+}
+
+.Change-Number-footer-banner {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -114,11 +141,11 @@
     box-sizing: border-box;
 }
 
-.Change-Email-footer-description {
+.Change-Number-footer-description {
     font-size: 1rem;
 }
 
-.Change-Email-footer-logo {
+.Change-Number-footer-logo {
     width: 60px;
     height: auto;
 }

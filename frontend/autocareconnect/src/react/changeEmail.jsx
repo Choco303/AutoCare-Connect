@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 import Sidebar from './sidebar'; // Adjust the path if necessary
 import Logout from "./logout"; // Adjust the path if necessary
-import { useNavigate } from "react-router-dom";
 import './css/changeEmail.css';
 
 const ChangeEmailPage = () => {
@@ -21,17 +22,49 @@ const ChangeEmailPage = () => {
 
     const handleEmailChange = () => {
         if (newEmail) {
-            alert(`Email changed to: ${newEmail}`);
-            setCurrentEmail(newEmail);
-            setNewEmail('');
+            const username = localStorage.getItem('customerUsername');
+            axios
+                .put(`http://localhost:8080/api/customer/update-email`, null, {
+                    params: { username, newEmail },
+                })
+                .then(() => {
+                    axios
+                        .get(`http://localhost:8080/api/customer/details/${username}`)
+                        .then((response) => {
+                            setCurrentEmail(response.data.email); // Update the current email state
+                            setNewEmail(''); // Clear the input
+                        })
+                        .catch((error) => {
+                            console.error('Error refetching customer details:', error);
+                        });
+                })
+                .catch((error) => {
+                    console.error('Error updating email:', error);
+                    alert('Failed to update email. Please try again.');
+                });
         } else {
             alert('Please enter a new email address.');
         }
     };
 
+
     const goBackToProfile = () => {
         navigate('/customerHomepage');
     }
+
+    useEffect(() => {
+        const username = localStorage.getItem('customerUsername');
+        if (username) {
+            axios
+                .get(`http://localhost:8080/api/customer/details/${username}`)
+                .then((response) => {
+                    setCurrentEmail(response.data.email); // Set current email dynamically
+                })
+                .catch((error) => {
+                    console.error('Error fetching customer details:', error);
+                });
+        }
+    }, []);
 
     return (
         <div className="Change-Email-Page-container">
@@ -56,7 +89,7 @@ const ChangeEmailPage = () => {
                         <input
                             type="email"
                             id="current-email"
-                            value={currentEmail}
+                            value={currentEmail || 'Loading...'}
                             readOnly
                             className="Change-Email-Page-input"
                         />
@@ -73,14 +106,14 @@ const ChangeEmailPage = () => {
                     </div>
                     <div className="Change-Email-buttons">
                         <button
-                            className="Change-Email-Page-changeButton"
-                            onClick={handleEmailChange}>
-                            Change
-                        </button>
-                        <button
                             className="Change-Email-backButton"
                             onClick={goBackToProfile}>
                             Back
+                        </button>
+                        <button
+                            className="Change-Email-Page-changeButton"
+                            onClick={handleEmailChange}>
+                            Change
                         </button>
                     </div>
                 </div>

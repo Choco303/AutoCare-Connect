@@ -20,7 +20,7 @@ public class WebConfig {
                                 "http://localhost:3002",
                                 "http://localhost:3003"
                         )
-                        .allowedMethods("GET", "POST")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true)
                         .maxAge(3600);

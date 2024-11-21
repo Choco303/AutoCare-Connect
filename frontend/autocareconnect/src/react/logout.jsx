@@ -67,7 +67,6 @@ const Logout = () => {
             {isDropdownOpen && (
                 <div className="logout-dropdown">
                     <ul className="logout-dropdown-menu">
-                        <li onClick={() => navigate('/settings')}>Settings</li>
                         <li className="logout-option" onClick={handleLogout}>Log Out</li>
                     </ul>
                 </div>
