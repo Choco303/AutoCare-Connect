@@ -1,0 +1,189 @@
+.customer-profile-App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+}
+
+/* Adds a shadow and padding to the card */
+.customer-profile-p-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Custom styling for the button */
+.customer-profile-p-button {
+    background-color: #007ad9;
+    border-color: #007ad9;
+    color: #fff;
+}
+
+.customer-profile-p-button:hover {
+    background-color: #005bb5;
+    border-color: #005bb5;
+}
+
+/* Text styling within the card */
+.customer-profile-p-card-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+.customer-profile-p-card-subtitle {
+    font-size: 1.1em;
+    color: #666;
+}
+
+.customer-profile-p-card-content p {
+    color: #555;
+    line-height: 1.5;
+}
+/* Container */
+.customer-profile-container {
+    display: flex;
+    flex-direction: column;       /* Aligns elements vertically */
+    min-height: 100vh;            /* Ensures full viewport height */
+    background-color: #E5F4FA;    /* Light background color for the whole page */
+    color: #003366;               /* Dark blue text color */
+    font-family: Arial, sans-serif;
+}
+
+/* Header (Top Bar) */
+.customer-profile-header-banner {
+    width: 100%;                  /* Full width */
+    background-color: #003366;    /* Dark blue background */
+    color: white;                 /* White text color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;       /* Includes padding in width calculation */
+}
+
+/* Menu Icon (Back Button or Hamburger Menu Icon) */
+.customer-profile-menu-icon {
+    position: absolute;
+    left: 20px;                   /* Positions icon on the left */
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+/* Banner Title (Main Page Title) */
+.customer-profile-banner-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Container for the Profile Information Section */
+.customer-profile-profile-info-container {
+    display: flex;
+    gap: 20px;                    /* Spacing between profile information boxes */
+    padding: 20px;
+    justify-content: center;      /* Centers the profile info section */
+}
+
+/* User Info Box (Left Box with User Icon and Username) */
+.customer-profile-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* Centers icon and username text */
+    background-color: #003366;    /* Dark blue background for consistency */
+    color: white;
+    padding: 15px;
+    border-radius: 8px;           /* Rounded corners */
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* User Icon Image */
+.customer-profile-user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;           /* Circular icon */
+    margin-bottom: 10px;
+}
+
+/* Username Text */
+.customer-profile-user-info .username {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* General Info Box (Used for Service Details, Contact Info, etc.) */
+.customer-profile-info-box {
+    background-color: #003366;    /* Dark blue background for consistency */
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Input Fields Inside Info Boxes */
+.customer-profile-info-box input {
+    background-color: #E5F4FA;    /* Light background color for inputs */
+    color: #003366;               /* Text color for inputs */
+    border: none;
+    padding: 8px;
+    border-radius: 4px;           /* Rounded corners for inputs */
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* Labels Inside Info Boxes */
+.customer-profile-info-box label {
+    font-weight: bold;            /* Bold text for labels */
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Receipt Section (Right Box with Receipt Details) */
+.customer-profile-receipt-box {
+    background-color: #003366;    /* Dark blue background */
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    width: 250px;
+    height: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+/* Action Buttons Container (For Buttons Like Rewards, Appointment, etc.) */
+.customer-profile-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;                    /* Spacing between buttons */
+    margin-top: 20px;
+}
+
+/* Action Buttons Styling (Rewards, Appointment, Leave a Review, etc.) */
+.customer-profile-button {
+    background-color: #003366;    /* Dark blue background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;           /* Rounded corners */
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+    width: 150px;                 /* Consistent button width */
+}
+
+/* Hover Effect for Action Buttons */
+.customer-profile-button:hover {
+    background-color: #005f99;    /* Slightly lighter blue when hovered */
+}
+
+/* Footer (Bottom Text Section) */
+.customer-profile-footer {
+    background-color: #003366;    /* Dark blue background */
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+}
