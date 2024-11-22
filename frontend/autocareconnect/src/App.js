@@ -14,6 +14,7 @@ import ChangeEmail from "./react/changeEmail"
 import ChangePassword from "./react/changePassword";
 import ChangePhone from "./react/changePhone";
 import RegisterPage from "./react/registrationPage";
+import VehicleSelectionPage from "./react/VehicleSelectionPage";
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/Change-Password" element={<ChangePassword/>} />
                     <Route path="/Change-Phone" element={<ChangePhone/>} />
                     <Route path="/registrationPage" element={<RegisterPage/>} />
+                    <Route path="/vehicle" element={<VehicleSelectionPage/>} />
                 </Routes>
             </div>
         </Router>

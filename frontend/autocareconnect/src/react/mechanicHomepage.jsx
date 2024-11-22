@@ -155,7 +155,7 @@ const MechHomepage = () => {
                         <InputText id="car" value="Toyota" readOnly />
                         <label htmlFor="taskName">Service</label>
                         <InputText id="taskName" value="Oil Change" readOnly />
-                        <label htmlFor="time">Time</label>
+                        <label htmlFor="time">Estimated Time</label>
                         <InputText id="time" value="45 minutes" readOnly />
                     </div>
 

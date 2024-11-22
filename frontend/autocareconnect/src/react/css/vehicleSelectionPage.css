@@ -1,0 +1,94 @@
+.vehicle-selection-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.vehicle-selection-header-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    height: 60px;
+    position: relative;
+}
+
+.vehicle-selection-banner-title {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+.vehicle-selection-menu-icon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+.vehicle-selection-content {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.vehicle-selection-content h2 {
+    font-size: 1.8rem;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.vehicle-dropdown {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #003366;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-dropdown option {
+    color: #003366;
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+.vehicle-selection-step {
+    margin-bottom: 20px;
+}
+
+.vehicle-selection-summary {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #003366;
+    background-color: #e6f2ff;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.loading-message {
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+}

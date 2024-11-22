@@ -93,8 +93,8 @@ const CustomerHomepage = () => {
                         <InputText id="phone" value={customer.phone || 'Loading...'} readOnly />
                         <div className="customer-homepage-action-buttons">
                             <Button label="Change Email" className="customer-homepage-action-button" onClick={toEmailPage}/>
-                            <Button label="Change Password" className="customer-homepage-action-button" onClick={toPasswordPage}/>
                             <Button label="Change Phone Number" className="customer-homepage-action-button" onClick={toPhonePage} />
+                            <Button label="Change Password" className="customer-homepage-action-button" onClick={toPasswordPage}/>
                         </div>
                     </div>
 
