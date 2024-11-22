@@ -50,7 +50,7 @@
     padding: 20px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Logo */
@@ -106,7 +106,7 @@
 /* Style for buttons */
 .customer-login-button {
     width: 100%;
-    background-color: #003366;
+    background-color: #007bff;
     border: none;
     font-size: 1rem;
     padding: 0.75rem;
@@ -123,7 +123,7 @@
 /* Register button in blue */
 .customer-login-register-button {
     width: 100%;
-    background-color: #007bff;
+    background-color: #003366;
     border: none;
     font-size: 1rem;
     padding: 0.75rem;

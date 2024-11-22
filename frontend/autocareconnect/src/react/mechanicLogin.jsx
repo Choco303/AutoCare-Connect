@@ -13,6 +13,7 @@ const MechanicLogin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loginMessage, setLoginMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -21,6 +22,10 @@ const MechanicLogin = () => {
             navigate('/mechanicHomepage');
         }
     }, [navigate]);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevState) => !prevState);
+    };
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -84,13 +89,14 @@ const MechanicLogin = () => {
                         <span className="mechanic-login-float-label">
                             <InputText
                                 id="password"
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                             <label htmlFor="password">Password</label>
                         </span>
+                        <Button label={showPassword ? 'Hide Password' : 'Show Password'} className="toggle-password-button" onClick={togglePasswordVisibility} type="button"/>
                     </div>
                     <Button label="Login" type="submit" className="mechanic-login-button" />
                 </form>

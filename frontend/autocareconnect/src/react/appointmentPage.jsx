@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import Sidebar from './sidebar';
 import Logout from './logout';
 import './css/base.css';
 import './css/appointmentPage.css';
 import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
+
 const appointmentPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => {
@@ -35,4 +36,4 @@ const appointmentPage = () => {
         </div>
     );
 };
-export default appointmentPage;
+export default appointmentPage; */
