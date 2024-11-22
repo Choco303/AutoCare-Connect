@@ -1,189 +1,186 @@
-.customer-profile-App {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f6f9;
-}
-
-/* Adds a shadow and padding to the card */
-.customer-profile-p-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-}
-
-/* Custom styling for the button */
-.customer-profile-p-button {
-    background-color: #007ad9;
-    border-color: #007ad9;
-    color: #fff;
-}
-
-.customer-profile-p-button:hover {
-    background-color: #005bb5;
-    border-color: #005bb5;
-}
-
-/* Text styling within the card */
-.customer-profile-p-card-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
-}
-
-.customer-profile-p-card-subtitle {
-    font-size: 1.1em;
-    color: #666;
-}
-
-.customer-profile-p-card-content p {
-    color: #555;
-    line-height: 1.5;
-}
-/* Container */
+/* General container styling */
 .customer-profile-container {
     display: flex;
-    flex-direction: column;       /* Aligns elements vertically */
-    min-height: 100vh;            /* Ensures full viewport height */
-    background-color: #E5F4FA;    /* Light background color for the whole page */
-    color: #003366;               /* Dark blue text color */
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #E5F4FA; /* Light blue background */
+    color: #003366; /* Dark blue text */
     font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
-/* Header (Top Bar) */
+/* Header styling */
 .customer-profile-header-banner {
-    width: 100%;                  /* Full width */
-    background-color: #003366;    /* Dark blue background */
-    color: white;                 /* White text color */
+    width: 100%;
+    background-color: #003366; /* Dark blue */
+    color: white;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 15px;
-    box-sizing: border-box;       /* Includes padding in width calculation */
+    justify-content: space-between; /* Aligns back button and title */
+    padding: 15px 20px;
+    box-sizing: border-box;
 }
 
-/* Menu Icon (Back Button or Hamburger Menu Icon) */
 .customer-profile-menu-icon {
-    position: absolute;
-    left: 20px;                   /* Positions icon on the left */
+    font-size: 20px;
+    color: white;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
 }
 
-/* Banner Title (Main Page Title) */
 .customer-profile-banner-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
+    margin: 0 auto;
     text-align: center;
 }
 
-/* Container for the Profile Information Section */
+/* Profile Info Container */
 .customer-profile-profile-info-container {
     display: flex;
-    gap: 20px;                    /* Spacing between profile information boxes */
+    gap: 20px;
     padding: 20px;
-    justify-content: center;      /* Centers the profile info section */
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Makes it responsive */
 }
 
-/* User Info Box (Left Box with User Icon and Username) */
+/* User Info Section */
 .customer-profile-user-info {
     display: flex;
     flex-direction: column;
-    align-items: center;          /* Centers icon and username text */
-    background-color: #003366;    /* Dark blue background for consistency */
+    align-items: center;
+    background-color: #003366; /* Dark blue background */
     color: white;
-    padding: 15px;
-    border-radius: 8px;           /* Rounded corners */
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
     width: 150px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* User Icon Image */
 .customer-profile-user-info img {
     width: 50px;
     height: 50px;
-    border-radius: 50%;           /* Circular icon */
+    border-radius: 50%; /* Circular image */
     margin-bottom: 10px;
 }
 
-/* Username Text */
-.customer-profile-user-info .username {
-    font-size: 18px;
+.customer-profile-username {
+    font-size: 16px;
     font-weight: bold;
+    text-align: center;
 }
 
-/* General Info Box (Used for Service Details, Contact Info, etc.) */
+/* Info Box Section */
 .customer-profile-info-box {
-    background-color: #003366;    /* Dark blue background for consistency */
+    background-color: #003366; /* Dark blue background */
     color: white;
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    width: 220px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Input Fields Inside Info Boxes */
 .customer-profile-info-box input {
-    background-color: #E5F4FA;    /* Light background color for inputs */
-    color: #003366;               /* Text color for inputs */
+    background-color: #E5F4FA; /* Light input background */
+    color: #003366; /* Input text color */
     border: none;
     padding: 8px;
-    border-radius: 4px;           /* Rounded corners for inputs */
+    border-radius: 4px;
     width: 100%;
     margin-top: 5px;
     margin-bottom: 10px;
+    font-size: 14px;
 }
 
-/* Labels Inside Info Boxes */
 .customer-profile-info-box label {
-    font-weight: bold;            /* Bold text for labels */
+    font-weight: bold;
     display: block;
     margin-bottom: 5px;
+    font-size: 14px;
 }
 
-/* Receipt Section (Right Box with Receipt Details) */
+/* Receipt Box */
 .customer-profile-receipt-box {
-    background-color: #003366;    /* Dark blue background */
+    background-color: #003366; /* Dark blue */
     color: white;
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
-    width: 250px;
-    height: 150px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    width: 220px;
+    height: 200px; /* Fixed height */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
 }
 
-/* Action Buttons Container (For Buttons Like Rewards, Appointment, etc.) */
+/* Change buttons (Email, Password, Phone Number) */
+.customer-profile-info-box .p-button-secondary {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Action Buttons Section */
 .customer-profile-action-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;                    /* Spacing between buttons */
-    margin-top: 20px;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Makes it responsive */
 }
 
-/* Action Buttons Styling (Rewards, Appointment, Leave a Review, etc.) */
 .customer-profile-button {
-    background-color: #003366;    /* Dark blue background */
+    background-color: #003366; /* Dark blue */
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;           /* Rounded corners */
+    border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
-    margin: 5px;
-    width: 150px;                 /* Consistent button width */
+    width: 150px; /* Matches screenshot */
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-align: center;
 }
 
-/* Hover Effect for Action Buttons */
 .customer-profile-button:hover {
-    background-color: #005f99;    /* Slightly lighter blue when hovered */
+    background-color: #005f99; /* Lighter blue on hover */
 }
 
-/* Footer (Bottom Text Section) */
+/* Footer Section */
 .customer-profile-footer {
-    background-color: #003366;    /* Dark blue background */
+    background-color: #003366; /* Dark blue */
     color: white;
     text-align: center;
-    padding: 15px;
     font-size: 14px;
+    margin-top: auto; /* Push footer to the bottom */
+    display: flex;
+    justify-content: space-between; /* Align text and logo */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.customer-profile-footer .footer-logo {
+    height: 30px;
+    width: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .customer-profile-profile-info-container {
+        flex-direction: column; /* Stack boxes vertically */
+        align-items: center;
+    }
+
+    .customer-profile-info-box,
+    .customer-profile-receipt-box {
+        width: 90%; /* Full width on small screens */
+    }
+
+    .customer-profile-action-buttons {
+        gap: 10px; /* Reduce gap for buttons */
+    }
+
+    .customer-profile-button {
+        width: 100%; /* Full-width buttons on small screens */
+    }
 }
