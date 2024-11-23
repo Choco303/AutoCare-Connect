@@ -114,16 +114,15 @@ const RepairInfo = () => {
                             Date {selectedDate ? selectedDate.toLocaleDateString() : 'Select'}
                         </button>
                         {isCalendarOpen && (
-                            <div className="calendar-popup" ref={calendarRef}>
-                                <Calendar
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
-                                    view="month"
-                                    dateFormat="mm/yy"
-                                    inline
-                                    style={{ width: '15rem' }}
-                                />
-                            </div>
+                            <Calendar
+                                value={selectedDate}
+                                onChange={handleDateChange}
+                                view="month"
+                                dateFormat="mm/yy"
+                                inline
+                                style={{ width: '15rem' }}
+                                selectionMode="single"
+                            />
                         )}
                     </div>
                     <div>Repair Type</div>
