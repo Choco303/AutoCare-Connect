@@ -33,6 +33,10 @@ const CustomerHomepage = () => {
         navigate('/rewardsOverview');
     }
 
+    const toRepairInfo = () => {
+        navigate('/repairInfo');
+    }
+
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
         if (username) {
@@ -108,7 +112,7 @@ const CustomerHomepage = () => {
                 {/* Action Buttons */}
                 <section className="customer-homepage-action-buttons">
                     <Button label="Appointment" className="p-button-rounded customer-homepage-action-button" />
-                    <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button" />
+                    <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button" onClick={toRepairInfo}/>
                     <Button label="My Rewards" className="p-button-rounded customer-homepage-action-button" onClick={toRewardsPage}/>
                 </section>
             </div>
