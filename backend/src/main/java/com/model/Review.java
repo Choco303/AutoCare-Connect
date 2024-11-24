@@ -29,6 +29,7 @@ public class Review {
     @Column(nullable = false)
     private int rating;
 
+    @Builder.Default
     @Column(name = "review_date", nullable = false)
-    private LocalDateTime reviewDate = LocalDateTime.now();
+    private LocalDateTime reviewDate = LocalDateTime.now(); // Default to now
 }

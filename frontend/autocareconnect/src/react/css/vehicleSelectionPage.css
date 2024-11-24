@@ -1,5 +1,4 @@
 .vehicle-selection-page {
-    padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     min-height: 100vh;
@@ -50,16 +49,37 @@
     margin-bottom: 20px;
 }
 
-.vehicle-dropdown {
-    width: 100%;
-    padding: 10px 15px;
+/* Apply consistent font styling to all inputs and selects */
+.vehicle-selection-page input,
+.vehicle-selection-page select {
+    font-family: Arial, sans-serif; /* Ensures consistent font */
     font-size: 1rem;
     color: #003366;
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-top: 10px;
+    padding: 10px;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    width: 100%; /* Consistent width */
+}
+
+/* Specifically target the date input for additional styling */
+.vehicle-date-input {
+    font-family: Arial, sans-serif; /* Fixes different font on some browsers */
+    font-size: 1rem;
+    color: #003366;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-date-input.booked {
+    background-color: #f5f5f5;
+    color: #aaa;
+    pointer-events: none;
 }
 
 .vehicle-dropdown option {
@@ -68,27 +88,34 @@
     padding: 5px;
 }
 
-.vehicle-selection-step {
-    margin-bottom: 20px;
-}
-
-.vehicle-selection-summary {
+.vehicle-time-selection {
     margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #003366;
-    background-color: #e6f2ff;
+}
+
+.vehicle-submit-button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 20px;
     border-radius: 5px;
-    text-align: left;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
 }
 
-.error-message {
-    color: red;
-    font-weight: bold;
-    margin: 10px 0;
+.vehicle-submit-button:hover {
+    background-color: #002244;
 }
 
-.loading-message {
-    color: #555;
-    font-style: italic;
+.vehicle-error-message,
+.vehicle-success-message {
+    font-family: 'Arial', sans-serif;
     margin-top: 10px;
+    font-size: 1rem;
+    color: #ff0000; /* Error color */
+}
+
+.vehicle-success-message {
+    color: #008000; /* Success color */
 }

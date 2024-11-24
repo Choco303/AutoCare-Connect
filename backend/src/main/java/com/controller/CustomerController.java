@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -19,13 +20,12 @@ public class CustomerController {
     // Login endpoint
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Customer loginDetails) {
-        // Find customer by username and password
-        Customer customer = customerRepository.findByUsernameAndPassword(
+        Optional<Customer> customer = customerRepository.findByUsernameAndPassword(
                 loginDetails.getUsername(),
                 loginDetails.getPassword()
         );
-        if (customer != null) {
-            return ResponseEntity.ok(customer.getUsername()); // Return username on successful login
+        if (customer.isPresent()) {
+            return ResponseEntity.ok(customer.get().getUsername()); // Return username on successful login
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
@@ -33,22 +33,20 @@ public class CustomerController {
     // Register endpoint
     @PostMapping("/register")
     public ResponseEntity<?> registerCustomer(@RequestBody Customer newCustomer) {
-        try {
-            // Save the customer in the database
-            customerRepository.save(newCustomer);
-            return ResponseEntity.ok("Customer registered");
-        } catch (Exception e) {
-            // Handle cases like duplicate usernames or emails
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register customer: " + e.getMessage());
+        Optional<Customer> existingCustomer = customerRepository.findByUsername(newCustomer.getUsername());
+        if (existingCustomer.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already taken");
         }
+        customerRepository.save(newCustomer);
+        return ResponseEntity.ok("Customer registered successfully");
     }
 
     // New endpoint to fetch customer details
     @GetMapping("/details/{username}")
     public ResponseEntity<?> getCustomerDetails(@PathVariable String username) {
-        Customer customer = customerRepository.findByUsername(username);
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
+        Optional<Customer> customer = customerRepository.findByUsername(username);
+        if (customer.isPresent()) {
+            return ResponseEntity.ok(customer.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
@@ -56,47 +54,46 @@ public class CustomerController {
     // Update email endpoint
     @PutMapping("/update-email")
     public ResponseEntity<?> updateEmail(@RequestParam String username, @RequestParam String newEmail) {
-        Customer customer = customerRepository.findByUsername(username);
-        if (customer != null) {
-            customer.setEmail(newEmail);
-            customerRepository.save(customer);
+        Optional<Customer> customer = customerRepository.findByUsername(username);
+        if (customer.isPresent()) {
+            Customer existingCustomer = customer.get();
+            existingCustomer.setEmail(newEmail);
+            customerRepository.save(existingCustomer);
             return ResponseEntity.ok("Email updated successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
 
     // Update password endpoint
     @PutMapping("/update-password")
     public ResponseEntity<?> updatePassword(@RequestParam String username, @RequestParam String newPassword) {
-        Customer customer = customerRepository.findByUsername(username);
-        if (customer != null) {
-            customer.setPassword(newPassword);
-            customerRepository.save(customer);
+        Optional<Customer> customer = customerRepository.findByUsername(username);
+        if (customer.isPresent()) {
+            Customer existingCustomer = customer.get();
+            existingCustomer.setPassword(newPassword);
+            customerRepository.save(existingCustomer);
             return ResponseEntity.ok("Password updated successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
 
     // Update phone number endpoint
     @PutMapping("/update-number")
     public ResponseEntity<?> updatePhoneNumber(@RequestParam String username, @RequestParam String newNumber) {
-        Customer customer = customerRepository.findByUsername(username);
-        if (customer != null) {
-            customer.setPhone(newNumber); // Use setPhone instead of setPhoneNumber
-            customerRepository.save(customer);
+        Optional<Customer> customer = customerRepository.findByUsername(username);
+        if (customer.isPresent()) {
+            Customer existingCustomer = customer.get();
+            existingCustomer.setPhone(newNumber);
+            customerRepository.save(existingCustomer);
             return ResponseEntity.ok("Phone number updated successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
-
 
     // Fetch all customers endpoint
     @GetMapping("/customers")
-    public List<Customer> getAllCustomers() {
-        // Return a list of all customers
-        return customerRepository.findAll();
+    public ResponseEntity<List<Customer>> getAllCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        return ResponseEntity.ok(customers);
     }
 }

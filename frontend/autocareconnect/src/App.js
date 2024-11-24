@@ -16,6 +16,7 @@ import ChangePhone from "./react/changePhone";
 import RegisterPage from "./react/registrationPage";
 import VehicleSelectionPage from "./react/VehicleSelectionPage";
 import RepairInfo from "./react/repairInfo";
+import AppointmentConfirmationPage from "./react/appointmentConfirmationPage";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/registrationPage" element={<RegisterPage/>} />
                     <Route path="/vehicle" element={<VehicleSelectionPage/>} />
                     <Route path="/repairInfo" element={<RepairInfo/>} />
+                    <Route path="/confirmation" element={<AppointmentConfirmationPage/>} />
                 </Routes>
             </div>
         </Router>

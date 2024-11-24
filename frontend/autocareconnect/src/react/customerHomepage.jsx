@@ -11,6 +11,14 @@ import axios from 'axios';
 const CustomerHomepage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [customer, setCustomer] = useState({});
+    const [appointment, setAppointment] = useState({
+        receiptId: 'None',
+        serviceName: 'None',
+        carMake: 'None',
+        carModel: '',
+        carYear: '',
+        appointmentDate: 'None',
+    });
     const navigate = useNavigate();
 
     const toggleSidebar = () => {
@@ -40,6 +48,7 @@ const CustomerHomepage = () => {
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
         if (username) {
+            // Fetch customer details
             axios
                 .get(`http://localhost:8080/api/customer/details/${username}`)
                 .then((response) => {
@@ -48,8 +57,39 @@ const CustomerHomepage = () => {
                 .catch((error) => {
                     console.error('Error fetching customer details:', error);
                 });
+
+            // Fetch appointment details
+            axios
+                .get(`http://localhost:8080/api/appointment/details/${username}`)
+                .then((response) => {
+                    if (response.data && !response.data.message) {
+                        setAppointment({
+                            receiptId: response.data.receiptId || 'No Receipt Found',
+                            serviceName: response.data.serviceName || 'N/A',
+                            carMake: response.data.carMake || 'N/A',
+                            carModel: response.data.carModel || 'N/A',
+                            carYear: response.data.carYear || 'N/A',
+                            appointmentDate: response.data.appointmentDate
+                                ? new Date(response.data.appointmentDate).toLocaleDateString()
+                                : 'N/A',
+                        });
+                    } else {
+                        setAppointment((prev) => ({
+                            ...prev,
+                            receiptId: 'No Receipt Found',
+                        }));
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching appointment details:', error);
+                    setAppointment((prev) => ({
+                        ...prev,
+                        receiptId: 'Error retrieving receipt',
+                    }));
+                });
         }
     }, []);
+
 
     return (
         <div className="customer-homepage">
@@ -80,38 +120,41 @@ const CustomerHomepage = () => {
                     {/* Service Box */}
                     <div className="customer-homepage-box customer-homepage-service-box">
                         <label htmlFor="service">Service:</label>
-                        <InputText id="service" value="Oil Change" readOnly />
+                        <InputText id="service" value={appointment.serviceName} readOnly />
                         <label htmlFor="car">Car:</label>
-                        <InputText id="car" value="Toyota" readOnly />
+                        <InputText id="car" value={`${appointment.carMake} ${appointment.carModel} ${appointment.carYear}`} readOnly />
                         <label htmlFor="appointment">Appointment Date:</label>
-                        <InputText id="appointment" value="01/01/2024" readOnly />
-                        <label htmlFor="completion">Complete Date:</label>
-                        <InputText id="completion" value="01/02/2024" readOnly />
+                        <InputText id="appointment" value={appointment.appointmentDate} readOnly />
+                        <label htmlFor="completion">Completion Progress:</label>
+                        <InputText id="completion" value="01/02/2024" readOnly/>
                     </div>
 
                     {/* Contact Box */}
                     <div className="customer-homepage-box customer-homepage-contact-box">
                         <label htmlFor="email">Email:</label>
-                        <InputText id="email" value={customer.email || 'Loading...'} readOnly />
+                        <InputText id="email" value={customer.email || 'Loading...'} readOnly/>
                         <label htmlFor="phone">Phone:</label>
-                        <InputText id="phone" value={customer.phone || 'Loading...'} readOnly />
+                        <InputText id="phone" value={customer.phone || 'Loading...'} readOnly/>
                         <div className="customer-homepage-action-buttons">
-                            <Button label="Change Email" className="customer-homepage-action-button" onClick={toEmailPage}/>
-                            <Button label="Change Phone Number" className="customer-homepage-action-button" onClick={toPhonePage} />
-                            <Button label="Change Password" className="customer-homepage-action-button" onClick={toPasswordPage}/>
+                            <Button label="Change Email" className="customer-homepage-action-button"
+                                    onClick={toEmailPage}/>
+                            <Button label="Change Phone Number" className="customer-homepage-action-button"
+                                    onClick={toPhonePage}/>
+                            <Button label="Change Password" className="customer-homepage-action-button"
+                                    onClick={toPasswordPage}/>
                         </div>
                     </div>
 
                     {/* Receipt Box */}
                     <div className="customer-homepage-box customer-homepage-receipt-box">
                         <label>Receipt:</label>
-                        <p>Transaction ID: XXXXXXX</p>
+                        <p>ID: {appointment.receiptId}</p>
                     </div>
                 </section>
 
                 {/* Action Buttons */}
                 <section className="customer-homepage-action-buttons">
-                    <Button label="Appointment" className="p-button-rounded customer-homepage-action-button" />
+                    <Button label="Appointment" className="p-button-rounded customer-homepage-action-button"/>
                     <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button" onClick={toRepairInfo}/>
                     <Button label="My Rewards" className="p-button-rounded customer-homepage-action-button" onClick={toRewardsPage}/>
                 </section>

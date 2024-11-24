@@ -14,40 +14,29 @@ const MechHomepage = () => {
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0);
     const [isTiming, setIsTiming] = useState(false);
-
+    const [refreshKey, setRefreshKey] = useState(0);
     const [isClockModalVisible, setIsClockModalVisible] = useState(false);
     const [clockModalStartTime, setClockModalStartTime] = useState(null);
     const [clockModalElapsedTime, setClockModalElapsedTime] = useState(0);
     const [isClockModalTiming, setIsClockModalTiming] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isTaskModalVisible, setIsTaskModalVisible] = useState(false);
+    const [isAppointmentModalVisible, setIsAppointmentModalVisible] = useState(false);
+    const [isCompletedTasksModalVisible, setIsCompletedTasksModalVisible] = useState(false);
+    const [isAvailableAppointmentsModalVisible, setIsAvailableAppointmentsModalVisible] = useState(false);
+    const [receipts, setReceipts] = useState([]);
     const [first, setFirst] = useState(0);
     const [rows] = useState(5);
 
-    const [receipts, setReceipts] = useState([]);
+    // Appointment state
+    const [availableAppointments, setAvailableAppointments] = useState([]);
+    const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-    // get the receipts from the database and backend
-    useEffect(() => {
-        const fetchReceipts = async () => {
-            const mechanicUsername = localStorage.getItem('mechanicUsername'); // Retrieve from localStorage
-            try {
-                const response = await axios.get(`http://localhost:8080/api/receipts/byMechanic`, {
-                    params: { username: mechanicUsername },
-                });
-                setReceipts(response.data);
-            } catch (error) {
-                console.error('Error fetching receipts:', error);
-            }
-        };
-
-        fetchReceipts();
-    }, []);
-
-
-    useEffect(() => {
-        console.log('Receipts state updated:', receipts);
-    }, [receipts]);
-
-
+    // Mechanic state
+    const [assignedAppointment, setAssignedAppointment] = useState(() => {
+        const savedAppointment = localStorage.getItem('assignedAppointment');
+        return savedAppointment ? JSON.parse(savedAppointment) : null;
+    });
+    const mechanicUsername = localStorage.getItem('mechanicUsername');
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -75,15 +64,6 @@ const MechHomepage = () => {
         setClockModalElapsedTime(0);
     };
 
-    // open table modal
-    const openModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const closeModal = () => {
-        setIsModalVisible(false);
-    };
-
     // open clock modal
     const openClockModal = () => {
         setIsClockModalVisible(true);
@@ -96,6 +76,78 @@ const MechHomepage = () => {
     const onPageChange = (e) => {
         setFirst(e.first);
     };
+
+    // get the receipts from the database and backend
+    const fetchAvailableAppointments = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/appointment/available`, {
+                params: { mechanicUsername },
+            });
+            setAvailableAppointments(response.data);
+        } catch (error) {
+            console.error('Error fetching available appointments:', error);
+        }
+    };
+
+    // Fetch the assigned appointment for the mechanic
+    const fetchAssignedAppointment = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/appointment/assigned`, {
+                params: { mechanicUsername },
+            });
+
+            console.log("Assigned appointment response:", response.data);
+
+            if (response.data) {
+                setAssignedAppointment(response.data);
+                localStorage.setItem('assignedAppointment', JSON.stringify(response.data));
+            } else {
+                setAssignedAppointment(null);
+                localStorage.removeItem('assignedAppointment');
+            }
+        } catch (error) {
+            console.error('Error fetching assigned appointment:', error);
+            setAssignedAppointment(null);
+            localStorage.removeItem('assignedAppointment');
+        }
+    };
+
+
+    // Assign an appointment to the mechanic
+    const assignAppointment = async (receiptId) => {
+        try {
+            const response = await axios.post(`http://localhost:8080/api/appointment/assign`, null, {
+                params: { receiptId, mechanicUsername },
+            });
+            setAssignedAppointment(response.data.appointment);
+            localStorage.setItem('assignedAppointment', JSON.stringify(response.data.appointment));
+            setRefreshKey((prev) => prev + 1); // Trigger refresh
+        } catch (error) {
+            console.error('Error assigning appointment:', error);
+        }
+    };
+
+    const fetchCompletedTasks = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/receipts`, {
+                params: { mechanicUsername },
+            });
+            setReceipts(response.data);
+        } catch (error) {
+            console.error('Error fetching completed tasks:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchAvailableAppointments();
+        fetchAssignedAppointment();
+        fetchCompletedTasks();
+    }, [mechanicUsername]);
+
+    useEffect(() => {
+        fetchAssignedAppointment();
+        fetchAvailableAppointments();
+    }, [refreshKey]);
 
     useEffect(() => {
         let timer;
@@ -146,28 +198,29 @@ const MechHomepage = () => {
                 <section className="mech-task-grid-section">
                     {/* Assigned Tasks */}
                     <div className="mech-assigned-tasks mech-homepage-box">
-                        <label htmlFor="tasks">Assigned Tasks</label>
+                        <label htmlFor="tasks">Current Task</label>
                         <label htmlFor="customer">Customer</label>
-                        <InputText id="customer" value="someone" readOnly />
+                        <InputText id="customer" value={assignedAppointment?.username || 'Not Assigned'} readOnly/>
                         <label htmlFor="contact">Contact Info</label>
-                        <InputText id="contact" value="john.smith@gmail.com" readOnly />
+                        <InputText id="contact" value={assignedAppointment?.phone || 'Not Assigned'} readOnly/>
                         <label htmlFor="car">Car</label>
-                        <InputText id="car" value="Toyota" readOnly />
+                        <InputText id="car" value={assignedAppointment ? `${assignedAppointment.carMake} ${assignedAppointment.carModel} ${assignedAppointment.carYear}` : 'Not Assigned'} readOnly/>
                         <label htmlFor="taskName">Service</label>
-                        <InputText id="taskName" value="Oil Change" readOnly />
+                        <InputText id="taskName" value={assignedAppointment?.serviceName || 'Not Assigned'} readOnly/>
                         <label htmlFor="time">Estimated Time</label>
-                        <InputText id="time" value="45 minutes" readOnly />
+                        <InputText id="time" value={assignedAppointment?.estimatedTime || 'Not Assigned'} readOnly/>
                     </div>
+
 
                     {/* Resources */}
                     <div className="mech-resources mech-homepage-box">
                         <label htmlFor="resources">Resources</label>
                         <label htmlFor="parts">Parts</label>
-                        <InputText id="parts" value="Oil Filter x1" readOnly />
+                        <InputText id="resources" value={assignedAppointment?.resources || 'Not Assigned'} readOnly/>
                     </div>
 
                     {/* Shared Column for Current Task and Upcoming Tasks */}
-                    <div style={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: '10px' }}>
+                    <div style={{display: 'grid', gridTemplateRows: '1fr 1fr', gap: '10px'}}>
                         {/* Current Task */}
                         <div className="mech-current-task mech-homepage-box">
                             <label>Current Task:</label>
@@ -197,9 +250,9 @@ const MechHomepage = () => {
                         <div className="mech-upcoming-tasks mech-homepage-box">
                             <label htmlFor="upcoming">Upcoming Tasks</label>
                             <label htmlFor="task1">Nissan Versa 2007</label>
-                            <InputText id="task1" value="Oil Change & Wheel Alignment" readOnly />
+                            <InputText id="task1" value="Oil Change & Wheel Alignment" readOnly/>
                             <label htmlFor="task2">Chevrolet Camaro 1983</label>
-                            <InputText id="task2" value="Spark Plug Replacement" readOnly />
+                            <InputText id="task2" value="Spark Plug Replacement" readOnly/>
                         </div>
                     </div>
 
@@ -221,7 +274,7 @@ const MechHomepage = () => {
                         <Button
                             label="View Table"
                             className="p-button-secondary mech-button"
-                            onClick={openModal}
+                            onClick={() => setIsCompletedTasksModalVisible(true)}
                         />
                     </div>
                 </section>
@@ -231,37 +284,47 @@ const MechHomepage = () => {
                     className="p-button-primary mech-button mech-clock-modal-button"
                     onClick={openClockModal}
                 />
+                {/* View Available Appointments */}
+                <Button
+                    label="View Available Appointments"
+                    className="p-button-primary mech-button"
+                    onClick={() => setIsAvailableAppointmentsModalVisible(true)}
+                />
             </div>
 
             {/* Modal for Completed Tasks */}
             <Dialog
-                header={<span className="mech-receipt-table-header">Recently Completed Task</span>}
-                visible={isModalVisible}
-                onHide={closeModal}
+                header={<span className="mech-receipt-table-header">Recently Completed Tasks</span>}
+                visible={isCompletedTasksModalVisible}
+                onHide={() => setIsCompletedTasksModalVisible(false)}
                 className="mech-custom-modal"
             >
-                <table className="mech-completed-tasks-table">
-                    <thead>
-                    <tr>
-                        <th>Receipt</th>
-                        <th>Car</th>
-                        <th>Task</th>
-                        <th>Date</th>
-                        <th>Time Taken</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {receipts.slice(first, first + rows).map((receipt, index) => (
-                        <tr key={index}>
-                            <td>{receipt.receiptId}</td>
-                            <td>{receipt.carDetails}</td>
-                            <td>{receipt.task}</td>
-                            <td>{receipt.serviceDate}</td>
-                            <td>{receipt.timeTaken}</td>
+                {receipts.length > 0 ? (
+                    <table className="mech-completed-tasks-table">
+                        <thead>
+                        <tr>
+                            <th>Receipt</th>
+                            <th>Car</th>
+                            <th>Task</th>
+                            <th>Date</th>
+                            <th>Time Taken</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {receipts.slice(first, first + rows).map((receipt, index) => (
+                            <tr key={index}>
+                                <td>{receipt.receiptId}</td>
+                                <td>{receipt.carDetails}</td>
+                                <td>{receipt.task}</td>
+                                <td>{receipt.serviceDate}</td>
+                                <td>{receipt.timeTaken}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No completed tasks available.</p>
+                )}
                 <Paginator
                     first={first}
                     rows={rows}
@@ -269,6 +332,8 @@ const MechHomepage = () => {
                     onPageChange={onPageChange}
                 />
             </Dialog>
+
+
 
             {/* Modal for Clock In/Out */}
             <Dialog
@@ -297,6 +362,45 @@ const MechHomepage = () => {
                         disabled={!isClockModalTiming}
                     />
                 </div>
+            </Dialog>
+
+            {/* Modal for Viewing Appointments */}
+            <Dialog
+                header="Available Appointments"
+                visible={isAvailableAppointmentsModalVisible}
+                onHide={() => setIsAvailableAppointmentsModalVisible(false)}
+                className="mech-custom-modal"
+            >
+                <table className="mech-available-appointments-table">
+                    <thead>
+                    <tr>
+                        <th>Receipt ID</th>
+                        <th>Car</th>
+                        <th>Service</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {availableAppointments.map((appointment) => (
+                        <tr key={appointment.receiptId}>
+                            <td>{appointment.receiptId}</td>
+                            <td>
+                                {appointment.carMake} {appointment.carModel} {appointment.carYear}
+                            </td>
+                            <td>{appointment.serviceName}</td>
+                            <td>
+                                <Button
+                                    label="Assign"
+                                    className="p-button-success"
+                                    onClick={() => assignAppointment(appointment.receiptId)}
+                                    disabled={!!assignedAppointment}
+                                />
+
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </Dialog>
 
             <footer className="mech-footer-banner">
