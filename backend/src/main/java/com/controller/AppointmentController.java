@@ -188,4 +188,15 @@ public class AppointmentController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{receiptId}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable String receiptId) {
+        try {
+            appointmentService.deleteAppointmentByReceiptId(receiptId);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
 }

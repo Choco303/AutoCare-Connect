@@ -19,8 +19,6 @@ const MechHomepage = () => {
     const [clockModalStartTime, setClockModalStartTime] = useState(null);
     const [clockModalElapsedTime, setClockModalElapsedTime] = useState(0);
     const [isClockModalTiming, setIsClockModalTiming] = useState(false);
-    const [isTaskModalVisible, setIsTaskModalVisible] = useState(false);
-    const [isAppointmentModalVisible, setIsAppointmentModalVisible] = useState(false);
     const [isCompletedTasksModalVisible, setIsCompletedTasksModalVisible] = useState(false);
     const [isAvailableAppointmentsModalVisible, setIsAvailableAppointmentsModalVisible] = useState(false);
     const [receipts, setReceipts] = useState([]);
@@ -29,7 +27,6 @@ const MechHomepage = () => {
 
     // Appointment state
     const [availableAppointments, setAvailableAppointments] = useState([]);
-    const [selectedAppointment, setSelectedAppointment] = useState(null);
 
     // Mechanic state
     const [assignedAppointment, setAssignedAppointment] = useState(() => {
@@ -44,14 +41,52 @@ const MechHomepage = () => {
 
     // task timer
     const handleStartTask = () => {
+        if (!assignedAppointment) return; // Ensure there is a task assigned
         setStartTime(Date.now());
         setIsTiming(true);
     };
 
-    const handleFinishTask = () => {
-        setIsTiming(false);
-        setElapsedTime(0);
+
+    const handleFinishTask = async () => {
+        if (!assignedAppointment) return; // check if a task is assigned
+
+        try {
+            const elapsedMinutes = Math.ceil(elapsedTime / 60);
+            const elapsedSeconds = elapsedTime % 60;
+
+            const timeString =
+                elapsedMinutes < 10
+                    ? `${elapsedMinutes} minutes ${elapsedSeconds} seconds`
+                    : `${elapsedMinutes} minutes`;
+
+            const receipt = {
+                receiptId: assignedAppointment.receiptId,
+                carDetails: `${assignedAppointment.carMake} ${assignedAppointment.carModel} ${assignedAppointment.carYear}`,
+                task: assignedAppointment.serviceName,
+                serviceDate: new Date().toISOString().split('T')[0], // ISO date format
+                timeTaken: timeString,
+                mechanicUsername,
+            };
+
+            // send the receipt to the backend and then delete it at the appointment table
+            await axios.post(`http://localhost:8080/api/receipts`, receipt);
+            await axios.delete(`http://localhost:8080/api/appointment/${assignedAppointment.receiptId}`);
+
+            // reset the data if the mechanic is not there/null
+            setAssignedAppointment(null);
+            localStorage.removeItem('assignedAppointment');
+            setElapsedTime(0);
+            setIsTiming(false);
+
+            // get new data
+            fetchAvailableAppointments();
+            fetchCompletedTasks();
+        } catch (error) {
+            console.error('Error finishing task:', error);
+        }
     };
+
+
 
     // clock in timer
     const clockInTimer = () => {
@@ -80,14 +115,20 @@ const MechHomepage = () => {
     // get the receipts from the database and backend
     const fetchAvailableAppointments = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/appointment/available`, {
-                params: { mechanicUsername },
-            });
-            setAvailableAppointments(response.data);
+            const response = await axios.get(`http://localhost:8080/api/appointment/available`);
+            const allAppointments = response.data;
+
+            // Filter appointments where mechanic_username is null
+            const filteredAppointments = allAppointments.filter(
+                (appointment) => !appointment.mechanicUsername
+            );
+
+            setAvailableAppointments(filteredAppointments);
         } catch (error) {
             console.error('Error fetching available appointments:', error);
         }
     };
+
 
     // Fetch the assigned appointment for the mechanic
     const fetchAssignedAppointment = async () => {
@@ -121,7 +162,7 @@ const MechHomepage = () => {
             });
             setAssignedAppointment(response.data.appointment);
             localStorage.setItem('assignedAppointment', JSON.stringify(response.data.appointment));
-            setRefreshKey((prev) => prev + 1); // Trigger refresh
+            setRefreshKey((prev) => prev + 1);
         } catch (error) {
             console.error('Error assigning appointment:', error);
         }
@@ -129,8 +170,8 @@ const MechHomepage = () => {
 
     const fetchCompletedTasks = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/receipts`, {
-                params: { mechanicUsername },
+            const response = await axios.get(`http://localhost:8080/api/receipts/byMechanic`, {
+                params: { username: mechanicUsername },
             });
             setReceipts(response.data);
         } catch (error) {
@@ -148,6 +189,19 @@ const MechHomepage = () => {
         fetchAssignedAppointment();
         fetchAvailableAppointments();
     }, [refreshKey]);
+
+    const formatDateTime = (dateTimeString) => {
+        const date = new Date(dateTimeString);
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        };
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+    };
 
     useEffect(() => {
         let timer;
@@ -179,6 +233,19 @@ const MechHomepage = () => {
         return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     };
 
+    const formatElapsedTime = (seconds) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+
+        if (hours > 0) {
+            return `${hours} hours ${minutes} minutes ${remainingSeconds} seconds`;
+        } else if (minutes < 10) {
+            return `${minutes} minutes ${remainingSeconds} seconds`;
+        } else {
+            return `${minutes} minutes`;
+        }
+    };
     return (
         <div className="mech-homepage-container">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -204,7 +271,9 @@ const MechHomepage = () => {
                         <label htmlFor="contact">Contact Info</label>
                         <InputText id="contact" value={assignedAppointment?.phone || 'Not Assigned'} readOnly/>
                         <label htmlFor="car">Car</label>
-                        <InputText id="car" value={assignedAppointment ? `${assignedAppointment.carMake} ${assignedAppointment.carModel} ${assignedAppointment.carYear}` : 'Not Assigned'} readOnly/>
+                        <InputText id="car"
+                                   value={assignedAppointment ? `${assignedAppointment.carMake} ${assignedAppointment.carModel} ${assignedAppointment.carYear}` : 'Not Assigned'}
+                                   readOnly/>
                         <label htmlFor="taskName">Service</label>
                         <InputText id="taskName" value={assignedAppointment?.serviceName || 'Not Assigned'} readOnly/>
                         <label htmlFor="time">Estimated Time</label>
@@ -225,23 +294,23 @@ const MechHomepage = () => {
                         <div className="mech-current-task mech-homepage-box">
                             <label>Current Task:</label>
                             <p>
-                                <strong>Status:</strong> {isTiming ? 'In Progress' : 'Not Started'}
+                                <strong>Status:</strong> {isTiming ? 'In Progress' : assignedAppointment ? 'Not Started' : 'No Task Assigned'}
                             </p>
                             <p>
-                                <strong>Elapsed Time:</strong> {isTiming ? formatTime(elapsedTime) : '00:00'}
+                                <strong>Elapsed Time:</strong> {isTiming ? formatElapsedTime(elapsedTime) : '00:00'}
                             </p>
                             <div className="mech-button-row">
                                 <Button
                                     label="Start Task"
                                     className="p-button-success mech-button"
                                     onClick={handleStartTask}
-                                    disabled={isTiming}
+                                    disabled={!assignedAppointment || isTiming}
                                 />
                                 <Button
                                     label="Finish"
                                     className="p-button-danger mech-button"
                                     onClick={handleFinishTask}
-                                    disabled={!isTiming}
+                                    disabled={!assignedAppointment || !isTiming}
                                 />
                             </div>
                         </div>
@@ -249,28 +318,35 @@ const MechHomepage = () => {
                         {/* Upcoming Tasks */}
                         <div className="mech-upcoming-tasks mech-homepage-box">
                             <label htmlFor="upcoming">Upcoming Tasks</label>
-                            <label htmlFor="task1">Nissan Versa 2007</label>
-                            <InputText id="task1" value="Oil Change & Wheel Alignment" readOnly/>
-                            <label htmlFor="task2">Chevrolet Camaro 1983</label>
-                            <InputText id="task2" value="Spark Plug Replacement" readOnly/>
+                            {availableAppointments.slice(0, 2).map((appointment, index) => (
+                                <div key={index} className="mech-upcoming-task">
+                                    <label>{`${appointment.carMake} ${appointment.carModel} ${appointment.carYear}`}</label>
+                                    <InputText value={`${appointment.serviceName}`} readOnly/>
+                                    <InputText value={`${formatDateTime(appointment.appointmentDate)}`} readOnly/>
+                                </div>
+                            ))}
+                            {availableAppointments.length === 0 && <p>No upcoming tasks available.</p>}
                         </div>
                     </div>
 
                     {/* Recently Completed Tasks */}
                     <div className="mech-recently-completed mech-homepage-box">
                         <label htmlFor="recentlyCompleted">Recently Completed Tasks</label>
-
-                        {receipts.slice(0, 2).map((receipt, index) => (
-                            <div className="mech-completed-task" key={index}>
-                                <p><strong>Receipt:</strong> <span>{receipt.receiptId}</span></p>
-                                <div className="mech-completed-task-details">
-                                    <p><strong>Car:</strong> {receipt.carDetails}</p>
-                                    <p><strong>Task:</strong> {receipt.task}</p>
-                                    <p><strong>Date:</strong> {receipt.serviceDate}</p>
-                                    <p><strong>Time Taken:</strong> {receipt.timeTaken}</p>
+                        {receipts
+                            .slice()
+                            .reverse() // Reverse the order to show the latest tasks first
+                            .slice(0, 2) // Get the latest two tasks
+                            .map((receipt, index) => (
+                                <div className="mech-completed-task" key={index}>
+                                    <p><strong>Receipt:</strong> <span>{receipt.receiptId}</span></p>
+                                    <div className="mech-completed-task-details">
+                                        <p><strong>Car:</strong> {receipt.carDetails}</p>
+                                        <p><strong>Task:</strong> {receipt.task}</p>
+                                        <p><strong>Date:</strong> {receipt.serviceDate}</p>
+                                        <p><strong>Time Taken:</strong> {receipt.timeTaken}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                         <Button
                             label="View Table"
                             className="p-button-secondary mech-button"
@@ -278,6 +354,7 @@ const MechHomepage = () => {
                         />
                     </div>
                 </section>
+
                 {/* Clock In/Out Button */}
                 <Button
                     label="Clock In/Out"
@@ -311,15 +388,19 @@ const MechHomepage = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {receipts.slice(first, first + rows).map((receipt, index) => (
-                            <tr key={index}>
-                                <td>{receipt.receiptId}</td>
-                                <td>{receipt.carDetails}</td>
-                                <td>{receipt.task}</td>
-                                <td>{receipt.serviceDate}</td>
-                                <td>{receipt.timeTaken}</td>
-                            </tr>
-                        ))}
+                        {receipts
+                            .slice()
+                            .reverse()
+                            .slice(first, first + rows)
+                            .map((receipt, index) => (
+                                <tr key={index}>
+                                    <td>{receipt.receiptId}</td>
+                                    <td>{receipt.carDetails}</td>
+                                    <td>{receipt.task}</td>
+                                    <td>{receipt.serviceDate}</td>
+                                    <td>{receipt.timeTaken}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 ) : (
@@ -332,8 +413,6 @@ const MechHomepage = () => {
                     onPageChange={onPageChange}
                 />
             </Dialog>
-
-
 
             {/* Modal for Clock In/Out */}
             <Dialog
@@ -377,6 +456,7 @@ const MechHomepage = () => {
                         <th>Receipt ID</th>
                         <th>Car</th>
                         <th>Service</th>
+                        <th>Date/Time</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -388,10 +468,11 @@ const MechHomepage = () => {
                                 {appointment.carMake} {appointment.carModel} {appointment.carYear}
                             </td>
                             <td>{appointment.serviceName}</td>
+                            <td>{formatDateTime(appointment.appointmentDate)}</td>
                             <td>
                                 <Button
                                     label="Assign"
-                                    className="p-button-success"
+                                    className="mech-assign-button"
                                     onClick={() => assignAppointment(appointment.receiptId)}
                                     disabled={!!assignedAppointment}
                                 />

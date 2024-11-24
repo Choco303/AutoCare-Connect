@@ -205,4 +205,13 @@ public class AppointmentService {
         } while (appointmentRepository.findByReceiptId(receiptId).isPresent());
         return receiptId;
     }
+
+    public void deleteAppointmentByReceiptId(String receiptId) {
+        Appointment appointment = appointmentRepository.findByReceiptId(receiptId)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found for receiptId: " + receiptId));
+
+        appointmentRepository.delete(appointment);
+    }
+
+
 }
