@@ -52,10 +52,19 @@ const CustomerHomepage = () => {
             axios
                 .get(`http://localhost:8080/api/customer/details/${username}`)
                 .then((response) => {
-                    setCustomer(response.data);
+                    setCustomer({
+                        username: response.data.username || 'N/A',
+                        email: response.data.email || 'N/A',
+                        phone: response.data.phone || 'N/A',
+                    });
                 })
                 .catch((error) => {
                     console.error('Error fetching customer details:', error);
+                    setCustomer({
+                        username: 'Error fetching username',
+                        email: 'Error fetching email',
+                        phone: 'Error fetching phone',
+                    });
                 });
 
             // Fetch appointment details
@@ -65,18 +74,18 @@ const CustomerHomepage = () => {
                     if (response.data && !response.data.message) {
                         setAppointment({
                             receiptId: response.data.receiptId || 'No Receipt Found',
-                            serviceName: response.data.serviceName || 'N/A',
-                            carMake: response.data.carMake || 'N/A',
-                            carModel: response.data.carModel || 'N/A',
-                            carYear: response.data.carYear || 'N/A',
-                            appointmentDate: response.data.appointmentDate
-                                ? new Date(response.data.appointmentDate).toLocaleDateString()
-                                : 'N/A',
+                            serviceName: response.data.serviceName || 'None',
+                            carMake: response.data.carMake || 'None',
+                            carModel: response.data.carModel || 'None',
+                            carYear: response.data.carYear || 'None',
+                            appointmentDate: response.data.appointmentDate || 'None',
+                            status: response.data.status || 'None',
                         });
                     } else {
                         setAppointment((prev) => ({
                             ...prev,
                             receiptId: 'No Receipt Found',
+                            status: 'None',
                         }));
                     }
                 })
@@ -85,10 +94,12 @@ const CustomerHomepage = () => {
                     setAppointment((prev) => ({
                         ...prev,
                         receiptId: 'Error retrieving receipt',
+                        status: 'None',
                     }));
                 });
         }
     }, []);
+
 
 
     return (
@@ -120,13 +131,23 @@ const CustomerHomepage = () => {
                     {/* Service Box */}
                     <div className="customer-homepage-box customer-homepage-service-box">
                         <label htmlFor="service">Service:</label>
-                        <InputText id="service" value={appointment.serviceName} readOnly />
+                        <InputText id="service" value={appointment.serviceName} readOnly/>
                         <label htmlFor="car">Car:</label>
-                        <InputText id="car" value={`${appointment.carMake} ${appointment.carModel} ${appointment.carYear}`} readOnly />
+                        <InputText
+                            id="car"
+                            value={
+                                appointment.carMake === 'None' &&
+                                appointment.carModel === 'None' &&
+                                appointment.carYear === 'None'
+                                    ? 'None'
+                                    : `${appointment.carMake} ${appointment.carModel} ${appointment.carYear}`
+                            }
+                            readOnly
+                        />
                         <label htmlFor="appointment">Appointment Date:</label>
-                        <InputText id="appointment" value={appointment.appointmentDate} readOnly />
-                        <label htmlFor="completion">Completion Progress:</label>
-                        <InputText id="completion" value="01/02/2024" readOnly/>
+                        <InputText id="appointment" value={appointment.appointmentDate} readOnly/>
+                        <label htmlFor="completion">Task Status:</label>
+                        <InputText id="completion" value={appointment.status} readOnly/>
                     </div>
 
                     {/* Contact Box */}
@@ -155,15 +176,17 @@ const CustomerHomepage = () => {
                 {/* Action Buttons */}
                 <section className="customer-homepage-action-buttons">
                     <Button label="Appointment" className="p-button-rounded customer-homepage-action-button"/>
-                    <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button" onClick={toRepairInfo}/>
-                    <Button label="My Rewards" className="p-button-rounded customer-homepage-action-button" onClick={toRewardsPage}/>
+                    <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button"
+                            onClick={toRepairInfo}/>
+                    <Button label="My Rewards" className="p-button-rounded customer-homepage-action-button"
+                            onClick={toRewardsPage}/>
                 </section>
             </div>
 
 
             {/* Footer */}
             <footer className="customer-homepage-footer">
-                <div className="customer-homepage-footer-text">
+            <div className="customer-homepage-footer-text">
                     Providing quality car management services for your convenience.
                 </div>
                 <img src={require('./images/logo.png')} alt="Logo" className="customer-homepage-footer-logo" />

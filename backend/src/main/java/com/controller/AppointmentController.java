@@ -170,7 +170,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.getLatestAppointmentByUsername(username);
 
         if (appointment == null) {
-            return ResponseEntity.ok(Map.of("message", "You do not have an appointment booked."));
+            return ResponseEntity.ok(Map.of("receiptId", "None", "status", "None"));
         }
 
         // Build a response with all relevant appointment details
@@ -185,6 +185,7 @@ public class AppointmentController {
                 : "N/A");
         response.put("estimatedTime", appointment.getEstimatedTime() != null ? appointment.getEstimatedTime() : "N/A");
         response.put("resources", appointment.getResources() != null ? appointment.getResources() : "N/A");
+        response.put("status", appointmentService.getAppointmentStatus(appointment.getReceiptId()));
 
         return ResponseEntity.ok(response);
     }

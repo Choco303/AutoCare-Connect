@@ -53,7 +53,7 @@ public class Appointment {
     @Column(nullable = false, unique = true, length = 6)
     private String receiptId;
 
-    // New field for mechanicUsername
     @Column(name = "mechanic_username")
     private String mechanicUsername;
+
 }

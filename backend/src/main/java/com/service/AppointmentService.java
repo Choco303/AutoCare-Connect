@@ -213,5 +213,23 @@ public class AppointmentService {
         appointmentRepository.delete(appointment);
     }
 
+    /**
+     * Get the status of an appointment based on mechanic assignment.
+     *
+     * @param receiptId The receipt ID of the appointment.
+     * @return "Not Started", "In Progress", or "None".
+     */
+    public String getAppointmentStatus(String receiptId) {
+        Appointment appointment = appointmentRepository.findByReceiptId(receiptId)
+                .orElse(null);
+
+        if (appointment == null) {
+            return "None"; // No appointment means it's finished or doesn't exist
+        }
+
+        return (appointment.getMechanicUsername() == null) ? "Not Started" : "In Progress";
+    }
+
+
 
 }
