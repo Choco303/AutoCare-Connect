@@ -46,9 +46,8 @@ const MechHomepage = () => {
         setIsTiming(true);
     };
 
-
     const handleFinishTask = async () => {
-        if (!assignedAppointment) return; // check if a task is assigned
+        if (!assignedAppointment) return;
 
         try {
             const elapsedMinutes = Math.ceil(elapsedTime / 60);
@@ -66,27 +65,26 @@ const MechHomepage = () => {
                 serviceDate: new Date().toISOString().split('T')[0], // ISO date format
                 timeTaken: timeString,
                 mechanicUsername,
+                username: assignedAppointment.username, // Include customer's username
             };
 
-            // send the receipt to the backend and then delete it at the appointment table
+            // Send the receipt to the backend and delete the appointment
             await axios.post(`http://localhost:8080/api/receipts`, receipt);
             await axios.delete(`http://localhost:8080/api/appointment/${assignedAppointment.receiptId}`);
 
-            // reset the data if the mechanic is not there/null
+            // Reset data
             setAssignedAppointment(null);
             localStorage.removeItem('assignedAppointment');
             setElapsedTime(0);
             setIsTiming(false);
 
-            // get new data
+            // Fetch updated data
             fetchAvailableAppointments();
             fetchCompletedTasks();
         } catch (error) {
             console.error('Error finishing task:', error);
         }
     };
-
-
 
     // clock in timer
     const clockInTimer = () => {
@@ -157,16 +155,17 @@ const MechHomepage = () => {
     // Assign an appointment to the mechanic
     const assignAppointment = async (receiptId) => {
         try {
-            const response = await axios.post(`http://localhost:8080/api/appointment/assign`, null, {
-                params: { receiptId, mechanicUsername },
-            });
-            setAssignedAppointment(response.data.appointment);
-            localStorage.setItem('assignedAppointment', JSON.stringify(response.data.appointment));
-            setRefreshKey((prev) => prev + 1);
+            const response = await axios.post(
+                `http://localhost:8080/api/appointment/assign`,
+                null,
+                { params: { receiptId, mechanicUsername } }
+            );
+            console.log('Appointment assigned:', response.data);
         } catch (error) {
-            console.error('Error assigning appointment:', error);
+            console.error('Error assigning appointment:', error.response?.data?.error || error.message);
         }
     };
+
 
     const fetchCompletedTasks = async () => {
         try {

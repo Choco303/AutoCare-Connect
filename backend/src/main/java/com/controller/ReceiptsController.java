@@ -38,6 +38,18 @@ public class ReceiptsController {
         return receiptsService.searchByTask(task);
     }
 
+    // Endpoint to fetch receipts by a specific user's username
+    @GetMapping("/byUsername")
+    public List<Receipts> getReceiptsByUsername(@RequestParam("username") String username) {
+        return receiptsService.getReceiptsByUsername(username);
+    }
+
+    // Endpoint to fetch receipts by a specific mechanic
+    @GetMapping("/byMechanic")
+    public List<Receipts> getReceiptsByMechanic(@RequestParam("username") String mechanicUsername) {
+        return receiptsService.getReceiptsByMechanic(mechanicUsername);
+    }
+
     // Endpoint to add a new receipt
     @PostMapping
     public Receipts addReceipt(@RequestBody Receipts receipt) {
@@ -49,10 +61,4 @@ public class ReceiptsController {
     public void deleteReceipt(@PathVariable Long id) {
         receiptsService.deleteReceiptById(id);
     }
-
-    @GetMapping("/byMechanic")
-    public List<Receipts> getReceiptsByMechanic(@RequestParam("username") String mechanicUsername) {
-        return receiptsService.getReceiptsByMechanic(mechanicUsername);
-    }
-
 }

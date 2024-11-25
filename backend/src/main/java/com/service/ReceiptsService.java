@@ -43,5 +43,9 @@ public class ReceiptsService {
         receiptsRepository.deleteById(id);
     }
 
+    public List<Receipts> getReceiptsByUsername(String username) { // New method to fetch receipts by username
+        return receiptsRepository.findByUsername(username);
+    }
+
 }
 
