@@ -36,12 +36,62 @@ public class CustomerController {
         try {
             // Save the customer in the database
             customerRepository.save(newCustomer);
-            return ResponseEntity.ok("Customer registered successfully!");
+            return ResponseEntity.ok("Customer registered");
         } catch (Exception e) {
             // Handle cases like duplicate usernames or emails
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to register customer: " + e.getMessage());
         }
     }
+
+    // New endpoint to fetch customer details
+    @GetMapping("/details/{username}")
+    public ResponseEntity<?> getCustomerDetails(@PathVariable String username) {
+        Customer customer = customerRepository.findByUsername(username);
+        if (customer != null) {
+            return ResponseEntity.ok(customer);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
+    }
+
+    // Update email endpoint
+    @PutMapping("/update-email")
+    public ResponseEntity<?> updateEmail(@RequestParam String username, @RequestParam String newEmail) {
+        Customer customer = customerRepository.findByUsername(username);
+        if (customer != null) {
+            customer.setEmail(newEmail);
+            customerRepository.save(customer);
+            return ResponseEntity.ok("Email updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
+        }
+    }
+
+    // Update password endpoint
+    @PutMapping("/update-password")
+    public ResponseEntity<?> updatePassword(@RequestParam String username, @RequestParam String newPassword) {
+        Customer customer = customerRepository.findByUsername(username);
+        if (customer != null) {
+            customer.setPassword(newPassword);
+            customerRepository.save(customer);
+            return ResponseEntity.ok("Password updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
+        }
+    }
+
+    // Update phone number endpoint
+    @PutMapping("/update-number")
+    public ResponseEntity<?> updatePhoneNumber(@RequestParam String username, @RequestParam String newNumber) {
+        Customer customer = customerRepository.findByUsername(username);
+        if (customer != null) {
+            customer.setPhone(newNumber); // Use setPhone instead of setPhoneNumber
+            customerRepository.save(customer);
+            return ResponseEntity.ok("Phone number updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
+        }
+    }
+
 
     // Fetch all customers endpoint
     @GetMapping("/customers")

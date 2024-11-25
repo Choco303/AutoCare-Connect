@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "mechanics")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+public class Mechanic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,4 @@ public class Customer {
 
     @Column(nullable = false, unique = true)
     private String username;
-
-    @Column(nullable = false, length = 15)
-    private String phone;
 }

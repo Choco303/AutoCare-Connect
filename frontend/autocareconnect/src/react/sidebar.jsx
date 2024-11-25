@@ -5,11 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [username, setUsername] = useState(null); // Tracks the logged-in user
-    const [role, setRole] = useState(null); // Tracks the role (customer/admin)
+    const [role, setRole] = useState(null); // Tracks the role (customer/admin/mechanic)
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if a customer or admin is logged in
+        // Check if a customer, admin, or mechanic is logged in
         const customerUsername = localStorage.getItem('customerUsername');
         const adminUsername = localStorage.getItem('adminUsername');
         const mechanicUsername = localStorage.getItem('mechanicUsername');
@@ -23,17 +23,22 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         } else if (mechanicUsername) {
             setUsername(mechanicUsername);
             setRole('mechanic');
+        } else {
+            setUsername(null);
+            setRole(null);
         }
     }, []);
 
     const openProfile = () => {
-        if (username && role === 'customer') {
-            navigate('/customerHomepage'); // Navigate to customer homepage
-        } else if (username && role === 'admin') {
-            navigate('/adminHomepage'); // Navigate to admin homepage
-        } else if (username && role === 'mechanic') {
-            navigate('/MechanicHomepage');
-        }else {
+        if (username) {
+            if (role === 'customer') {
+                navigate('/customerHomepage');
+            } else if (role === 'admin') {
+                navigate('/adminHomepage');
+            } else if (role === 'mechanic') {
+                navigate('/mechanicHomepage'); // Corrected to mechanicHomepage
+            }
+        } else {
             setShowProfileModal(true); // Show modal to choose login page
         }
         toggleSidebar(); // Close the sidebar
@@ -45,15 +50,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
     const handleRoleClick = (role) => {
         if (role === 'Customer') {
-            navigate('/login'); // Navigate to the CustomerLogin page
-        }
-        if (role === 'Admin') {
-            navigate('/adminLogin'); // Navigate to the AdminLogin page
-        }
-        if (role === 'Mechanic') {
+            navigate('/login'); // Navigate to CustomerLogin page
+        } else if (role === 'Admin') {
+            navigate('/adminLogin'); // Navigate to AdminLogin page
+        } else if (role === 'Mechanic') {
             navigate('/mechanicLogin');
         }
-        console.log(`${role} login page clicked`);
         closeProfileModal();
     };
 
@@ -67,9 +69,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 <nav>
                     <ul>
                         <li className="sidebar-nav-item" onClick={openProfile}>
-                            <span className="profile-link">
-                                Profile
-                            </span>
+                            <span className="profile-link">Profile</span>
                         </li>
                         <div className="sidebar-gap"></div>
                         <li className="sidebar-nav-item">

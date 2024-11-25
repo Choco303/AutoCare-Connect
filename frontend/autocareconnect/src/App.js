@@ -7,10 +7,14 @@ import CustomerLogin from './react/customerLogin';
 import CustomerHomepage from "./react/customerHomepage";
 import RewardsOverview from "./react/rewardsOverview";
 import AdminLogin from "./react/adminLogin";
-import MechanicLogin from "./react/mechanicLogin";
 import AdminHomepage from "./react/adminHomepage"
-import MechHomepage from "./react/MechHomepage"
-
+import MechanicLogin from "./react/mechanicLogin";
+import MechanicHomepage from "./react/mechanicHomepage"
+import ChangeEmail from "./react/changeEmail"
+import ChangePassword from "./react/changePassword";
+import ChangePhone from "./react/changePhone";
+import RegisterPage from "./react/registrationPage";
+import RepairInfo from "./react/repairInfo";
 
 function App() {
     return (
@@ -26,8 +30,12 @@ function App() {
                     <Route path="/adminLogin" element={<AdminLogin />} />
                     <Route path="/adminHomepage" element={<AdminHomepage />} />
                     <Route path="/mechanicLogin" element={<MechanicLogin />} />
-                    <Route path="/mech" element={<MechHomepage/>} />
-
+                    <Route path="/mechanicHomepage" element={<MechanicHomepage/>} />
+                    <Route path="/Change-Email" element={<ChangeEmail/>} />
+                    <Route path="/Change-Password" element={<ChangePassword/>} />
+                    <Route path="/Change-Phone" element={<ChangePhone/>} />
+                    <Route path="/registrationPage" element={<RegisterPage/>} />
+                    <Route path="/repairInfo" element={<RepairInfo/>} />
                 </Routes>
             </div>
         </Router>

@@ -9,65 +9,81 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Retrieve the logged-in username and role from localStorage
-        const customerUsername = localStorage.getItem('customerUsername');
-        const adminUsername = localStorage.getItem('adminUsername');
+        // Ensure localStorage values are consistent and clear any invalid state
+        const resetUserState = () => {
+            const customerUsername = localStorage.getItem('customerUsername');
+            const adminUsername = localStorage.getItem('adminUsername');
+            const mechanicUsername = localStorage.getItem('mechanicUsername');
 
-        if (customerUsername) {
-            setUsername(customerUsername);
-            setRole('customer');
-        } else if (adminUsername) {
-            setUsername(adminUsername);
-            setRole('admin');
-        }
+            if (customerUsername) {
+                setUsername(customerUsername);
+                setRole('customer');
+            } else if (adminUsername) {
+                setUsername(adminUsername);
+                setRole('admin');
+            } else if (mechanicUsername) {
+                setUsername(mechanicUsername);
+                setRole('mechanic');
+            } else {
+                // Clear localStorage to avoid stale state
+                localStorage.removeItem('customerUsername');
+                localStorage.removeItem('adminUsername');
+                localStorage.removeItem('mechanicUsername');
+                setUsername(null);
+                setRole(null);
+            }
+        };
 
-        // Close dropdown if clicked outside
+        // Call the function on component mount
+        resetUserState();
+
+        // Handle clicks outside the dropdown to close it
         const handleClickOutside = (event) => {
             if (!event.target.closest('.logout-container')) {
                 setIsDropdownOpen(false);
             }
         };
+
         document.addEventListener('mousedown', handleClickOutside);
 
+        // Cleanup on unmount
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
     const handleLogout = () => {
-        // Clear login state
         if (role === 'customer') {
             localStorage.removeItem('customerUsername');
         } else if (role === 'admin') {
             localStorage.removeItem('adminUsername');
+        } else if (role === 'mechanic') {
+            localStorage.removeItem('mechanicUsername');
         }
 
         setUsername(null);
         setRole(null);
-        navigate('/'); // Redirect to the home page
-        window.location.reload(); // refresh the page
+
+        // Navigate to the home page and reload
+        navigate('/');
+        window.location.reload();
     };
 
     const toggleDropdown = () => {
-        setIsDropdownOpen(!isDropdownOpen); // dropdown visibility
+        setIsDropdownOpen(!isDropdownOpen);
     };
 
-    if (!username) {
-        return null; // do not display if logged in
-    }
+    if (!username) return null;
 
     return (
         <div className="logout-container">
-            {/* Username as dropdown toggle button */}
             <button className="username-button" onClick={toggleDropdown}>
                 {username}
             </button>
 
-            {/* Dropdown Menu */}
             {isDropdownOpen && (
                 <div className="logout-dropdown">
                     <ul className="logout-dropdown-menu">
-                        <li onClick={() => navigate('/settings')}>Settings</li>
                         <li className="logout-option" onClick={handleLogout}>Log Out</li>
                     </ul>
                 </div>

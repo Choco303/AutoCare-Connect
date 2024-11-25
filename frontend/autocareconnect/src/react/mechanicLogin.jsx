@@ -5,7 +5,7 @@ import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './css/base.css';
-import './css/mechanicLogin.css'; // Change the CSS file to reflect mechanic login styles
+import './css/mechanicLogin.css';
 
 const MechanicLogin = () => {
     const [username, setUsername] = useState('');
@@ -13,15 +13,19 @@ const MechanicLogin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loginMessage, setLoginMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
-    // Redirect to mechanic homepage if already logged in
     useEffect(() => {
-        if (localStorage.getItem('MechanicUsername')) {
-            navigate('/MechHomepage'); // Update the page route
+        if (localStorage.getItem('mechanicUsername')) {
+            navigate('/mechanicHomepage');
         }
     }, [navigate]);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevState) => !prevState);
+    };
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -30,7 +34,6 @@ const MechanicLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if fields are empty
         if (!username || !password) {
             setLoginMessage('Please fill out all fields.');
             setIsError(true);
@@ -38,14 +41,11 @@ const MechanicLogin = () => {
         }
 
         try {
-            // Ensure the correct endpoint for mechanic login
-            const response = await axios.post('http://localhost:8080/api/mechanic/login', { username, password }); // Change API endpoint
-            localStorage.setItem('mechanicUsername', response.data); // Store mechanic username in localStorage
+            const response = await axios.post('http://localhost:8080/api/mechanic/login', { username, password });
+            localStorage.setItem('mechanicUsername', response.data);
             setLoginMessage('Login successful!');
             setIsError(false);
-
-            // Navigate to mechanic homepage after successful login
-            navigate('/MechHomepage'); // Update the page route
+            navigate('/mechanicHomepage');
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setLoginMessage('Username or Password is incorrect. Please try again.');
@@ -57,11 +57,10 @@ const MechanicLogin = () => {
     };
 
     return (
-        <div className="mechanic-login-page-container"> {/* Change container class name */}
+        <div className="mechanic-login-page-container">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-            {/* Top Bar */}
-            <div className="mechanic-login-header-banner"> {/* Update the header class */}
+            <div className="mechanic-login-header-banner">
                 <img
                     src={require('./images/menu.png')}
                     alt="Menu Icon"
@@ -71,13 +70,12 @@ const MechanicLogin = () => {
                 <h1 className="mechanic-login-banner-title">AutoCare Connect</h1>
             </div>
 
-            {/* Login Form */}
-            <div className="mechanic-login-container"> {/* Change container class */}
-                <img src={require('./images/logo.png')} alt="Logo" className="mechanic-login-logo" /> {/* Change logo class */}
-                <h1 className="mechanic-login-title">Mechanic</h1> {/* Update title */}
+            <div className="mechanic-login-container">
+                <img src={require('./images/logo.png')} alt="Logo" className="mechanic-login-logo" />
+                <h1 className="mechanic-login-title">Mechanic</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className="mechanic-login-field"> {/* Change field class */}
-                        <span className="mechanic-login-float-label"> {/* Change float label class */}
+                    <div className="mechanic-login-field">
+                        <span className="mechanic-login-float-label">
                             <InputText
                                 id="username"
                                 value={username}
@@ -87,22 +85,22 @@ const MechanicLogin = () => {
                             <label htmlFor="username">Username</label>
                         </span>
                     </div>
-                    <div className="mechanic-login-field"> {/* Change field class */}
-                        <span className="mechanic-login-float-label"> {/* Change float label class */}
+                    <div className="mechanic-login-field">
+                        <span className="mechanic-login-float-label">
                             <InputText
                                 id="password"
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                             <label htmlFor="password">Password</label>
                         </span>
+                        <Button label={showPassword ? 'Hide Password' : 'Show Password'} className="toggle-password-button" onClick={togglePasswordVisibility} type="button"/>
                     </div>
-                    <Button label="Login" type="submit" className="mechanic-login-button" /> {/* Change button class */}
+                    <Button label="Login" type="submit" className="mechanic-login-button" />
                 </form>
 
-                {/* Display Login Message */}
                 {loginMessage && (
                     <p className={isError ? 'mechanic-login-error-message' : 'mechanic-login-success-message'}>
                         {loginMessage}

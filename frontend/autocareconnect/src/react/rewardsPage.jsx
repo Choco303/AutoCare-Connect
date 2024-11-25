@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './sidebar';
 import Logout from './logout';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './css/base.css'
+import './css/base.css';
 import './css/rewardsPage.css';
 
 const RewardsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [signUpMessage, setSignUpMessage] = useState("");
+    const [isCustomer, setIsCustomer] = useState(false); // Track if the user is a customer
     const navigate = useNavigate(); // Initialize the navigate function
+
+    useEffect(() => {
+        // Check if the user is logged in as a customer
+        const customerUsername = localStorage.getItem('customerUsername');
+        setIsCustomer(!!customerUsername); // Set to true if a customerUsername exists
+    }, []);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -24,8 +31,12 @@ const RewardsPage = () => {
         { title: "Free set of Tires", points: 10000, image: './images/free_tires_logo.png', alt: "Free Set Of Tires" }
     ];
 
-    const handleSignUpClick = () => {
-        navigate('/rewardsOverview'); // Navigate to /rewardsOverview
+    const handleButtonClick = () => {
+        if (isCustomer) {
+            navigate('/rewardsOverview'); // Navigate to rewardsOverview if signed in as a customer
+        } else {
+            navigate('/login'); // Navigate to login if not signed in
+        }
     };
 
     return (
@@ -53,7 +64,7 @@ const RewardsPage = () => {
                                 <h3>{step}</h3>
                                 <p>
                                     {index === 0
-                                        ? "Join the AutoCare club to start earning"
+                                        ? "Sign up and join the AutoCare club to start earning"
                                         : index === 1
                                             ? "Earn reward points every time you receive a service"
                                             : "Redeem points for exclusive rewards & discounts"}
@@ -74,7 +85,11 @@ const RewardsPage = () => {
                             </Card>
                         ))}
                     </div>
-                    <Button label="Sign Up" className="rewards-page-sign-up-button" onClick={handleSignUpClick} />
+                    <Button
+                        label={isCustomer ? "My Rewards" : "Sign Up"} // Change button label based on login status
+                        className="rewards-page-sign-up-button"
+                        onClick={handleButtonClick} // Navigate based on login status
+                    />
                     {signUpMessage && <p className="rewards-page-signup-message">{signUpMessage}</p>}
                 </section>
             </div>

@@ -20,10 +20,10 @@ public class WebConfig {
                                 "http://localhost:3002",
                                 "http://localhost:3003"
                         )
-                        .allowedMethods("GET", "POST") // Restrict methods to GET and POST
-                        .allowedHeaders("*") // Allow all headers
-                        .allowCredentials(true) // Allow credentials if needed
-                        .maxAge(3600); // Cache the CORS response for 1 hour
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowCredentials(true)
+                        .maxAge(3600);
             }
         };
     }

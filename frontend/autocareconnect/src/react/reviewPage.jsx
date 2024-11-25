@@ -97,7 +97,7 @@ const ReviewPage = () => {
                 <Logout />
             </header>
 
-            <h2 className="review-page-title">Recent Reviews</h2>
+            <h2 className="review-page-title">Reviews</h2>
             <div className="review-page-reviews-grid">
                 {reviews.map((review, index) => (
                     <div key={index} className="review-page-review-card">
@@ -126,21 +126,25 @@ const ReviewPage = () => {
                         }} stars={5} cancel={false} />
                     </div>
                     <div className="p-field">
-                        <InputText placeholder="Name" value={name} onChange={(e) => {
-                            setName(e.target.value);
-                            console.log('Name updated:', e.target.value);
-                        }} />
+                        <InputText
+                            placeholder="Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="review-page-text-input"
+                        />
+
                     </div>
                     <div className="p-field">
                         <InputTextarea
-                            placeholder="Message"
+                            placeholder="Write your review..."
                             value={reviewText}
                             onChange={handleTextChange}
                             rows={5}
                             cols={30}
+                            className="review-page-textarea"
                             maxLength={maxChars}
-                            className="non-resizable-textarea"
                         />
+
                         <small className="character-count">{`${reviewText.length}/${maxChars} characters`}</small>
                     </div>
                     <Button label="Send" className="p-button-primary review-page-submit-button" onClick={handleSubmit} />

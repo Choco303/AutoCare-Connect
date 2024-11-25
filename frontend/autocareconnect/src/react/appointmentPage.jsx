@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import Sidebar from './sidebar';
 import Logout from './logout';
 import './css/base.css';
@@ -8,7 +8,6 @@ import { Button } from 'primereact/button';
 
 const appointmentPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -20,8 +19,6 @@ const appointmentPage = () => {
           setDateValue(e.value);
         };
     };  
-
-
     return (
         <div className='appointment container'>
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -35,11 +32,8 @@ const appointmentPage = () => {
                 dateFormat="mm/dd/yy"
                 placeholder="Select Date and Time"
             />
-
-
             
         </div>
     );
 };
-
-export default appointmentPage;
+export default appointmentPage; */

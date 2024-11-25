@@ -13,12 +13,18 @@ const CustomerLogin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [loginMessage, setLoginMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const navigate = useNavigate(); // Initialize useNavigate hook
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevState) => !prevState);
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -74,18 +80,19 @@ const CustomerLogin = () => {
                         <span className="customer-login-float-label">
                             <InputText
                                 id="password"
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <label htmlFor="password">Password</label>
                         </span>
+                        <Button label={showPassword ? 'Hide Password' : 'Show Password'} className="toggle-password-button" onClick={togglePasswordVisibility} type="button"/>
                     </div>
                     <Button label="Login" type="submit" className="customer-login-button" />
                     <Button
                         label="Register New Account"
                         className="customer-login-register-button"
-                        onClick={() => navigate('/register')} // Redirect to a registration page
+                        onClick={() => navigate('/registrationPage')} // Redirect to a registration page
                     />
                 </form>
 
