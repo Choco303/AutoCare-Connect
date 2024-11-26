@@ -8,11 +8,11 @@
 }
 
 .admin-login-title {
-    color: red; /* Sets the text color to red */
-    font-size: 20px; /* Adjusts the font size */
-    font-weight: bold; /* Makes the text bold */
-    text-align: center; /* Centers the text */
-    margin-top: -40px; /* Adds some space above the text */
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -40px;
     margin-bottom:30px;
 }
 
@@ -57,7 +57,7 @@
     padding: 20px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 

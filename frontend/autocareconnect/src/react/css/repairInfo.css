@@ -1,0 +1,222 @@
+.repair-info-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #000000;
+    background-color: #e5f4fa;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Header */
+.repair-info-header {
+    width: 100%;
+    background-color: #003366;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    height: 60px;
+}
+
+.service-history-title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000000; /* Matches the header bar color */
+}
+
+/* Service history section */
+.service-history {
+    flex: 1;
+    padding: 20px;
+    margin-top: 8%; /* Moves the entire service history section down */
+    text-align: center;
+    color: #000000;
+}
+
+.service-history-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+    background-color: #003366;
+    color: #ffffff;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 23px;
+}
+
+.date-filter {
+    background-color: #ffffff;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    color: #333;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.date-filter:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+    color: #000000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.service-history-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.service-history-row:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+.service-history-row:hover {
+    background-color: #e5f4fa; /* Light blue background on hover */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transform: scale(1.01);
+}
+
+/* Mechanic comments */
+.comments-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Modal Container */
+.comments-container {
+    background: #ffffff;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: comments-appear 0.3s forwards;
+}
+
+@keyframes comments-appear {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.comments-header {
+    background-color: #003366; /* Dark blue header */
+    color: #ffffff;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.comments-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* Modal close button */
+.comments-close {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.comments-close:hover {
+    color: #ffdddd; /* Light red on hover */
+}
+
+/* Modal Body */
+.comments-body {
+    padding: 20px;
+    max-height: 300px; /* Limit height */
+    overflow-y: auto;
+}
+
+.comments-body p {
+    margin: 0;
+    line-height: 1.5;
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Status Colors */
+.status-starting {
+    color: #1e90ff; /* DodgerBlue */
+    font-weight: bold;
+}
+
+.status-in-progress {
+    color: #daa520; /* GoldenRod */
+    font-weight: bold;
+}
+
+.status-completed {
+    color: #008000; /* Green */
+    font-weight: bold;
+}
+
+/* Calendar popup */
+.calendar-popup {
+    position: absolute;
+    z-index: 1000;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.repair-info-footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    background-color: #003366;
+}
+
+.footer-description {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.footer-logo img {
+    width: 100px;
+    height: auto;
+}
