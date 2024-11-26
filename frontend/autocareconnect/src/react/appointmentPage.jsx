@@ -6,24 +6,27 @@ import './css/appointmentPage.css';
 import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
 const appointmentPage = () => {
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
-    const appointmentPage = () => {
+
+    const appointments = () => {
         
-        const [dateValue, setDateValue] = useState(null);
+        const [date, setDate] = useState(null);
       
-        const handleDateChange = (e) => {
-          setDateValue(e.value);
-        };
+        
+
     };  
+
     return (
         <div className='appointment container'>
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <Calendar 
-                value={dateValue} 
-                onChange={handleDateChange} 
+                value={date} 
+                onChange={(e) => setDate(e.value)}
                 showTime 
                 showSeconds 
                 hourFormat="24" 
