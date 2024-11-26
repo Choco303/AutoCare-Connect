@@ -29,14 +29,14 @@
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #000000; /* Matches the header bar color */
+    color: #000000;
 }
 
 /* Service history section */
 .service-history {
     flex: 1;
     padding: 20px;
-    margin-top: 8%; /* Moves the entire service history section down */
+    margin-top: 2%;
     text-align: center;
     color: #000000;
 }
@@ -86,7 +86,7 @@
 }
 
 .service-history-row:hover {
-    background-color: #e5f4fa; /* Light blue background on hover */
+    background-color: #e5f4fa;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transform: scale(1.01);
 }
@@ -177,17 +177,17 @@
 
 /* Status Colors */
 .status-starting {
-    color: #1e90ff; /* DodgerBlue */
+    color: #1e90ff;
     font-weight: bold;
 }
 
 .status-in-progress {
-    color: #daa520; /* GoldenRod */
+    color: #daa520;
     font-weight: bold;
 }
 
 .status-completed {
-    color: #008000; /* Green */
+    color: #008000;
     font-weight: bold;
 }
 
@@ -200,6 +200,37 @@
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.repair-info-paginator {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 10px;
+}
+
+.repair-info-paginator .p-paginator {
+    font-size: 1rem;
+    color: #333;
+}
+
+.repair-info-paginator .p-paginator .p-paginator-page {
+    background-color: #e5f4fa;
+    border: none;
+    color: #003366;
+}
+
+.repair-info-paginator .p-paginator .p-paginator-page.p-highlight {
+    background-color: #003366;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.repair-info-paginator .p-paginator .p-paginator-page:hover {
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
 
 /* Footer */
 .repair-info-footer {

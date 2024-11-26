@@ -135,6 +135,45 @@ const VehicleSelectionPage = () => {
         setAvailableTimes(times.filter((time) => !bookedTimes.includes(time)));
     };
 
+    const handleRewards = async (points) => {
+        try {
+            const customerId = localStorage.getItem('customerId'); // Use customerId instead of username
+            if (!customerId) {
+                console.error('Customer ID is missing from localStorage.');
+                setError('Failed to update rewards. Please log in again.');
+                return;
+            }
+
+            console.log("Fetching rewards for customer ID:", customerId);
+
+            // Fetch rewards for the customer by ID
+            const response = await axios.get(`http://localhost:8080/api/rewards/customer/${customerId}`);
+            console.log("Rewards API response:", response.data);
+
+            if (!response.data) {
+                console.log("No rewards found, creating a new rewards entry.");
+
+                // No rewards found, create a new rewards entry
+                await axios.post('http://localhost:8080/api/rewards', {
+                    customer: { id: customerId }, // Use customerId here
+                    totalPoints: points,
+                    redeemedPoints: 0,
+                });
+            } else {
+                console.log("Rewards found, updating points.");
+
+                // Rewards exist, add points
+                await axios.put(`http://localhost:8080/api/rewards/add-points/${customerId}`, null, {
+                    params: { points },
+                });
+            }
+        } catch (err) {
+            console.error('Error managing rewards:', err);
+            setError('Failed to update rewards. Please try again later.');
+        }
+    };
+
+
     const handleAppointmentSubmission = async () => {
         if (!selectedDate || !selectedTime || !selectedService || !username) {
             setError('Please complete all fields before booking your appointment.');
@@ -187,6 +226,9 @@ const VehicleSelectionPage = () => {
                     Username: username,
                 },
             });
+
+            // Use handleRewards to manage points
+            await handleRewards(50000);
 
             const receiptId = response.data.receiptId; // Assuming the backend returns a receiptId
             navigate('/confirmation', { state: { receiptId } });

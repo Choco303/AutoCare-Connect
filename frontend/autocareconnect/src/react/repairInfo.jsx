@@ -167,8 +167,9 @@ const RepairInfo = () => {
                 <Paginator
                     first={first}
                     rows={rows}
-                    totalRecords={filterByDate.length}
+                    totalRecords={Math.min(filterByDate.length, rows)}
                     onPageChange={onPageChange}
+                    className="repair-info-paginator"
                 />
             </div>
             <footer className="repair-info-footer">

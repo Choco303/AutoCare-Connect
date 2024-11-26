@@ -25,10 +25,11 @@ public class CustomerController {
                 loginDetails.getPassword()
         );
         if (customer.isPresent()) {
-            return ResponseEntity.ok(customer.get().getUsername()); // Return username on successful login
+            return ResponseEntity.ok(customer.get()); // Return complete customer on successful login
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
+
 
     // Register endpoint
     @PostMapping("/register")

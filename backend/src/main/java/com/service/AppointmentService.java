@@ -2,8 +2,10 @@ package com.service;
 
 import com.model.Appointment;
 import com.model.Customer;
+import com.model.Rewards;
 import com.repository.AppointmentRepository;
 import com.repository.CustomerRepository;
+import com.repository.RewardsRepository;
 import com.request.AppointmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -23,6 +26,10 @@ public class AppointmentService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private RewardsRepository rewardsRepository; // Add RewardsRepository for handling rewards
+
 
     /**
      * Retrieve all appointments.
@@ -72,7 +79,7 @@ public class AppointmentService {
     }
 
     /**
-     * Create a new appointment for a logged-in user.
+     * Create a new appointment for a logged-in user and handle rewards.
      *
      * @param request          The appointment request.
      * @param loggedInUsername The username of the logged-in user.
@@ -123,7 +130,32 @@ public class AppointmentService {
         // Generate a random 6-character receipt ID
         appointment.setReceiptId(generateUniqueReceiptId());
 
-        return appointmentRepository.save(appointment);
+        // Save the appointment
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+
+        // Add the customer to the rewards table and give initial points if they don't exist
+        handleRewardsForFirstAppointment(customer);
+
+        return savedAppointment;
+    }
+
+    /**
+     * Handle rewards for a customer creating their first appointment.
+     *
+     * @param customer The customer object.
+     */
+    private void handleRewardsForFirstAppointment(Customer customer) {
+        List<Rewards> rewardsList = rewardsRepository.findByCustomerId(customer.getId());
+
+        if (rewardsList.isEmpty()) {
+            // Create a new rewards entry for the customer
+            Rewards newRewards = new Rewards();
+            newRewards.setCustomer(customer);
+            newRewards.setTotalPoints(100); // Initial points for creating the first appointment
+            newRewards.setRedeemedPoints(0);
+
+            rewardsRepository.save(newRewards);
+        }
     }
 
     /**
