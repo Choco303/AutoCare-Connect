@@ -3,7 +3,7 @@ import Sidebar from './sidebar';
 import Logout from './logout';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import './css/base.css';
 import './css/rewardsPage.css';
 

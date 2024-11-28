@@ -37,4 +37,7 @@ public class Receipts {
 
     @Column(name = "mechanic_username", nullable = false)
     private String mechanicUsername;
+
+    @Column(name = "username", nullable = false)
+    private String username;
 }

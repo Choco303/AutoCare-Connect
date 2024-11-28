@@ -22,4 +22,6 @@ public interface ReceiptsRepository extends JpaRepository<Receipts, Long> {
 
     List<Receipts> findByMechanicUsername(String mechanicUsername);
 
+    List<Receipts> findByUsername(String username);
+
 }

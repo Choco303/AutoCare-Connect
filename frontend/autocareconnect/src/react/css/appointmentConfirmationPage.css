@@ -1,0 +1,106 @@
+/* Page container for Appointment Confirmation */
+.appointment-confirmation-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #E5F4FA;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header Banner */
+.appointment-confirmation-header-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    height: 60px;
+    position: relative;
+}
+
+.appointment-confirmation-menu-icon {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+.appointment-confirmation-banner-title {
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Main Container */
+.appointment-confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Title */
+.appointment-confirmation-title {
+    font-size: 1.8rem;
+    color: #003366;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Receipt Information */
+.appointment-confirmation-receipt {
+    font-size: 1.2rem;
+    color: #003366;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.appointment-confirmation-receipt-id {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #002244;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .appointment-confirmation-banner-title {
+        font-size: 1.25rem;
+    }
+
+    .appointment-confirmation-menu-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .appointment-confirmation-container {
+        margin-top: 8vh;
+        padding: 20px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .appointment-confirmation-banner-title {
+        font-size: 1rem;
+    }
+
+    .appointment-confirmation-container {
+        width: 90%;
+        margin-top: 6vh;
+    }
+}

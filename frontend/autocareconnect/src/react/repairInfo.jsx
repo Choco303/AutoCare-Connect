@@ -1,40 +1,57 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Calendar } from 'primereact/calendar';
+import { Paginator } from 'primereact/paginator';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import Sidebar from './sidebar';
 import Logout from './logout';
+import axios from "axios";
 import './css/base.css';
 import './css/repairInfo.css';
 
-
-// Dummy data for repair information.
 const RepairInfo = () => {
-    const [serviceHistory] = useState([
-        { date: '2024-11-18', repairType: 'Oil Change', repairsDone: 'Oil filter replaced', transactionID: '12345', vehicle: 'Toyota Camry', status: 'Completed', mechanicComments: 'Replaced the oil filter and topped off all fluids. Everything looks good!' },
-        { date: '2024-11-15', repairType: 'Tire Rotation', repairsDone: 'Tires rotated', transactionID: '12346', vehicle: 'Honda Civic', status: 'In Progress', mechanicComments: 'Rotated tires but noticed uneven tread wear. Recommend alignment check.' },
-        { date: '2024-12-05', repairType: 'Battery Replacement', repairsDone: 'New battery installed', transactionID: '12348', vehicle: 'Tesla Model 3', status: 'Completed', mechanicComments: 'Replaced battery and checked all electrical systems.' },
-        { date: '2024-12-20', repairType: 'Coolant Flush', repairsDone: 'Flushed and refilled coolant', transactionID: '12349', vehicle: 'Chevrolet Malibu', status: 'Completed', mechanicComments: 'Performed coolant flush. Engine temperature is stable.' },
-    ]);
-
     // Sidebar
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
+    // State for service history data
+    const [serviceHistory, setServiceHistory] = useState([]);
+    const [filterByDate, setFilterByDate] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+
     // Calendar and table filter
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(null);
     const calendarRef = useRef(null);
-    const [filterByDate, setFilterByDate] = useState(serviceHistory); // Renamed filteredHistory to filterByDate
 
-    // Mechanic comments
-    const [isCommentsOpen, setIsCommentsOpen] = useState(false); // Renamed isModalOpen and setIsModalOpen
-    const closeComments = () => setIsCommentsOpen(false); // Renamed closeModal to closeComments
-    const [selectedComments, setSelectedComments] = useState('');
+    // Username (retrieved from localStorage)
+    const username = localStorage.getItem('customerUsername');
+
+    // Pagination states
+    const [first, setFirst] = useState(0);
+    const [rows] = useState(5); // Rows per page
 
     // Generate table rows
     const emptyRows = Array.from({ length: Math.max(18 - filterByDate.length, 0) });
 
+    // Fetch receipts for the current user
+    const fetchReceipts = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/receipts/byUsername`, {
+                params: { username },
+            });
+            const receiptsWithStatus = response.data.map((receipt) => ({
+                ...receipt,
+                status: "Completed",
+            }));
+            // Sort by id in descending order
+            const sortedReceipts = receiptsWithStatus.sort((a, b) => b.id - a.id);
 
+            setServiceHistory(sortedReceipts);
+            setFilterByDate(sortedReceipts);
+        } catch (error) {
+            console.error('Error fetching receipts:', error.response?.data || error.message);
+            alert('Failed to fetch service history. Please try again later.');
+        }
+    };
 
     // Filters table by month and/or year
     const handleDateChange = (e) => {
@@ -45,7 +62,7 @@ const RepairInfo = () => {
         const selectedYear = e.value.getFullYear();
         setFilterByDate(
             serviceHistory.filter(entry => {
-                const entryDate = new Date(entry.date);
+                const entryDate = new Date(entry.serviceDate);
                 return entryDate.getMonth() === selectedMonth && entryDate.getFullYear() === selectedYear;
             })
         );
@@ -65,28 +82,17 @@ const RepairInfo = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isCalendarOpen]);
 
-    // Allows rows to be clicked. Opens mechanic comments
-    const handleRowClick = (comments) => {
-        setSelectedComments(comments);
-        setIsCommentsOpen(true); // Updated to setIsCommentsOpen
-    };
+    // get the username for local storage
+    useEffect(() => {
+        if (username) {
+            fetchReceipts();
+        } else {
+            console.error('Username is not available in localStorage.');
+        }
+    }, []);
 
-    // MechanicComments
-    const MechanicComments = ({ isOpen, onClose, content }) => {
-        if (!isOpen) return null;
-        return (
-            <div className="comments-overlay">
-                <div className="comments-container">
-                    <div className="comments-header">
-                        <h2>Mechanic Comments</h2>
-                        <button className="comments-close" onClick={onClose}>×</button>
-                    </div>
-                    <div className="comments-body">
-                        <p>{content || 'No comments available.'}</p>
-                    </div>
-                </div>
-            </div>
-        );
+    const onPageChange = (event) => {
+        setFirst(event.first);
     };
 
     return (
@@ -125,10 +131,10 @@ const RepairInfo = () => {
                             />
                         )}
                     </div>
+                    <div>Receipt</div>
                     <div>Repair Type</div>
-                    <div>Repairs Done</div>
-                    <div>Transaction ID</div>
                     <div>Vehicle</div>
+                    <div>Mechanic</div>
                     <div>Status</div>
                 </div>
                 <div className="service-history-rows">
@@ -136,13 +142,12 @@ const RepairInfo = () => {
                         <div
                             className="service-history-row"
                             key={index}
-                            onClick={() => handleRowClick(entry.mechanicComments)}
                         >
-                            <div>{entry.date}</div>
-                            <div>{entry.repairType}</div>
-                            <div>{entry.repairsDone}</div>
-                            <div>{entry.transactionID}</div>
-                            <div>{entry.vehicle}</div>
+                            <div>{entry.serviceDate}</div>
+                            <div>{entry.receiptId}</div>
+                            <div>{entry.task}</div>
+                            <div>{entry.carDetails}</div>
+                            <div>{entry.mechanicUsername}</div>
                             <div className={`status-${entry.status.toLowerCase().replace(' ', '-')}`}>
                                 {entry.status}
                             </div>
@@ -159,6 +164,13 @@ const RepairInfo = () => {
                         </div>
                     ))}
                 </div>
+                <Paginator
+                    first={first}
+                    rows={rows}
+                    totalRecords={Math.min(filterByDate.length, rows)}
+                    onPageChange={onPageChange}
+                    className="repair-info-paginator"
+                />
             </div>
             <footer className="repair-info-footer">
                 <div className="footer-description">Providing quality car management services for your convenience.</div>
@@ -166,8 +178,6 @@ const RepairInfo = () => {
                     <img src={require('./images/logo.png')} alt="Logo" />
                 </div>
             </footer>
-
-            <MechanicComments isOpen={isCommentsOpen} onClose={closeComments} content={selectedComments} />
         </div>
     );
 };

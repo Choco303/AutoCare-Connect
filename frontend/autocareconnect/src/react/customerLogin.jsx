@@ -30,7 +30,15 @@ const CustomerLogin = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/customer/login', { username, password });
-            localStorage.setItem('customerUsername', response.data); // Store username in localStorage
+
+            // Assuming the backend now returns the entire customer object
+            const { id, username: returnedUsername } = response.data;
+
+            // Store customerId and username in localStorage
+            localStorage.setItem('customerId', id);
+            localStorage.setItem('customerUsername', returnedUsername);
+
+            // Display success message and reset error flag
             setLoginMessage('Login successful!');
             setIsError(false);
 
@@ -45,7 +53,6 @@ const CustomerLogin = () => {
             setIsError(true);
         }
     };
-
 
     return (
         <div className="customer-login-page-container">
