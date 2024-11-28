@@ -8,7 +8,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 
-const appointmentPage = () => {
+const AppointmentPage = () => {
     const [date, setDate] = useState(null);
     const [time, setTime] = useState('');
     const [additionalDetails, setAdditionalDetails] = useState('');
@@ -121,4 +121,4 @@ const appointmentPage = () => {
         </div>
     );
 };
-export default appointmentPage; 
+export default AppointmentPage;
