@@ -50,13 +50,13 @@ const MechHomepage = () => {
         if (!assignedAppointment) return;
 
         try {
-            const elapsedMinutes = Math.ceil(elapsedTime / 60);
+            const elapsedMinutes = Math.floor(elapsedTime / 60); // Use floor instead of ceil
             const elapsedSeconds = elapsedTime % 60;
 
             const timeString =
-                elapsedMinutes < 10
+                elapsedMinutes > 0
                     ? `${elapsedMinutes} minutes ${elapsedSeconds} seconds`
-                    : `${elapsedMinutes} minutes`;
+                    : `${elapsedSeconds} seconds`;
 
             const receipt = {
                 receiptId: assignedAppointment.receiptId,
@@ -65,7 +65,7 @@ const MechHomepage = () => {
                 serviceDate: new Date().toISOString().split('T')[0], // ISO date format
                 timeTaken: timeString,
                 mechanicUsername,
-                username: assignedAppointment.username, // Include customer's username
+                username: assignedAppointment.username,
             };
 
             // Send the receipt to the backend and delete the appointment
@@ -160,11 +160,16 @@ const MechHomepage = () => {
                 null,
                 { params: { receiptId, mechanicUsername } }
             );
+
             console.log('Appointment assigned:', response.data);
+
+            // Fetch the newly assigned appointment and update the state
+            fetchAssignedAppointment();
         } catch (error) {
             console.error('Error assigning appointment:', error.response?.data?.error || error.message);
         }
     };
+
 
 
     const fetchCompletedTasks = async () => {

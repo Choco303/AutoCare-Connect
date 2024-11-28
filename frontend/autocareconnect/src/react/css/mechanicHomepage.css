@@ -39,6 +39,7 @@
     align-items: center;
     flex-grow: 1;
     width: 90%;
+    padding: 1rem;
     max-width: 1200px;
     gap: 20px;
 }

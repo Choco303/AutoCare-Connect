@@ -13,6 +13,7 @@
     background-color: #003366;
     color: white;
     display: flex;
+    margin-top: auto;
     align-items: center;
     justify-content: center;
     padding: 15px 20px;
@@ -45,6 +46,7 @@
 /* Reviews grid */
 .review-page-reviews-grid {
     display: grid;
+    flex-grow: 1;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: 90%;
@@ -61,6 +63,7 @@
     text-align: left;
     font-size: 1rem;
     min-height: 200px;
+    max-height: 300px;
 }
 
 .review-page-review-author {

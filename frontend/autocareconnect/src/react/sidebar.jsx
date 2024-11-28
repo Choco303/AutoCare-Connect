@@ -81,9 +81,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                         <li className="sidebar-nav-item">
                             <Link to="/rewards" onClick={toggleSidebar}>Rewards</Link>
                         </li>
-                        <li className="sidebar-nav-item">
-                            <Link to="/vehicle" onClick={toggleSidebar}>vehmodels</Link>
-                        </li>
                     </ul>
                 </nav>
             </div>

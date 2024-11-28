@@ -45,6 +45,9 @@ const CustomerHomepage = () => {
         navigate('/repairInfo');
     }
 
+    const toAppointmentPage = () => {
+        navigate('/vehicle');
+    }
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
         if (username) {
@@ -100,6 +103,18 @@ const CustomerHomepage = () => {
         }
     }, []);
 
+    const formatDateTime = (dateTimeString) => {
+        const date = new Date(dateTimeString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true, // Converts to 12-hour format
+        };
+        return new Intl.DateTimeFormat('en-US', options).format(date);
+    };
 
 
     return (
@@ -145,7 +160,15 @@ const CustomerHomepage = () => {
                             readOnly
                         />
                         <label htmlFor="appointment">Appointment Date:</label>
-                        <InputText id="appointment" value={appointment.appointmentDate} readOnly/>
+                        <InputText
+                            id="appointment"
+                            value={
+                                appointment.appointmentDate !== 'None'
+                                    ? formatDateTime(appointment.appointmentDate)
+                                    : 'None'
+                            }
+                            readOnly
+                        />
                         <label htmlFor="completion">Task Status:</label>
                         <InputText id="completion" value={appointment.status} readOnly/>
                     </div>
@@ -175,7 +198,8 @@ const CustomerHomepage = () => {
 
                 {/* Action Buttons */}
                 <section className="customer-homepage-action-buttons">
-                    <Button label="Appointment" className="p-button-rounded customer-homepage-action-button"/>
+                    <Button label="Appointment" className="p-button-rounded customer-homepage-action-button"
+                            onClick={toAppointmentPage}/>
                     <Button label="Repair Information" className="p-button-rounded customer-homepage-action-button"
                             onClick={toRepairInfo}/>
                     <Button label="My Rewards" className="p-button-rounded customer-homepage-action-button"
