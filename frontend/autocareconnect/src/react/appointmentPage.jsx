@@ -10,7 +10,7 @@ import { Dropdown } from 'primereact/dropdown';
 
 const appointmentPage = () => {
     const [date, setDate] = useState(null);
-    const [time, setTime] = useState(null);
+    const [time, setTime] = useState('');
     const [additionalDetails, setAdditionalDetails] = useState('');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [service, setService] = useState(null);
@@ -45,14 +45,24 @@ const appointmentPage = () => {
     ];
 
     const appointmentConfirm = () => {
-        alert(`Appointment confirmed for ${date.toLocaleDateString()} at ${time}`);
+        alert(`Appointment confirmed for ${service} on ${date.toLocaleDateString()} at ${time}`);
     };
 
     return (
         <div className='appointment container'>
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+
+            <header className='Appointment-Page-Header'>
+                <img
+                    src={require('./images/menu.png')}
+                    alt = 'Menu'
+                    onClick={toggleSidebar}
+                />
+                <h1 className='Appointment-Page-Banner-Title'>AutoCare Connect</h1>
+                <Logout/>
+            </header>
+
             <h2>Input your Appointment</h2>
-        
             <div className='Service Type'>
             <Dropdown 
                 value={service} 
@@ -61,7 +71,6 @@ const appointmentPage = () => {
                 optionLabel='name'
                 placeholder='Select a Service Type'
                 checkmark={true}  
-                highlightOnSelect={false}
                 editable
                 showClear
             />
@@ -91,14 +100,15 @@ const appointmentPage = () => {
             </div>
 
             <div className='Time Select'>
-            <label htmlFor="time">Select Time</label>
-            <Calendar
-                id="time"
+            <Dropdown
+                id = 'time'
                 value={time}
-                showTime
-                timeOnly
                 onChange={(e) => setTime(e.value)}
-                hourFormat="12"
+                options={appointmentTimes}
+                optionLabel='name'
+                placeholder='Select an appointment Time'
+                checkmark={true}  
+                showClear
             />
             </div>
 
