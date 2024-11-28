@@ -96,6 +96,7 @@ const AppointmentPage = () => {
                 inline
                 dateFormat="mm/dd/yy"
                 placeholder="Select Date and Time"
+                selectionMode="single"
             />
             </div>
 
