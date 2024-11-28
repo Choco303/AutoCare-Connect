@@ -1,125 +1,294 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import Sidebar from './sidebar';
-import Logout from './logout';
+import Logout from "./logout";
 import './css/base.css';
 import './css/appointmentPage.css';
 import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
+import axios from 'axios';
 
 const AppointmentPage = () => {
-    const [date, setDate] = useState(null);
-    const [time, setTime] = useState('');
-    const [additionalDetails, setAdditionalDetails] = useState('');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [service, setService] = useState(null);
+    const [makes, setMakes] = useState([]);
+    const [selectedMake, setSelectedMake] = useState('');
+    const [models, setModels] = useState([]);
+    const [selectedModel, setSelectedModel] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+    const [appointments, setAppointments] = useState([]);
+    const [bookedDates, setBookedDates] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedTime, setSelectedTime] = useState('');
+    const [availableTimes, setAvailableTimes] = useState([]);
+    const [services, setServices] = useState([]);
+    const [selectedService, setSelectedService] = useState('');
+    const [error, setError] = useState('');
+    const [username, setUsername] = useState('');
+    const today = new Date();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const loggedInUsername = localStorage.getItem('customerUsername');
+        if (loggedInUsername) {
+            setUsername(loggedInUsername);
+            fetchMakes();
+            fetchServices();
+            fetchAppointments();
+        } else {
+            setError("User is not logged in.");
+        }
+    }, []);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    const serviceTypes = [
-        { name: 'Oil and Oil Filter Change'},
-        { name: 'Wheel Alignment'},
-        { name: 'Blinker Fluid Replacement'},
-        { name: 'Windshield Wiper Replacement'},
-        { name: 'Anti-Freeze replacement' },
-        { name: 'Air Filter Replacement' },
-        { name: 'Spark Plug Replacement' },
-        { name: 'Alternator Repair/Replace' },
-        { name: 'Radiator Hose Check/Replace' },
-        { name: 'Transmission fluid Check/Replace' },
-        { name: 'Tire Patch/Repair/Replace' },
-        { name: 'Tire pressure fill up' }
+    const fetchMakes = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/vehicles/makes');
+            setMakes(response.data.Results || []);
+        } catch (err) {
+            setError('Failed to fetch vehicle makes.');
+        }
+    };
 
+    const fetchModels = async (make) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/vehicles/models?make=${make}`);
+            setModels(response.data.Results || []);
+        } catch (err) {
+            setError('Failed to fetch vehicle models.');
+        }
+    };
 
-    ];
+    const fetchServices = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/services');
+            setServices(response.data);
+        } catch (err) {
+            setError('Failed to fetch services.');
+        }
+    };
 
-    const appointmentTimes = [
-        { name: '7:00 am'},
-        { name: '7:30 pm'},
-        { name: '8:00 pm'},
-        { name: '9:00 pm'},
-        { name: '10:00 pm' }
-    ];
+    const fetchAppointments = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/appointment');
+            setAppointments(response.data);
 
-    const appointmentConfirm = () => {
-        alert(`Appointment confirmed for ${service} on ${date.toLocaleDateString()} at ${time}`);
+            const dates = [
+                ...new Set(
+                    response.data.map((app) => new Date(app.appointmentDate).toISOString().split('T')[0])
+                ),
+            ];
+            setBookedDates(dates);
+        } catch (err) {
+            setError('Failed to fetch appointments.');
+        }
+    };
+
+    const handleMakeSelection = (make) => {
+        setSelectedMake(make);
+        setModels([]);
+        setSelectedModel('');
+        setSelectedYear('');
+        fetchModels(make);
+    };
+
+    const handleModelSelection = (model) => {
+        setSelectedModel(model);
+        setSelectedYear('');
+    };
+
+    const handleYearSelection = (year) => {
+        const sanitizedYear = year.replace(/\D/g, '').slice(0, 4);
+        setSelectedYear(sanitizedYear);
+    };
+
+    const handleDateSelection = (date) => {
+        setSelectedDate(date);
+        setSelectedTime('');
+
+        const dateString = date.toISOString().split('T')[0];
+        const bookedTimes = appointments
+            .filter((app) => new Date(app.appointmentDate).toISOString().split('T')[0] === dateString)
+            .map((app) =>
+                new Date(app.appointmentDate).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                })
+            );
+
+        const times = [];
+        for (let hour = 7; hour <= 19; hour++) {
+            const period = hour < 12 ? 'AM' : 'PM';
+            const adjustedHour = hour % 12 || 12;
+            times.push(`${adjustedHour.toString().padStart(2, '0')}:00 ${period}`);
+            times.push(`${adjustedHour.toString().padStart(2, '0')}:30 ${period}`);
+        }
+
+        setAvailableTimes(times.filter((time) => !bookedTimes.includes(time)));
+    };
+
+    const handleAppointmentSubmission = async () => {
+        if (!selectedMake || !selectedModel || !selectedYear || !selectedService || !selectedDate || !selectedTime) {
+            setError('Fill all the fields before booking.');
+            return;
+        }
+
+        try {
+            const selectedServiceDetails = services.find(
+                (service) => service.serviceName === selectedService
+            );
+
+            if (!selectedServiceDetails) {
+                setError('Selected service details not found.');
+                return;
+            }
+
+            const payload = {
+                carMake: selectedMake,
+                carModel: selectedModel,
+                carYear: selectedYear,
+                serviceName: selectedService,
+                estimatedTime: selectedServiceDetails.estimatedTime,
+                resources: selectedServiceDetails.resources,
+                appointmentDate: selectedDate.toISOString(),
+                formattedAppointmentTime: selectedTime,
+            };
+
+            console.log('Payload being sent:', payload);
+
+            await axios.post('http://localhost:8080/api/appointment', payload, {
+                headers: {
+                    Username: username,
+                },
+            });
+
+            navigate('/confirmation', { state: { receiptId: payload } });
+        } catch (err) {
+            console.error('Error details:', err.response?.data || err.message);
+            setError(err.response?.data?.message || 'Failed to book the appointment. Please try again.');
+        }
     };
 
     return (
-        <div className='appointment container'>
+        <div className="appointment-page">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-            <header className='Appointment-Page-Header'>
+            <header className="appointment-header">
+                <h1>AutoCare Connect</h1>
                 <img
                     src={require('./images/menu.png')}
-                    alt = 'Menu'
+                    alt="Menu"
                     onClick={toggleSidebar}
+                    className="appointment-menu-icon"
                 />
-                <h1 className='Appointment-Page-Banner-Title'>AutoCare Connect</h1>
-                <Logout/>
+                <Logout />
             </header>
 
-            <h2>Input your Appointment</h2>
-            <div className='Service Type'>
-            <Dropdown 
-                value={service} 
-                onChange={(e) => setService(e.value)}
-                options={serviceTypes}
-                optionLabel='name'
-                placeholder='Select a Service Type'
-                checkmark={true}  
-                editable
-                showClear
-            />
+            <main className="appointment-content">
+                <h2>Create Your Appointment!</h2>
 
-            </div>
+                <label>Select a Make:</label>
+                <select
+                    value={selectedMake}
+                    onChange={(e) => handleMakeSelection(e.target.value)}
+                    className="appointment-dropdown"
+                >
+                    <option value="">-- Select Make --</option>
+                    {makes.map((make) => (
+                        <option key={make.MakeId} value={make.MakeName}>
+                            {make.MakeName}
+                        </option>
+                    ))}
+                </select>
 
-            <div className='Additional Details'>
-            <label htmlFor="details">Additional Details</label>
-            <InputText
-                id='details'
-                value={additionalDetails}
-                onChange={(e) => setAdditionalDetails(e.target.value)}
-                placeholder="Enter aditional details about your appointment (optional)"
-            />
-            </div>     
+                {selectedMake && (
+                    <>
+                        <label>Select a Model:</label>
+                        <select
+                            value={selectedModel}
+                            onChange={(e) => handleModelSelection(e.target.value)}
+                            className="appointment-dropdown"
+                        >
+                            <option value="">-- Select Model --</option>
+                            {models.map((model) => (
+                                <option key={model.Model_Name} value={model.Model_Name}>
+                                    {model.Model_Name}
+                                </option>
+                            ))}
+                        </select>
+                    </>
+                )}
 
-            <div className='Date Select'>
-            <label htmlFor="date">Select Date</label>
-            <Calendar 
-                id = 'date'
-                value={date} 
-                onChange={(e) => setDate(e.value)}
-                inline
-                dateFormat="mm/dd/yy"
-                placeholder="Select Date and Time"
-                selectionMode="single"
-            />
-            </div>
+                {selectedModel && (
+                    <>
+                        <label>Enter the Year:</label>
+                        <input
+                            type="text"
+                            value={selectedYear}
+                            onChange={(e) => handleYearSelection(e.target.value)}
+                            className="appointment-year-input"
+                            maxLength="4"
+                            placeholder="e.g., 2020"
+                        />
+                    </>
+                )}
 
-            <div className='Time Select'>
-            <Dropdown
-                id = 'time'
-                value={time}
-                onChange={(e) => setTime(e.value)}
-                options={appointmentTimes}
-                optionLabel='name'
-                placeholder='Select an appointment Time'
-                checkmark={true}  
-                showClear
-            />
-            </div>
+                {selectedYear && (
+                    <>
+                        <label>Select Service:</label>
+                        <select
+                            value={selectedService}
+                            onChange={(e) => setSelectedService(e.target.value)}
+                            className="appointment-dropdown"
+                        >
+                            <option value="">-- Select Service --</option>
+                            {services.map((service, index) => (
+                                <option key={index} value={service.serviceName}>
+                                    {service.serviceName} ({service.estimatedTime})
+                                </option>
+                            ))}
+                        </select>
+                    </>
+                )}
 
+                {selectedService && (
+                    <>
+                        <label>Select Date:</label>
+                        <Calendar
+                            value={selectedDate}
+                            onChange={(e) => handleDateSelection(e.value)}
+                            minDate={today}
+                            className="appointment-calendar"
+                        />
+                    </>
+                )}
 
+                {selectedDate && (
+                    <>
+                        <label>Select Time:</label>
+                        <select
+                            value={selectedTime}
+                            onChange={(e) => setSelectedTime(e.target.value)}
+                            className="appointment-dropdown"
+                        >
+                            <option value="">-- Select Time --</option>
+                            {availableTimes.map((time, index) => (
+                                <option key={index} value={time}>
+                                    {time}
+                                </option>
+                            ))}
+                        </select>
+                    </>
+                )}
 
-            <Button label="Submit Appointment" icon="pi pi-check" onClick={appointmentConfirm} />
-
-
-
+                {error && <p className="error-message">{error}</p>}
+                <Button label="Submit" onClick={handleAppointmentSubmission} className="appointment-submit-button" />
+            </main>
         </div>
     );
 };
+
 export default AppointmentPage;

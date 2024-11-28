@@ -46,7 +46,7 @@ const CustomerHomepage = () => {
     }
 
     const toAppointmentPage = () => {
-        navigate('/vehicle');
+        navigate('/appointment');
     }
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
