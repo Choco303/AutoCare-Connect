@@ -18,30 +18,30 @@ public class RewardsController {
     @Autowired
     private RewardsService rewardsService;
 
-    // Get all rewards for a specific customer
+    // get rewards for customer using the id
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<Rewards> getRewardsByCustomer(@PathVariable Long customerId) {
         List<Rewards> rewardsList = rewardsService.getRewardsByCustomerId(customerId);
         if (rewardsList.isEmpty()) {
-            return ResponseEntity.notFound().build(); // Return 404 if no rewards found
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(rewardsList.get(0)); // Assuming one rewards row per customer
+        return ResponseEntity.ok(rewardsList.get(0));
     }
 
-    // Add points to a customer's rewards
+    // add points for customer
     @PutMapping("/add-points/{customerId}")
     public ResponseEntity<Rewards> addPoints(@PathVariable Long customerId, @RequestParam int points) {
         try {
             Rewards updatedRewards = rewardsService.addPoints(customerId, points);
             return ResponseEntity.ok(updatedRewards);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null); // Handle invalid points input
+            return ResponseEntity.badRequest().body(null);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // Handle missing customer data
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Redeem a reward for a customer
+    // redeem rewards for customer
     @PostMapping("/redeem/{customerId}")
     public ResponseEntity<RedeemedRewards> redeemReward(
             @PathVariable Long customerId,
@@ -55,24 +55,24 @@ public class RewardsController {
             );
             return ResponseEntity.ok(redeemedReward);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null); // Handle insufficient points or invalid data
+            return ResponseEntity.badRequest().body(null);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // Handle missing customer or reward data
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Get all redeemed rewards for a customer
+    // get redeemed rewards
     @GetMapping("/redeemed/{customerId}")
     public ResponseEntity<List<Map<String, Object>>> getRedeemedRewards(@PathVariable Long customerId) {
         try {
             List<Map<String, Object>> redeemedRewards = rewardsService.getRedeemedRewards(customerId);
-            return ResponseEntity.ok(redeemedRewards); // Return redeemed rewards list
+            return ResponseEntity.ok(redeemedRewards);
         } catch (RuntimeException e) {
-            return ResponseEntity.ok(List.of()); // Return an empty list if no redeemed rewards found
+            return ResponseEntity.ok(List.of());
         }
     }
 
-    // Mark a redeemed reward as used
+    // make redeemed as used
     @PutMapping("/use/{customerId}")
     public ResponseEntity<RedeemedRewards> useRedeemedReward(
             @PathVariable Long customerId,
@@ -82,20 +82,20 @@ public class RewardsController {
             RedeemedRewards updatedRedeemedReward = rewardsService.useRedeemedReward(customerId, rewardType);
             return ResponseEntity.ok(updatedRedeemedReward);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null); // Handle already used or invalid reward
+            return ResponseEntity.badRequest().body(null);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // Handle missing redeemed reward
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Create or update rewards for a customer
+    // create or update rewards with the appointment page
     @PostMapping
     public ResponseEntity<Rewards> createOrUpdateRewards(@RequestBody Rewards rewards) {
         try {
             Rewards savedRewards = rewardsService.saveRewards(rewards);
             return ResponseEntity.ok(savedRewards);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null); // Handle missing customer information
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

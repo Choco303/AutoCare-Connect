@@ -80,9 +80,9 @@
 
 .Change-Email-buttons {
     display: flex;
-    justify-content: center; /* Center the buttons */
-    gap: 20px; /* Add space between buttons */
-    margin-top: 20px; /* Maintain margin from the top */
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .Change-Email-Page-changeButton,

@@ -20,13 +20,13 @@ const ReviewPage = () => {
 
     const [reviews, setReviews] = useState([]);
 
-    // Fetch reviews on component mount
+    // get the reviews from the database
     useEffect(() => {
         console.log('Fetching reviews from backend...');
         fetchReviews();
     }, []);
 
-    // get reviews from the database and backend
+    // function to get reviews from the database and backend
     const fetchReviews = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/reviews?timestamp=${new Date().getTime()}`);

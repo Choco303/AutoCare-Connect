@@ -14,7 +14,6 @@ public class AdminController {
     @Autowired
     private AdminRepository adminRepository;
 
-    // Login endpoint for admin
     @PostMapping("/login")
     public ResponseEntity<?> adminLogin(@RequestBody Admin loginDetails) {
         Admin admin = adminRepository.findByUsernameAndPassword(
@@ -27,7 +26,6 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
-    // Register endpoint for admin
     @PostMapping("/register")
     public ResponseEntity<?> registerAdmin(@RequestBody Admin newAdmin) {
         try {
@@ -38,7 +36,6 @@ public class AdminController {
         }
     }
 
-    // Fetch all admins endpoint
     @GetMapping("/all")
     public ResponseEntity<?> getAllAdmins() {
         return ResponseEntity.ok(adminRepository.findAll());

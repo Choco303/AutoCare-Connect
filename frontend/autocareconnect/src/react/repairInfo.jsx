@@ -9,30 +9,30 @@ import './css/base.css';
 import './css/repairInfo.css';
 
 const RepairInfo = () => {
-    // Sidebar
+    // sidebar stuff
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-    // State for service history data
+    // state for service dates and history
     const [serviceHistory, setServiceHistory] = useState([]);
     const [filterByDate, setFilterByDate] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
 
-    // Calendar and table filter
+    // calender
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const calendarRef = useRef(null);
 
-    // Username (retrieved from localStorage)
+    // username
     const username = localStorage.getItem('customerUsername');
 
-    // Pagination states
+    // allow to change pages
     const [first, setFirst] = useState(0);
-    const [rows] = useState(5); // Rows per page
+    const [rows] = useState(5);
 
-    // Generate table rows
+    // table rows
     const emptyRows = Array.from({ length: Math.max(18 - filterByDate.length, 0) });
 
-    // Fetch receipts for the current user
+    // get the receipts from database
     const fetchReceipts = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/receipts/byUsername`, {
@@ -42,7 +42,6 @@ const RepairInfo = () => {
                 ...receipt,
                 status: "Completed",
             }));
-            // Sort by id in descending order
             const sortedReceipts = receiptsWithStatus.sort((a, b) => b.id - a.id);
 
             setServiceHistory(sortedReceipts);
@@ -53,7 +52,7 @@ const RepairInfo = () => {
         }
     };
 
-    // Filters table by month and/or year
+    // filter by month/year
     const handleDateChange = (e) => {
         setSelectedDate(e.value);
         setIsCalendarOpen(false);
@@ -68,7 +67,7 @@ const RepairInfo = () => {
         );
     };
 
-    // Closes calendar when clicking outside its box
+    // close calender
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (calendarRef.current && !calendarRef.current.contains(event.target)) {

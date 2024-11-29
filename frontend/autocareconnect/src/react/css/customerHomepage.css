@@ -4,7 +4,7 @@
     flex-direction: column;
     min-height: 100vh;
     align-items: center;
-    background-color: #eaf6fc; /* Light blue background */
+    background-color: #eaf6fc;
     padding: 0;
 }
 
@@ -39,10 +39,10 @@
 .customer-homepage-main {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers content vertically */
-    align-items: center; /* Centers content horizontally */
-    flex-grow: 1; /* Allows the section to take up remaining space */
-    width: 90%; /* Responsive width */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 90%;
     max-width: 1200px;
     gap: 20px;
 }
@@ -58,30 +58,30 @@
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: auto;
-    margin: 10px auto; /* Centers the user box */
-    position: relative; /* Prevents overlapping */
-    top: 0; /* Ensure it's not floating above the banner */
+    margin: 10px auto;
+    position: relative;
+    top: 0;
 }
 
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
     .customer-homepage-user-box {
-        margin-top: 20px; /* Adds space below the banner */
+        margin-top: 20px;
     }
 
     .customer-homepage-header {
-        padding-bottom: 30px; /* Adds space for the user box */
+        padding-bottom: 30px;
     }
 }
 
 /* Grid Section */
 .customer-homepage-grid-section {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
-    gap: 10px; /* Even spacing between grid items */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     width: 100%;
     justify-items: center;
-    align-items: stretch; /* Ensures all items have equal height */
+    align-items: stretch;
 }
 
 /* Profile Boxes */
@@ -93,7 +93,7 @@
     padding: 20px;
     text-align: left;
     width: 100%;
-    max-width: 350px; /* Matches grid max width */
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -142,9 +142,9 @@
 .customer-homepage-action-buttons {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Consistent spacing */
+    gap: 20px;
     width: 100%;
-    max-width: 1200px; /* Matches the grid above */
+    max-width: 1200px;
 }
 
 .customer-homepage-action-button {
@@ -189,33 +189,33 @@
 /* Responsive Layout */
 @media screen and (max-width: 1200px) {
     .customer-homepage-grid-section {
-        gap: 20px; /* Reduce gaps slightly */
+        gap: 20px;
     }
     .customer-homepage-box {
-        max-width: 300px; /* Reduce max-width slightly */
+        max-width: 300px;
     }
     .customer-homepage-action-buttons {
-        max-width: 1000px; /* Scale action buttons section */
+        max-width: 1000px;
     }
 }
 
 @media screen and (max-width: 992px) {
     .customer-homepage-grid-section {
-        grid-template-columns: 1fr 1fr; /* Switch to 2 columns */
-        gap: 15px; /* Reduce gaps further */
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
     }
     .customer-homepage-action-buttons {
-        flex-direction: column; /* Stack buttons */
+        flex-direction: column;
         gap: 10px;
     }
 }
 
 @media screen and (max-width: 768px) {
     .customer-homepage-grid-section {
-        grid-template-columns: 1fr; /* Single column layout */
+        grid-template-columns: 1fr;
     }
     .customer-homepage-user-box {
-        margin-bottom: 20px; /* Add spacing below user box */
+        margin-bottom: 20px;
     }
     .customer-homepage-action-buttons {
         flex-direction: column;

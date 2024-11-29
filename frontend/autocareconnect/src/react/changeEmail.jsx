@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Sidebar from './sidebar'; // Adjust the path if necessary
-import Logout from "./logout"; // Adjust the path if necessary
+import Sidebar from './sidebar';
+import Logout from "./logout";
 import './css/changeEmail.css';
 
 const ChangeEmailPage = () => {
@@ -10,9 +10,10 @@ const ChangeEmailPage = () => {
     const [currentEmail, setCurrentEmail] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const navigate = useNavigate();
+
     useEffect(() => {
-        // Simulate fetching the logged-in user's email
-        const loggedInUserEmail = 'John.Smith@email.com'; // Replace with actual email fetching logic if needed
+        // get current email
+        const loggedInUserEmail = 'John.Smith@email.com';
         setCurrentEmail(loggedInUserEmail);
     }, []);
 
@@ -20,6 +21,7 @@ const ChangeEmailPage = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+    // function to change email
     const handleEmailChange = () => {
         if (newEmail) {
             const username = localStorage.getItem('customerUsername');
@@ -31,8 +33,8 @@ const ChangeEmailPage = () => {
                     axios
                         .get(`http://localhost:8080/api/customer/details/${username}`)
                         .then((response) => {
-                            setCurrentEmail(response.data.email); // Update the current email state
-                            setNewEmail(''); // Clear the input
+                            setCurrentEmail(response.data.email);
+                            setNewEmail('');
                         })
                         .catch((error) => {
                             console.error('Error refetching customer details:', error);

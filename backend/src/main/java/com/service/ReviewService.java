@@ -14,12 +14,12 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    // Retrieve the latest 6 reviews sorted by review date in descending order
+    // get review by 6
     public List<Review> getLatestReviews() {
         return reviewRepository.findTop6ByOrderByReviewDateDesc();
     }
 
-    // Add a new review, setting the review date if not provided
+    // add review
     public Review addReview(Review review) {
         if (review.getReviewDate() == null) {
             review.setReviewDate(LocalDateTime.now());

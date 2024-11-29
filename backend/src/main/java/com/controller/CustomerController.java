@@ -17,7 +17,6 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    // Login endpoint
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Customer loginDetails) {
         Optional<Customer> customer = customerRepository.findByUsernameAndPassword(
@@ -30,8 +29,6 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
-
-    // Register endpoint
     @PostMapping("/register")
     public ResponseEntity<?> registerCustomer(@RequestBody Customer newCustomer) {
         Optional<Customer> existingCustomer = customerRepository.findByUsername(newCustomer.getUsername());
@@ -42,7 +39,6 @@ public class CustomerController {
         return ResponseEntity.ok("Customer registered successfully");
     }
 
-    // New endpoint to fetch customer details
     @GetMapping("/details/{username}")
     public ResponseEntity<?> getCustomerDetails(@PathVariable String username) {
         Optional<Customer> customer = customerRepository.findByUsername(username);
@@ -52,7 +48,6 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
 
-    // Update email endpoint
     @PutMapping("/update-email")
     public ResponseEntity<?> updateEmail(@RequestParam String username, @RequestParam String newEmail) {
         Optional<Customer> customer = customerRepository.findByUsername(username);
@@ -65,7 +60,6 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
 
-    // Update password endpoint
     @PutMapping("/update-password")
     public ResponseEntity<?> updatePassword(@RequestParam String username, @RequestParam String newPassword) {
         Optional<Customer> customer = customerRepository.findByUsername(username);
@@ -78,7 +72,6 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
 
-    // Update phone number endpoint
     @PutMapping("/update-number")
     public ResponseEntity<?> updatePhoneNumber(@RequestParam String username, @RequestParam String newNumber) {
         Optional<Customer> customer = customerRepository.findByUsername(username);
@@ -91,7 +84,6 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
     }
 
-    // Fetch all customers endpoint
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();

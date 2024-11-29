@@ -9,7 +9,7 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Ensure localStorage values are consistent and clear any invalid state
+        // make sure localstorage is consistent so multiple pages work
         const resetUserState = () => {
             const customerUsername = localStorage.getItem('customerUsername');
             const adminUsername = localStorage.getItem('adminUsername');
@@ -25,7 +25,7 @@ const Logout = () => {
                 setUsername(mechanicUsername);
                 setRole('mechanic');
             } else {
-                // Clear localStorage to avoid stale state
+                // clear localstorage when needed
                 localStorage.removeItem('customerUsername');
                 localStorage.removeItem('adminUsername');
                 localStorage.removeItem('mechanicUsername');
@@ -34,10 +34,10 @@ const Logout = () => {
             }
         };
 
-        // Call the function on component mount
+        // call the function
         resetUserState();
 
-        // Handle clicks outside the dropdown to close it
+        // close dropdown for logout
         const handleClickOutside = (event) => {
             if (!event.target.closest('.logout-container')) {
                 setIsDropdownOpen(false);
@@ -46,7 +46,6 @@ const Logout = () => {
 
         document.addEventListener('mousedown', handleClickOutside);
 
-        // Cleanup on unmount
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -64,7 +63,6 @@ const Logout = () => {
         setUsername(null);
         setRole(null);
 
-        // Navigate to the home page and reload
         navigate('/');
         window.location.reload();
     };

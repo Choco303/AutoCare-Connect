@@ -25,10 +25,10 @@ const MechHomepage = () => {
     const [first, setFirst] = useState(0);
     const [rows] = useState(5);
 
-    // Appointment state
+    // appointment
     const [availableAppointments, setAvailableAppointments] = useState([]);
 
-    // Mechanic state
+    // assignment appointment stuff
     const [assignedAppointment, setAssignedAppointment] = useState(() => {
         const savedAppointment = localStorage.getItem('assignedAppointment');
         return savedAppointment ? JSON.parse(savedAppointment) : null;
@@ -41,16 +41,18 @@ const MechHomepage = () => {
 
     // task timer
     const handleStartTask = () => {
-        if (!assignedAppointment) return; // Ensure there is a task assigned
+        if (!assignedAppointment) return;
         setStartTime(Date.now());
         setIsTiming(true);
     };
 
+    // handle when mechanic click finish after starting the time and then it will put the stats into the database which then goes to the
+    // information of the customer
     const handleFinishTask = async () => {
         if (!assignedAppointment) return;
 
         try {
-            const elapsedMinutes = Math.floor(elapsedTime / 60); // Use floor instead of ceil
+            const elapsedMinutes = Math.floor(elapsedTime / 60);
             const elapsedSeconds = elapsedTime % 60;
 
             const timeString =
@@ -68,17 +70,17 @@ const MechHomepage = () => {
                 username: assignedAppointment.username,
             };
 
-            // Send the receipt to the backend and delete the appointment
+            // send receipt and delete appointment
             await axios.post(`http://localhost:8080/api/receipts`, receipt);
             await axios.delete(`http://localhost:8080/api/appointment/${assignedAppointment.receiptId}`);
 
-            // Reset data
+            // reset data
             setAssignedAppointment(null);
             localStorage.removeItem('assignedAppointment');
             setElapsedTime(0);
             setIsTiming(false);
 
-            // Fetch updated data
+            // fetch updated data
             fetchAvailableAppointments();
             fetchCompletedTasks();
         } catch (error) {
@@ -128,7 +130,7 @@ const MechHomepage = () => {
     };
 
 
-    // Fetch the assigned appointment for the mechanic
+    // get the assignment appointment which then updates the page
     const fetchAssignedAppointment = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/appointment/assigned`, {
@@ -152,7 +154,7 @@ const MechHomepage = () => {
     };
 
 
-    // Assign an appointment to the mechanic
+    // helps assign appointment
     const assignAppointment = async (receiptId) => {
         try {
             const response = await axios.post(
@@ -170,8 +172,7 @@ const MechHomepage = () => {
         }
     };
 
-
-
+    // get all completed tasks from the certain mechanic
     const fetchCompletedTasks = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/receipts/byMechanic`, {

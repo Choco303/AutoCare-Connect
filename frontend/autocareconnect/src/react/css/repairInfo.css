@@ -7,7 +7,7 @@
     background-color: #e5f4fa;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
 }
 
 /* Header */
@@ -128,7 +128,7 @@
 }
 
 .comments-header {
-    background-color: #003366; /* Dark blue header */
+    background-color: #003366;
     color: #ffffff;
     padding: 15px 20px;
     display: flex;
@@ -158,13 +158,13 @@
 }
 
 .comments-close:hover {
-    color: #ffdddd; /* Light red on hover */
+    color: #ffdddd;
 }
 
 /* Modal Body */
 .comments-body {
     padding: 20px;
-    max-height: 300px; /* Limit height */
+    max-height: 300px;
     overflow-y: auto;
 }
 

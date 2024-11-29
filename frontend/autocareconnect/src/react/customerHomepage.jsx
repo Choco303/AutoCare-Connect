@@ -48,10 +48,11 @@ const CustomerHomepage = () => {
     const toAppointmentPage = () => {
         navigate('/appointment');
     }
+
+    // continuously getting customers appointment and data
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
         if (username) {
-            // Fetch customer details
             axios
                 .get(`http://localhost:8080/api/customer/details/${username}`)
                 .then((response) => {

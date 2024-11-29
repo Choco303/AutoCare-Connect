@@ -8,12 +8,13 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class VehicleService {
 
+    // implement the car api
     private static final String BASE_URL = "https://vpic.nhtsa.dot.gov/api/vehicles";
 
     @Autowired
     private RestTemplate restTemplate;
 
-    /* Fetch all makes for cars.*/
+    /* using the api to get all the car makes.*/
     public String getMakes() {
         String url = BASE_URL + "/GetMakesForVehicleType/car?format=json";
         try {
@@ -21,11 +22,11 @@ public class VehicleService {
             return response.getBody();
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"error\": \"Unable to fetch vehicle makes. Please try again later.\"}";
+            return "{\"error\": \"Can not find the vehicle makes\"}";
         }
     }
 
-    /* Fetch all models for a specific make. */
+    /* get the models for each specific make */
     public String getModels(String make) {
         String url = String.format(BASE_URL + "/GetModelsForMake/%s?format=json", make);
         try {
@@ -33,11 +34,11 @@ public class VehicleService {
             return response.getBody();
         } catch (Exception e) {
             e.printStackTrace();
-            return "{\"error\": \"Unable to fetch models for the make: " + make + ". Please try again later.\"}";
+            return "{\"error\": \"Unable to get model for " + make + ".\"}";
         }
     }
 
-    /* Generate a list of years from 2000 to the current year. */
+    /* let user type car model year */
     public String getYears() {
         int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
         StringBuilder years = new StringBuilder("[");

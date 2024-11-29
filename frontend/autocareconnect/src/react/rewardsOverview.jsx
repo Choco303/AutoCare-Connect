@@ -17,6 +17,7 @@ const RewardsOverview = () => {
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
+    // just initializing the rewards you are able to use
     const rewards = [
         { id: 1, title: "Free Full Car Inspection", points: 1000, image: './images/car_inspection_logo.png', alt: "Car Inspection" },
         { id: 2, title: "Free Air Freshener", points: 2000, image: './images/air_fresh_logo.png', alt: "Air Freshener" },
@@ -26,7 +27,7 @@ const RewardsOverview = () => {
         { id: 6, title: "Free set of Tires", points: 10000, image: './images/free_tires_logo.png', alt: "Set Of Tires" }
     ];
 
-    // Fetch rewards and redeemed rewards data
+    // get all the rewards a customer has redeemed
     useEffect(() => {
         const fetchRewardsData = async () => {
             try {
@@ -37,27 +38,29 @@ const RewardsOverview = () => {
                     setPointsBalance(rewardsResponse.data.totalPoints - rewardsResponse.data.redeemedPoints);
                 }
 
+                // using array to set the database with the rewards they have (will later parse)
                 if (Array.isArray(redeemedResponse.data)) {
-                    setRedeemedRewards(redeemedResponse.data); // Use the JSON array from backend
+                    setRedeemedRewards(redeemedResponse.data);
                 } else {
-                    setRedeemedRewards([]); // Fallback to empty array
+                    setRedeemedRewards([]);
                 }
             } catch (err) {
-                console.error("Error fetching rewards data:", err);
-                setError('Failed to fetch rewards data. Please try again later.');
-                setRedeemedRewards([]); // Ensure it's always an array even on error
+                console.error("Error, Rewards Data:", err);
+                setError('Error, Unable to fetch data');
+                setRedeemedRewards([]);
             }
         };
 
         if (customerId) fetchRewardsData();
     }, [customerId]);
 
+    // check if redeemed rewards are updated to check cause of errors before
     useEffect(() => {
-        console.log("Redeemed Rewards updated:", redeemedRewards);
+        console.log("Updated redeemed rewards", redeemedRewards);
     }, [redeemedRewards]);
 
 
-    // Redeem a reward
+    // redeem a reward when clicking one of them
     const redeemReward = async (reward) => {
         if (!customerId) {
             setError("Customer ID is missing. Please log in again.");
@@ -77,18 +80,18 @@ const RewardsOverview = () => {
                 if (response.status === 200) {
                     const newRedeemedReward = response.data;
 
-                    // Parse the redeemedRewards if it's a string
+                    // parsing the rewards
                     const parsedRewards = Array.isArray(newRedeemedReward.redeemedRewards)
                         ? newRedeemedReward.redeemedRewards
                         : JSON.parse(newRedeemedReward.redeemedRewards);
 
-                    // Update Points Balance
+                    // update the points
                     setPointsBalance((prev) => prev - reward.points);
 
-                    // Append the newly redeemed reward
+                    // put the new redeemed reward
                     setRedeemedRewards((prev) => [...prev, ...parsedRewards]);
 
-                    // Add to activity history
+                    // add to activity history
                     setActivityHistory((prev) => [
                         ...prev,
                         { title: reward.title, date: new Date().toLocaleDateString(), points: -reward.points },

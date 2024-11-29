@@ -25,24 +25,20 @@ const CustomerLogin = () => {
         setShowPassword((prevState) => !prevState);
     };
 
-
+    // handle what happens when a customer has filled out everything and then press submit to login
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/customer/login', { username, password });
 
-            // Assuming the backend now returns the entire customer object
             const { id, username: returnedUsername } = response.data;
 
-            // Store customerId and username in localStorage
             localStorage.setItem('customerId', id);
             localStorage.setItem('customerUsername', returnedUsername);
 
-            // Display success message and reset error flag
             setLoginMessage('Login successful!');
             setIsError(false);
 
-            // Navigate to profile page after successful login
             navigate('/customerHomepage');
         } catch (error) {
             if (error.response && error.response.status === 401) {

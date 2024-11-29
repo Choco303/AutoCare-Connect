@@ -34,7 +34,6 @@
     margin: 0;
 }
 
-/* Hero section with consistent spacing and centered content */
 .home-page-hero-section {
     width: 100%;
     background-color: #e5f4fa;
@@ -66,7 +65,6 @@
     color: #555;
 }
 
-/* Full-width image section with no gaps */
 .home-page-full-width-image {
     width: 100%;
     overflow: hidden;
@@ -81,7 +79,6 @@
     display: block;
 }
 
-/* Appointments and end banners with centered text */
 .home-page-appointments-banner,
 .home-page-end-banner {
     width: 100%;
@@ -100,7 +97,6 @@
     margin: 0;
 }
 
-/* Service sections with alternating colors and larger gap */
 .home-page-service-section {
     width: 100%;
     display: flex;

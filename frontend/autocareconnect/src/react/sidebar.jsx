@@ -4,12 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     const [showProfileModal, setShowProfileModal] = useState(false);
-    const [username, setUsername] = useState(null); // Tracks the logged-in user
-    const [role, setRole] = useState(null); // Tracks the role (customer/admin/mechanic)
+    const [username, setUsername] = useState(null); // tracks if you are logged in
+    const [role, setRole] = useState(null); // tracks if you are customer, mechanic, or admin
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if a customer, admin, or mechanic is logged in
+        // get the username from the local storage
         const customerUsername = localStorage.getItem('customerUsername');
         const adminUsername = localStorage.getItem('adminUsername');
         const mechanicUsername = localStorage.getItem('mechanicUsername');
@@ -29,6 +29,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         }
     }, []);
 
+    // depending on the username, it will go the according profile page
     const openProfile = () => {
         if (username) {
             if (role === 'customer') {
@@ -36,23 +37,24 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             } else if (role === 'admin') {
                 navigate('/adminHomepage');
             } else if (role === 'mechanic') {
-                navigate('/mechanicHomepage'); // Corrected to mechanicHomepage
+                navigate('/mechanicHomepage');
             }
         } else {
-            setShowProfileModal(true); // Show modal to choose login page
+            setShowProfileModal(true);
         }
-        toggleSidebar(); // Close the sidebar
+        toggleSidebar();
     };
 
     const closeProfileModal = () => {
         setShowProfileModal(false);
     };
 
+    // this is for if you are not logged in
     const handleRoleClick = (role) => {
         if (role === 'Customer') {
-            navigate('/login'); // Navigate to CustomerLogin page
+            navigate('/login');
         } else if (role === 'Admin') {
-            navigate('/adminLogin'); // Navigate to AdminLogin page
+            navigate('/adminLogin');
         } else if (role === 'Mechanic') {
             navigate('/mechanicLogin');
         }
@@ -61,7 +63,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
     return (
         <div>
-            {/* Sidebar */}
             <div className={`sidebar-container ${isOpen ? 'open' : ''}`}>
                 <button className="sidebar-close-btn" onClick={toggleSidebar}>
                     &times;
@@ -85,7 +86,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 </nav>
             </div>
 
-            {/* Profile Modal Overlay */}
             {showProfileModal && (
                 <div className="sidebar-profile-modal-overlay">
                     <div className="sidebar-profile-modal">
