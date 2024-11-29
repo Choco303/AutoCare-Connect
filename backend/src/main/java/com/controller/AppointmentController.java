@@ -24,22 +24,13 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    /**
-     * Retrieve all appointments.
-     *
-     * @return List of all appointments.
-     */
+
     @GetMapping
     public ResponseEntity<List<Appointment>> getAllAppointments() {
         return ResponseEntity.ok(appointmentService.getAppointments());
     }
 
-    /**
-     * Check if a specific appointment time is available.
-     *
-     * @param date Date and time in ISO format (e.g., 2024-11-25T10:00:00).
-     * @return True if available, false otherwise.
-     */
+    // for customer to not assign the appointment same time
     @GetMapping("/check-availability") // Updated to avoid conflicts
     public ResponseEntity<Boolean> isAppointmentAvailable(@RequestParam("date") String date) {
         try {
@@ -51,14 +42,8 @@ public class AppointmentController {
         }
     }
 
-    /**
-     * Retrieve all unassigned appointments (for mechanics).
-     * Mechanics must not have an assigned appointment to view available ones.
-     *
-     * @param mechanicUsername The username of the mechanic (optional).
-     * @return List of available appointments with receipt, car, and service details.
-     */
-    @GetMapping("/available") // Kept this endpoint for fetching available appointments
+    // get available appointment for customers
+    @GetMapping("/available")
     public ResponseEntity<List<Map<String, Object>>> getAvailableAppointments(
             @RequestParam(value = "mechanicUsername", required = false) String mechanicUsername) {
         if (mechanicUsername != null && appointmentService.isMechanicAssignedToAppointment(mechanicUsername)) {
@@ -85,13 +70,7 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * Book a new appointment.
-     *
-     * @param request  The appointment request object to be saved.
-     * @param username The username of the logged-in user (retrieved from headers).
-     * @return The saved appointment object.
-     */
+    // book appointment for the customer
     @PostMapping
     public ResponseEntity<?> bookAppointment(
             @RequestBody AppointmentRequest request,
@@ -100,6 +79,7 @@ public class AppointmentController {
             return ResponseEntity.badRequest().body("Username is required.");
         }
         try {
+            // Process the booking with rewards if applicable
             Appointment savedAppointment = appointmentService.createAppointment(request, username);
             return ResponseEntity.ok(savedAppointment);
         } catch (IllegalArgumentException e) {
@@ -107,13 +87,17 @@ public class AppointmentController {
         }
     }
 
-    /**
-     * Assign an appointment to a mechanic.
-     *
-     * @param receiptId        The receipt ID of the appointment to be assigned.
-     * @param mechanicUsername The username of the mechanic assigning the appointment.
-     * @return Success or error message.
-     */
+    @GetMapping("/rewards/{customerId}")
+    public ResponseEntity<?> getAvailableRewards(@PathVariable Long customerId) {
+        try {
+            List<Map<String, Object>> availableRewards = appointmentService.getAvailableRewards(customerId);
+            return ResponseEntity.ok(availableRewards);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    // assign appointment to the mechanic
     @PostMapping("/assign")
     public ResponseEntity<?> assignAppointmentToMechanic(
             @RequestParam String receiptId,
@@ -129,6 +113,8 @@ public class AppointmentController {
         }
     }
 
+
+    // assign appintment
     @GetMapping("/assigned")
     public ResponseEntity<?> getAssignedAppointment(@RequestParam String mechanicUsername) {
         try {
@@ -139,13 +125,7 @@ public class AppointmentController {
         }
     }
 
-    /**
-     * Get all appointments within a specific date range.
-     *
-     * @param startDate The start of the range (ISO format).
-     * @param endDate   The end of the range (ISO format).
-     * @return A list of appointments within the range.
-     */
+    // get appointment by date range
     @GetMapping("/range")
     public ResponseEntity<List<Appointment>> getAppointmentsByDateRange(
             @RequestParam("startDate") String startDate,
@@ -159,12 +139,8 @@ public class AppointmentController {
         }
     }
 
-    /**
-     * Get appointment details for a specific username.
-     *
-     * @param username The username of the customer.
-     * @return A map containing appointment details, or a message if no appointment is found.
-     */
+
+    // get appointment stuff by username for multiple pages
     @GetMapping("/details/{username}")
     public ResponseEntity<?> getAppointmentDetailsByUsername(@PathVariable String username) {
         Appointment appointment = appointmentService.getLatestAppointmentByUsername(username);
@@ -173,7 +149,6 @@ public class AppointmentController {
             return ResponseEntity.ok(Map.of("receiptId", "None", "status", "None"));
         }
 
-        // Build a response with all relevant appointment details
         Map<String, Object> response = new HashMap<>();
         response.put("receiptId", appointment.getReceiptId());
         response.put("carMake", appointment.getCarMake() != null ? appointment.getCarMake() : "N/A");
@@ -184,12 +159,14 @@ public class AppointmentController {
                 ? appointment.getAppointmentDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"))
                 : "N/A");
         response.put("estimatedTime", appointment.getEstimatedTime() != null ? appointment.getEstimatedTime() : "N/A");
+        response.put("selectedRewards", appointment.getSelectedRewards());
         response.put("resources", appointment.getResources() != null ? appointment.getResources() : "N/A");
         response.put("status", appointmentService.getAppointmentStatus(appointment.getReceiptId()));
 
         return ResponseEntity.ok(response);
     }
 
+    // delete appointment for the mechanic homepage
     @DeleteMapping("/{receiptId}")
     public ResponseEntity<?> deleteAppointment(@PathVariable String receiptId) {
         try {

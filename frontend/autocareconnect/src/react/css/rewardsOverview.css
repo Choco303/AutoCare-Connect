@@ -115,9 +115,9 @@
 
 .overview-offer-item {
     display: grid;
-    grid-template-columns: 2fr 1fr auto; /* Define proportional widths */
-    align-items: center; /* Align all items vertically */
-    gap: 10px; /* Add spacing between columns */
+    grid-template-columns: 2fr 1fr auto;
+    align-items: center;
+    gap: 10px;
     padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #003366;
@@ -127,12 +127,12 @@
 .overview-offer-description {
     font-weight: bold;
     color: #003366;
-    text-align: left; /* Align description text to the left */
+    text-align: left;
 }
 
 .overview-offer-code {
     font-size: 1em;
-    text-align: center; /* Center the code text */
+    text-align: center;
     color: #000000;
 }
 
@@ -268,14 +268,14 @@
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;
-    color: #ff6b6b; /* A bright red for emphasis */
-    background-color: #f8d7da; /* A light red background for visibility */
-    border: 1px solid #f5c2c7; /* A border matching the background tone */
-    padding: 15px 20px; /* Add some padding for spacing */
-    border-radius: 8px; /* Rounded corners for a softer look */
-    margin-top: 15px; /* Space above */
-    margin-bottom: 15px; /* Space below */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    color: #ff6b6b;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 

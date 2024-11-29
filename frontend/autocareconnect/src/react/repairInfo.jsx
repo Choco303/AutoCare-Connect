@@ -9,51 +9,67 @@ import './css/base.css';
 import './css/repairInfo.css';
 
 const RepairInfo = () => {
-    // Sidebar
+    // sidebar stuff
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-    // State for service history data
+    // state for service dates and history
     const [serviceHistory, setServiceHistory] = useState([]);
     const [filterByDate, setFilterByDate] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
 
-    // Calendar and table filter
+    // calender
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const calendarRef = useRef(null);
 
-    // Username (retrieved from localStorage)
+    // username
     const username = localStorage.getItem('customerUsername');
 
-    // Pagination states
+    // allow to change pages
     const [first, setFirst] = useState(0);
-    const [rows] = useState(5); // Rows per page
+    const [rows] = useState(5);
 
-    // Generate table rows
+    // table rows
     const emptyRows = Array.from({ length: Math.max(18 - filterByDate.length, 0) });
 
-    // Fetch receipts for the current user
+    // get the receipts from database
     const fetchReceipts = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/receipts/byUsername`, {
                 params: { username },
             });
-            const receiptsWithStatus = response.data.map((receipt) => ({
-                ...receipt,
-                status: "Completed",
-            }));
-            // Sort by id in descending order
-            const sortedReceipts = receiptsWithStatus.sort((a, b) => b.id - a.id);
 
+            // Fetch costs for each task
+            const receiptsWithCost = await Promise.all(
+                response.data.map(async (receipt) => {
+                    try {
+                        const costResponse = await axios.get(
+                            `http://localhost:8080/api/services/cost/${receipt.task}`
+                        );
+                        return {
+                            ...receipt,
+                            cost: costResponse.data || 'N/A',
+                        };
+                    } catch (error) {
+                        console.error(`Error fetching cost for ${receipt.task}:`, error);
+                        return {
+                            ...receipt,
+                            cost: 'N/A', // Default if cost fetch fails
+                        };
+                    }
+                })
+            );
+
+            const sortedReceipts = receiptsWithCost.sort((a, b) => b.id - a.id);
             setServiceHistory(sortedReceipts);
             setFilterByDate(sortedReceipts);
         } catch (error) {
             console.error('Error fetching receipts:', error.response?.data || error.message);
-            alert('Failed to fetch service history. Please try again later.');
         }
     };
 
-    // Filters table by month and/or year
+
+    // filter by month/year
     const handleDateChange = (e) => {
         setSelectedDate(e.value);
         setIsCalendarOpen(false);
@@ -68,7 +84,7 @@ const RepairInfo = () => {
         );
     };
 
-    // Closes calendar when clicking outside its box
+    // close calender
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (calendarRef.current && !calendarRef.current.contains(event.target)) {
@@ -126,7 +142,7 @@ const RepairInfo = () => {
                                 view="month"
                                 dateFormat="mm/yy"
                                 inline
-                                style={{ width: '15rem' }}
+                                style={{width: '15rem'}}
                                 selectionMode="single"
                             />
                         )}
@@ -135,7 +151,7 @@ const RepairInfo = () => {
                     <div>Repair Type</div>
                     <div>Vehicle</div>
                     <div>Mechanic</div>
-                    <div>Status</div>
+                    <div>Cost</div>
                 </div>
                 <div className="service-history-rows">
                     {filterByDate.map((entry, index) => (
@@ -148,9 +164,7 @@ const RepairInfo = () => {
                             <div>{entry.task}</div>
                             <div>{entry.carDetails}</div>
                             <div>{entry.mechanicUsername}</div>
-                            <div className={`status-${entry.status.toLowerCase().replace(' ', '-')}`}>
-                                {entry.status}
-                            </div>
+                            <div>{entry.cost !== 'N/A' ? `$${entry.cost}` : 'Not Available'}</div>
                         </div>
                     ))}
                     {emptyRows.map((_, index) => (

@@ -17,7 +17,7 @@ const AdminLogin = () => {
 
     const navigate = useNavigate();
 
-    // Redirect to admin homepage if already logged in
+    // admin, similar functions to the other login pages
     useEffect(() => {
         if (localStorage.getItem('adminUsername')) {
             navigate('/adminHomepage');
@@ -35,7 +35,6 @@ const AdminLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if fields are empty
         if (!username || !password) {
             setLoginMessage('Please fill out all fields.');
             setIsError(true);
@@ -43,13 +42,11 @@ const AdminLogin = () => {
         }
 
         try {
-            // Ensure the correct endpoint for admin login
             const response = await axios.post('http://localhost:8080/api/admin/login', { username, password });
             localStorage.setItem('adminUsername', response.data); // Store admin username in localStorage
             setLoginMessage('Login successful!');
             setIsError(false);
 
-            // Navigate to admin homepage after successful login
             navigate('/adminHomepage');
         } catch (error) {
             if (error.response && error.response.status === 401) {

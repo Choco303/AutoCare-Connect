@@ -24,11 +24,12 @@ const MechHomepage = () => {
     const [receipts, setReceipts] = useState([]);
     const [first, setFirst] = useState(0);
     const [rows] = useState(5);
+    const [serviceCost, setServiceCost] = useState('Not Assigned');
 
-    // Appointment state
+    // appointment
     const [availableAppointments, setAvailableAppointments] = useState([]);
 
-    // Mechanic state
+    // assignment appointment stuff
     const [assignedAppointment, setAssignedAppointment] = useState(() => {
         const savedAppointment = localStorage.getItem('assignedAppointment');
         return savedAppointment ? JSON.parse(savedAppointment) : null;
@@ -41,16 +42,18 @@ const MechHomepage = () => {
 
     // task timer
     const handleStartTask = () => {
-        if (!assignedAppointment) return; // Ensure there is a task assigned
+        if (!assignedAppointment) return;
         setStartTime(Date.now());
         setIsTiming(true);
     };
 
+    // handle when mechanic click finish after starting the time and then it will put the stats into the database which then goes to the
+    // information of the customer
     const handleFinishTask = async () => {
         if (!assignedAppointment) return;
 
         try {
-            const elapsedMinutes = Math.floor(elapsedTime / 60); // Use floor instead of ceil
+            const elapsedMinutes = Math.floor(elapsedTime / 60);
             const elapsedSeconds = elapsedTime % 60;
 
             const timeString =
@@ -68,17 +71,17 @@ const MechHomepage = () => {
                 username: assignedAppointment.username,
             };
 
-            // Send the receipt to the backend and delete the appointment
+            // send receipt and delete appointment
             await axios.post(`http://localhost:8080/api/receipts`, receipt);
             await axios.delete(`http://localhost:8080/api/appointment/${assignedAppointment.receiptId}`);
 
-            // Reset data
+            // reset data
             setAssignedAppointment(null);
             localStorage.removeItem('assignedAppointment');
             setElapsedTime(0);
             setIsTiming(false);
 
-            // Fetch updated data
+            // fetch updated data
             fetchAvailableAppointments();
             fetchCompletedTasks();
         } catch (error) {
@@ -110,25 +113,43 @@ const MechHomepage = () => {
         setFirst(e.first);
     };
 
-    // get the receipts from the database and backend
+    const fetchServiceCosts = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/services`);
+            const services = response.data;
+            const costMap = services.reduce((map, service) => {
+                map[service.serviceName] = service.cost;
+                return map;
+            }, {});
+            return costMap;
+        } catch (error) {
+            console.error('Error fetching service costs:', error);
+            return {};
+        }
+    };
+
     const fetchAvailableAppointments = async () => {
         try {
+            const costMap = await fetchServiceCosts();
             const response = await axios.get(`http://localhost:8080/api/appointment/available`);
             const allAppointments = response.data;
 
-            // Filter appointments where mechanic_username is null
             const filteredAppointments = allAppointments.filter(
                 (appointment) => !appointment.mechanicUsername
             );
 
-            setAvailableAppointments(filteredAppointments);
+            const appointmentsWithCost = filteredAppointments.map((appointment) => ({
+                ...appointment,
+                cost: costMap[appointment.serviceName] || null,
+            }));
+
+            setAvailableAppointments(appointmentsWithCost);
         } catch (error) {
             console.error('Error fetching available appointments:', error);
         }
     };
 
-
-    // Fetch the assigned appointment for the mechanic
+    // get the assignment appointment which then updates the page
     const fetchAssignedAppointment = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/appointment/assigned`, {
@@ -140,19 +161,26 @@ const MechHomepage = () => {
             if (response.data) {
                 setAssignedAppointment(response.data);
                 localStorage.setItem('assignedAppointment', JSON.stringify(response.data));
+
+                // Fetch the cost of the service
+                const costResponse = await axios.get(`http://localhost:8080/api/services/cost/${response.data.serviceName}`);
+                setServiceCost(costResponse.data || 'Not Assigned');
             } else {
                 setAssignedAppointment(null);
                 localStorage.removeItem('assignedAppointment');
+                setServiceCost('Not Assigned');
             }
         } catch (error) {
             console.error('Error fetching assigned appointment:', error);
             setAssignedAppointment(null);
             localStorage.removeItem('assignedAppointment');
+            setServiceCost('Not Assigned');
         }
     };
 
 
-    // Assign an appointment to the mechanic
+
+    // helps assign appointment
     const assignAppointment = async (receiptId) => {
         try {
             const response = await axios.post(
@@ -170,18 +198,26 @@ const MechHomepage = () => {
         }
     };
 
-
-
+    // get all completed tasks from the certain mechanic
     const fetchCompletedTasks = async () => {
         try {
+            const costMap = await fetchServiceCosts(); // Reuse `fetchServiceCosts` to get cost map
             const response = await axios.get(`http://localhost:8080/api/receipts/byMechanic`, {
                 params: { username: mechanicUsername },
             });
-            setReceipts(response.data);
+            const receipts = response.data;
+
+            const receiptsWithCost = receipts.map((receipt) => ({
+                ...receipt,
+                cost: costMap[receipt.task] || null, // Match cost using task name
+            }));
+
+            setReceipts(receiptsWithCost);
         } catch (error) {
             console.error('Error fetching completed tasks:', error);
         }
     };
+
 
     useEffect(() => {
         fetchAvailableAppointments();
@@ -282,6 +318,15 @@ const MechHomepage = () => {
                         <InputText id="taskName" value={assignedAppointment?.serviceName || 'Not Assigned'} readOnly/>
                         <label htmlFor="time">Estimated Time</label>
                         <InputText id="time" value={assignedAppointment?.estimatedTime || 'Not Assigned'} readOnly/>
+                        <label htmlFor="cost">Cost For Customer</label>
+                        <InputText id="cost" value={serviceCost !== 'Not Assigned' ? `$${serviceCost}` : serviceCost}
+                                   readOnly/>
+                        <label htmlFor="rewardsUsed">Rewards Used</label>
+                        <InputText
+                            id="rewardsUsed"
+                            value={assignedAppointment?.selectedRewards || 'No Rewards Used'}
+                            readOnly
+                        />
                     </div>
 
 
@@ -387,6 +432,7 @@ const MechHomepage = () => {
                             <th>Receipt</th>
                             <th>Car</th>
                             <th>Task</th>
+                            <th>Cost</th>
                             <th>Date</th>
                             <th>Time Taken</th>
                         </tr>
@@ -401,6 +447,7 @@ const MechHomepage = () => {
                                     <td>{receipt.receiptId}</td>
                                     <td>{receipt.carDetails}</td>
                                     <td>{receipt.task}</td>
+                                    <td>{receipt.cost !== null ? `$${receipt.cost}` : 'Not Available'}</td>
                                     <td>{receipt.serviceDate}</td>
                                     <td>{receipt.timeTaken}</td>
                                 </tr>
@@ -460,6 +507,7 @@ const MechHomepage = () => {
                         <th>Receipt ID</th>
                         <th>Car</th>
                         <th>Service</th>
+                        <th>Cost</th>
                         <th>Date/Time</th>
                         <th>Actions</th>
                     </tr>
@@ -472,6 +520,7 @@ const MechHomepage = () => {
                                 {appointment.carMake} {appointment.carModel} {appointment.carYear}
                             </td>
                             <td>{appointment.serviceName}</td>
+                            <td>{appointment.cost !== null ? `$${appointment.cost}` : 'Not Available'}</td>
                             <td>{formatDateTime(appointment.appointmentDate)}</td>
                             <td>
                                 <Button
@@ -480,7 +529,6 @@ const MechHomepage = () => {
                                     onClick={() => assignAppointment(appointment.receiptId)}
                                     disabled={!!assignedAppointment}
                                 />
-
                             </td>
                         </tr>
                     ))}
@@ -492,7 +540,7 @@ const MechHomepage = () => {
                 <div className="mech-footer-description">
                     Providing quality car management services for your convenience.
                 </div>
-                <img src={require('./images/logo.png')} alt="Logo" className="mech-footer-logo" />
+                <img src={require('./images/logo.png')} alt="Logo" className="mech-footer-logo"/>
             </footer>
         </div>
     );

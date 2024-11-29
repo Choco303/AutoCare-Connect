@@ -24,6 +24,8 @@ const AppointmentPage = () => {
     const [selectedService, setSelectedService] = useState('');
     const [error, setError] = useState('');
     const [username, setUsername] = useState('');
+    const [availableRewards, setAvailableRewards] = useState([]);
+    const [selectedReward, setSelectedReward] = useState('');
     const today = new Date();
     const navigate = useNavigate();
 
@@ -34,10 +36,12 @@ const AppointmentPage = () => {
             fetchMakes();
             fetchServices();
             fetchAppointments();
+            fetchRewards(); // No need to pass username
         } else {
             setError("User is not logged in.");
         }
     }, []);
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -69,6 +73,25 @@ const AppointmentPage = () => {
             setError('Failed to fetch services.');
         }
     };
+
+    const fetchRewards = async () => {
+        const customerId = localStorage.getItem('customerId');
+        if (!customerId) {
+            setError('Customer ID not found in local storage.');
+            return;
+        }
+
+        try {
+            const response = await axios.get(`http://localhost:8080/api/appointment/rewards/${customerId}`);
+            console.log('Rewards fetched:', response.data); // Log the rewards data
+            setAvailableRewards(response.data || []);
+        } catch (err) {
+            console.error('Error fetching rewards:', err.response?.data || err.message);
+            setError('Failed to fetch rewards.');
+        }
+    };
+
+
 
     const fetchAppointments = async () => {
         try {
@@ -130,6 +153,26 @@ const AppointmentPage = () => {
         setAvailableTimes(times.filter((time) => !bookedTimes.includes(time)));
     };
 
+    const handleRewardRedemption = async () => {
+        const customerId = localStorage.getItem('customerId');
+        if (!customerId) {
+            setError('Customer ID is required.');
+            return;
+        }
+
+        try {
+            const response = await axios.put(
+                `http://localhost:8080/api/rewards/use/${customerId}`,
+                null,
+                { params: { rewardType: selectedReward } }  // Send rewardType as query parameter
+            );
+            console.log('Reward redeemed successfully:', response.data);
+        } catch (err) {
+            setError('Error redeeming reward: ' + (err.response?.data?.message || err.message));
+            console.error('Error redeeming reward:', err.response?.data || err.message);
+        }
+    };
+
     const handleAppointmentSubmission = async () => {
         if (!selectedMake || !selectedModel || !selectedYear || !selectedService || !selectedDate || !selectedTime) {
             setError('Fill all the fields before booking.');
@@ -155,6 +198,7 @@ const AppointmentPage = () => {
                 resources: selectedServiceDetails.resources,
                 appointmentDate: selectedDate.toISOString(),
                 formattedAppointmentTime: selectedTime,
+                selectedReward: selectedReward || null, // Include reward only if selected
             };
 
             console.log('Payload being sent:', payload);
@@ -165,12 +209,21 @@ const AppointmentPage = () => {
                 },
             });
 
+            // After submitting the appointment, redeem the reward
+            if (selectedReward) {
+                handleRewardRedemption();
+            }
+
             navigate('/confirmation', { state: { receiptId: payload } });
         } catch (err) {
             console.error('Error details:', err.response?.data || err.message);
             setError(err.response?.data?.message || 'Failed to book the appointment. Please try again.');
         }
     };
+
+
+
+
 
     return (
         <div className="appointment-page">
@@ -283,6 +336,25 @@ const AppointmentPage = () => {
                         </select>
                     </>
                 )}
+
+                {selectedTime && (
+                    <>
+                        <label>Select Reward (Optional):</label>
+                        <select
+                            value={selectedReward}
+                            onChange={(e) => setSelectedReward(e.target.value)}
+                            className="appointment-dropdown"
+                        >
+                            <option value="">-- Select Reward --</option>
+                            {availableRewards.map((reward, index) => (
+                                <option key={index} value={reward.rewardType}>
+                                    {reward.rewardType} ({reward.rewardPoints} points)
+                                </option>
+                            ))}
+                        </select>
+                    </>
+                )}
+
 
                 {error && <p className="error-message">{error}</p>}
                 <Button label="Submit" onClick={handleAppointmentSubmission} className="appointment-submit-button" />

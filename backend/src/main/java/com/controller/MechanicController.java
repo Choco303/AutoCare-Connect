@@ -14,7 +14,6 @@ public class MechanicController {
     @Autowired
     private MechanicRepository mechanicRepository;
 
-    // Login endpoint for mechanic
     @PostMapping("/login")
     public ResponseEntity<?> mechanicLogin(@RequestBody Mechanic  loginDetails) {
          Mechanic mechanic = mechanicRepository.findByUsernameAndPassword(
@@ -26,8 +25,6 @@ public class MechanicController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
-
-    // Register endpoint for mechanic
     @PostMapping("/register")
     public ResponseEntity<?> registerMechanic (@RequestBody Mechanic newMechanic ) {
         try {
@@ -38,7 +35,6 @@ public class MechanicController {
         }
     }
 
-    // Fetch all mechanics endpoint
     @GetMapping("/all")
     public ResponseEntity<?> getAllMechanics() {
         return ResponseEntity.ok(mechanicRepository.findAll());

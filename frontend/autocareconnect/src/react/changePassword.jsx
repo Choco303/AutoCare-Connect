@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Sidebar from './sidebar'; // Adjust the path if necessary
-import Logout from "./logout"; // Adjust the path if necessary
+import Sidebar from './sidebar';
+import Logout from "./logout";
 import './css/changePassword.css';
 
 const ChangePasswordPage = () => {
@@ -10,9 +10,9 @@ const ChangePasswordPage = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // Toggle visibility for all passwords
-    const [message, setMessage] = useState(''); // Feedback message
-    const [messageType, setMessageType] = useState(''); // Success or error
+    const [showPassword, setShowPassword] = useState(false);
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
     const navigate = useNavigate();
 
     const toggleSidebar = () => {

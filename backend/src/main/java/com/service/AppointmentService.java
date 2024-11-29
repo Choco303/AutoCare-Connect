@@ -1,11 +1,16 @@
 package com.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Appointment;
 import com.model.Customer;
 import com.model.Rewards;
+import com.model.RedeemedRewards;
 import com.repository.AppointmentRepository;
 import com.repository.CustomerRepository;
 import com.repository.RewardsRepository;
+import com.repository.RedeemedRewardsRepository;
 import com.request.AppointmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +21,10 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class AppointmentService {
@@ -28,45 +36,25 @@ public class AppointmentService {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private RewardsRepository rewardsRepository; // Add RewardsRepository for handling rewards
+    private RewardsRepository rewardsRepository;
 
+    @Autowired
+    private RedeemedRewardsRepository redeemedRewardsRepository;
 
-    /**
-     * Retrieve all appointments.
-     *
-     * @return List of all appointments.
-     */
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     public List<Appointment> getAppointments() {
         return appointmentRepository.findAll();
     }
 
-    /**
-     * Retrieve appointments within a specific date range.
-     *
-     * @param start Start date and time.
-     * @param end   End date and time.
-     * @return List of appointments within the date range.
-     */
     public List<Appointment> getAppointmentsByDateRange(LocalDateTime start, LocalDateTime end) {
         return appointmentRepository.findByAppointmentDateBetween(start, end);
     }
 
-    /**
-     * Check if a specific appointment time is available.
-     *
-     * @param appointmentDate Date and time of the appointment.
-     * @return True if the time is available, false otherwise.
-     */
     public boolean isAppointmentAvailable(LocalDateTime appointmentDate) {
         return !appointmentRepository.existsByAppointmentDate(appointmentDate);
     }
 
-    /**
-     * Save a new appointment.
-     *
-     * @param appointment The appointment to save.
-     * @return The saved appointment object.
-     */
     public Appointment saveAppointment(Appointment appointment) {
         if (appointment == null || appointment.getAppointmentDate() == null) {
             throw new IllegalArgumentException("Appointment or appointment date cannot be null.");
@@ -78,18 +66,11 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    /**
-     * Create a new appointment for a logged-in user and handle rewards.
-     *
-     * @param request          The appointment request.
-     * @param loggedInUsername The username of the logged-in user.
-     * @return The created appointment object.
-     */
+    // create appointments filling all categories so it works with other stuff
     public Appointment createAppointment(AppointmentRequest request, String loggedInUsername) {
         Customer customer = customerRepository.findByUsername(loggedInUsername)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found for username: " + loggedInUsername));
 
-        // Check if the user already has an appointment
         if (appointmentRepository.existsByUsername(loggedInUsername)) {
             throw new IllegalArgumentException("User already has an appointment.");
         }
@@ -113,6 +94,7 @@ public class AppointmentService {
         appointment.setEstimatedTime(request.getEstimatedTime());
         appointment.setResources(request.getResources());
         appointment.setAppointmentDate(request.getAppointmentDate());
+        appointment.setSelectedRewards(request.getSelectedReward());
 
         // Adjust appointment date to PST
         ZonedDateTime zonedDateTimePST = request.getAppointmentDate()
@@ -139,84 +121,76 @@ public class AppointmentService {
         return savedAppointment;
     }
 
-    /**
-     * Handle rewards for a customer creating their first appointment.
-     *
-     * @param customer The customer object.
-     */
+    private void updateSelectedRewards(Long customerId, List<Map<String, Object>> selectedRewards) {
+        RedeemedRewards redeemedRewards = redeemedRewardsRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("No rewards found for the customer."));
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Map<String, Object>> allRewards = objectMapper.readValue(
+                    redeemedRewards.getRedeemedRewards(),
+                    new TypeReference<>() {}
+            );
+
+            List<Map<String, Object>> updatedRewards = allRewards.stream().peek(reward -> {
+                if (selectedRewards.contains(reward)) {
+                    reward.put("isUsed", true);
+                }
+            }).collect(Collectors.toList());
+
+            redeemedRewards.setRedeemedRewards(objectMapper.writeValueAsString(updatedRewards));
+            redeemedRewardsRepository.save(redeemedRewards);
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to update selected rewards.", e);
+        }
+    }
+
+
+    // handle rewards for first appointments so new users can use rewards also
     private void handleRewardsForFirstAppointment(Customer customer) {
         List<Rewards> rewardsList = rewardsRepository.findByCustomerId(customer.getId());
 
         if (rewardsList.isEmpty()) {
-            // Create a new rewards entry for the customer
             Rewards newRewards = new Rewards();
             newRewards.setCustomer(customer);
-            newRewards.setTotalPoints(100); // Initial points for creating the first appointment
+            newRewards.setTotalPoints(100);
             newRewards.setRedeemedPoints(0);
 
             rewardsRepository.save(newRewards);
         }
     }
 
-    /**
-     * Get the latest appointment for a specific username.
-     *
-     * @param username The username of the customer.
-     * @return The latest appointment for the user.
-     */
     public Appointment getLatestAppointmentByUsername(String username) {
         return appointmentRepository.findByUsername(username).stream()
                 .max(Comparator.comparing(Appointment::getAppointmentDate))
                 .orElse(null);
     }
 
-    /**
-     * Retrieve all unassigned appointments.
-     *
-     * @return List of unassigned appointments.
-     */
     public List<Appointment> getUnassignedAppointments() {
         return appointmentRepository.findUnassignedAppointments();
     }
 
-    /**
-     * Check if a mechanic already has an assigned appointment.
-     *
-     * @param mechanicUsername The username of the mechanic.
-     * @return True if the mechanic has an assigned appointment, false otherwise.
-     */
+
     public boolean isMechanicAssignedToAppointment(String mechanicUsername) {
         return appointmentRepository.isMechanicAssignedToAppointment(mechanicUsername);
     }
 
-    /**
-     * Assign an appointment to a mechanic.
-     *
-     * @param receiptId        The receipt ID of the appointment to assign.
-     * @param mechanicUsername The username of the mechanic.
-     * @return The updated appointment with mechanic details.
-     */
     public Appointment assignAppointmentToMechanic(String receiptId, String mechanicUsername) {
         Appointment appointment = appointmentRepository.findByReceiptId(receiptId)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found for receipt ID: " + receiptId));
 
         if (appointment.getMechanicUsername() != null) {
-            throw new IllegalArgumentException("This appointment is already assigned to a mechanic.");
+            throw new IllegalArgumentException("already assigned for this mechanic");
         }
 
         appointment.setMechanicUsername(mechanicUsername);
         return appointmentRepository.save(appointment);
     }
 
-    /**
-     * Retrieve the assigned appointment for a specific mechanic.
-     *
-     * @param mechanicUsername The username of the mechanic.
-     * @return The assigned appointment for the mechanic.
-     */
     public Appointment getAssignedAppointment(String mechanicUsername) {
         return appointmentRepository.findByMechanicUsername(mechanicUsername)
-                .orElseThrow(() -> new IllegalArgumentException("No assigned appointment found for the mechanic."));
+                .orElseThrow(() -> new IllegalArgumentException("No assignment appointment for mechanic"));
     }
 
 
@@ -240,28 +214,48 @@ public class AppointmentService {
 
     public void deleteAppointmentByReceiptId(String receiptId) {
         Appointment appointment = appointmentRepository.findByReceiptId(receiptId)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment not found for receiptId: " + receiptId));
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not with" + receiptId));
 
         appointmentRepository.delete(appointment);
     }
 
-    /**
-     * Get the status of an appointment based on mechanic assignment.
-     *
-     * @param receiptId The receipt ID of the appointment.
-     * @return "Not Started", "In Progress", or "None".
-     */
     public String getAppointmentStatus(String receiptId) {
         Appointment appointment = appointmentRepository.findByReceiptId(receiptId)
                 .orElse(null);
 
         if (appointment == null) {
-            return "None"; // No appointment means it's finished or doesn't exist
+            return "None";
         }
 
         return (appointment.getMechanicUsername() == null) ? "Not Started" : "In Progress";
     }
 
+    public List<Map<String, Object>> getAvailableRewards(Long customerId) {
+        Optional<RedeemedRewards> redeemedRewardsOpt = redeemedRewardsRepository.findByCustomerId(customerId);
 
+        if (redeemedRewardsOpt.isEmpty()) {
+            return List.of(); // Return an empty list if no rewards are found
+        }
+
+        RedeemedRewards redeemedRewards = redeemedRewardsOpt.get();
+        if (redeemedRewards.getRedeemedRewards() == null) {
+            throw new IllegalArgumentException("Redeemed rewards data is null for customer ID: " + customerId);
+        }
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Map<String, Object>> rewardsList = objectMapper.readValue(
+                    redeemedRewards.getRedeemedRewards(),
+                    new TypeReference<>() {}
+            );
+
+            return rewardsList.stream()
+                    .filter(reward -> !Boolean.parseBoolean(reward.get("isUsed").toString()))
+                    .collect(Collectors.toList());
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse redeemed rewards data.", e);
+        }
+    }
 
 }

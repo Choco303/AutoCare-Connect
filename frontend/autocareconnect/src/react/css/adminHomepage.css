@@ -3,9 +3,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #E5F4FA; /* Consistent background color */
+    background-color: #E5F4FA;
     color: #003366;
-    font-family: Arial, sans-serif; /* Consistent font */
+    font-family: Arial, sans-serif;
 }
 
 /* Header (Top Bar) */

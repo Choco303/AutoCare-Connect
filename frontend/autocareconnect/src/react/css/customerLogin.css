@@ -92,7 +92,6 @@
     box-shadow: 0 0 8px rgba(0, 51, 102, 0.2);
 }
 
-/* Adjusted label styling to remove blue highlight */
 .customer-login-float-label label {
     position: absolute;
     top: -10px;

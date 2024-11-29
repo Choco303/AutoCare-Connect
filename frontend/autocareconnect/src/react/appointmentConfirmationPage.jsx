@@ -16,8 +16,8 @@ const AppointmentConfirmationPage = () => {
     const [error, setError] = useState(null);
     const [username, setUsername] = useState("");
 
+    // get appointment confirmation
     useEffect(() => {
-        // Retrieve the username from localStorage
         const loggedInUsername = localStorage.getItem('customerUsername');
         if (loggedInUsername) {
             setUsername(loggedInUsername);

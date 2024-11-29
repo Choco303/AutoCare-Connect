@@ -34,10 +34,9 @@ const RegisterPage = () => {
     };
 
     const formatPhone = (value) => {
-        // Remove all non-numeric characters
         const numericValue = value.replace(/\D/g, '');
 
-        // Format to (XXX) XXX-XXXX
+        // format to (XXX) XXX-XXXX
         if (numericValue.length <= 3) {
             return `(${numericValue}`;
         } else if (numericValue.length <= 6) {

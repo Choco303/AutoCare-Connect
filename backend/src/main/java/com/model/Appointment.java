@@ -56,4 +56,11 @@ public class Appointment {
     @Column(name = "mechanic_username")
     private String mechanicUsername;
 
+    @Column(name = "cost", nullable = true)
+    private Double cost;
+
+    @Column(columnDefinition = "TEXT")
+    private String selectedRewards;
+
+
 }

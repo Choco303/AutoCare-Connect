@@ -249,12 +249,12 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .write-review-modal-container {
-        padding: 20px; /* Reduce padding for smaller screens */
+        padding: 20px;
     }
 
     .write-review-modal-input,
     .write-review-modal-textarea {
-        width: 100%; /* Ensure inputs take up full width on smaller screens */
+        width: 100%;
     }
 }
 
