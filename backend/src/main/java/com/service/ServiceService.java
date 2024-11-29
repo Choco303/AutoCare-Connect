@@ -35,4 +35,9 @@ public class ServiceService {
         }
         serviceRepository.deleteById(id);
     }
+
+    // find service by service name
+    public com.model.Service getServiceByName(String serviceName) {
+        return serviceRepository.findByServiceName(serviceName);
+    }
 }

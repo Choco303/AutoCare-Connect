@@ -24,7 +24,7 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    // get all appointments
+
     @GetMapping
     public ResponseEntity<List<Appointment>> getAllAppointments() {
         return ResponseEntity.ok(appointmentService.getAppointments());
@@ -79,10 +79,21 @@ public class AppointmentController {
             return ResponseEntity.badRequest().body("Username is required.");
         }
         try {
+            // Process the booking with rewards if applicable
             Appointment savedAppointment = appointmentService.createAppointment(request, username);
             return ResponseEntity.ok(savedAppointment);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/rewards/{customerId}")
+    public ResponseEntity<?> getAvailableRewards(@PathVariable Long customerId) {
+        try {
+            List<Map<String, Object>> availableRewards = appointmentService.getAvailableRewards(customerId);
+            return ResponseEntity.ok(availableRewards);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -101,6 +112,7 @@ public class AppointmentController {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
+
 
     // assign appintment
     @GetMapping("/assigned")
@@ -147,6 +159,7 @@ public class AppointmentController {
                 ? appointment.getAppointmentDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"))
                 : "N/A");
         response.put("estimatedTime", appointment.getEstimatedTime() != null ? appointment.getEstimatedTime() : "N/A");
+        response.put("selectedRewards", appointment.getSelectedRewards());
         response.put("resources", appointment.getResources() != null ? appointment.getResources() : "N/A");
         response.put("status", appointmentService.getAppointmentStatus(appointment.getReceiptId()));
 

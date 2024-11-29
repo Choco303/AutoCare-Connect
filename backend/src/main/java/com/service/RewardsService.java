@@ -80,6 +80,7 @@ public class RewardsService {
 
     // show that rewards is redeemed
     public RedeemedRewards useRedeemedReward(Long customerId, String rewardType) {
+        // Fetch redeemed rewards for the customer
         RedeemedRewards redeemedRewards = redeemedRewardsRepository.findByCustomerId(customerId)
                 .orElseThrow(() -> new RuntimeException("No redeemed rewards found for customer ID: " + customerId));
 
@@ -91,10 +92,13 @@ public class RewardsService {
         }
 
         boolean rewardFound = false;
+        Map<String, Object> rewardToRemove = null;
+        // Iterate through the rewards list to find the one that matches and is not used
         for (Map<String, Object> reward : rewardsList) {
             if (reward.get("rewardType").equals(rewardType) && !(boolean) reward.get("isUsed")) {
-                reward.put("isUsed", true);
+                reward.put("isUsed", true);  // Mark as used
                 rewardFound = true;
+                rewardToRemove = reward;   // Store the reward that has been used
                 break;
             }
         }
@@ -103,13 +107,20 @@ public class RewardsService {
             throw new RuntimeException("No unused reward found for the given type.");
         }
 
+        // Remove the reward from the redeemed list
+        rewardsList.remove(rewardToRemove);  // This ensures the reward is actually removed from the list
+
+        // Update the redeemed rewards list back into the RedeemedRewards object
         try {
             redeemedRewards.setRedeemedRewards(objectMapper.writeValueAsString(rewardsList));
         } catch (Exception e) {
             throw new RuntimeException("Failed to save redeemed rewards JSON.", e);
         }
+
+        // Save the updated RedeemedRewards object directly
         return redeemedRewardsRepository.save(redeemedRewards);
     }
+
 
     // get all redeemed rewards
     public List<Map<String, Object>> getRedeemedRewards(Long customerId) {

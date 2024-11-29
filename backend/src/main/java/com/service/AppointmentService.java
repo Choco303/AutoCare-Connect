@@ -1,11 +1,16 @@
 package com.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Appointment;
 import com.model.Customer;
 import com.model.Rewards;
+import com.model.RedeemedRewards;
 import com.repository.AppointmentRepository;
 import com.repository.CustomerRepository;
 import com.repository.RewardsRepository;
+import com.repository.RedeemedRewardsRepository;
 import com.request.AppointmentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +21,10 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class AppointmentService {
@@ -28,6 +37,11 @@ public class AppointmentService {
 
     @Autowired
     private RewardsRepository rewardsRepository;
+
+    @Autowired
+    private RedeemedRewardsRepository redeemedRewardsRepository;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public List<Appointment> getAppointments() {
         return appointmentRepository.findAll();
@@ -57,7 +71,6 @@ public class AppointmentService {
         Customer customer = customerRepository.findByUsername(loggedInUsername)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found for username: " + loggedInUsername));
 
-
         if (appointmentRepository.existsByUsername(loggedInUsername)) {
             throw new IllegalArgumentException("User already has an appointment.");
         }
@@ -81,6 +94,7 @@ public class AppointmentService {
         appointment.setEstimatedTime(request.getEstimatedTime());
         appointment.setResources(request.getResources());
         appointment.setAppointmentDate(request.getAppointmentDate());
+        appointment.setSelectedRewards(request.getSelectedReward());
 
         // Adjust appointment date to PST
         ZonedDateTime zonedDateTimePST = request.getAppointmentDate()
@@ -106,6 +120,32 @@ public class AppointmentService {
 
         return savedAppointment;
     }
+
+    private void updateSelectedRewards(Long customerId, List<Map<String, Object>> selectedRewards) {
+        RedeemedRewards redeemedRewards = redeemedRewardsRepository.findByCustomerId(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("No rewards found for the customer."));
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Map<String, Object>> allRewards = objectMapper.readValue(
+                    redeemedRewards.getRedeemedRewards(),
+                    new TypeReference<>() {}
+            );
+
+            List<Map<String, Object>> updatedRewards = allRewards.stream().peek(reward -> {
+                if (selectedRewards.contains(reward)) {
+                    reward.put("isUsed", true);
+                }
+            }).collect(Collectors.toList());
+
+            redeemedRewards.setRedeemedRewards(objectMapper.writeValueAsString(updatedRewards));
+            redeemedRewardsRepository.save(redeemedRewards);
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to update selected rewards.", e);
+        }
+    }
+
 
     // handle rewards for first appointments so new users can use rewards also
     private void handleRewardsForFirstAppointment(Customer customer) {
@@ -190,6 +230,32 @@ public class AppointmentService {
         return (appointment.getMechanicUsername() == null) ? "Not Started" : "In Progress";
     }
 
+    public List<Map<String, Object>> getAvailableRewards(Long customerId) {
+        Optional<RedeemedRewards> redeemedRewardsOpt = redeemedRewardsRepository.findByCustomerId(customerId);
 
+        if (redeemedRewardsOpt.isEmpty()) {
+            return List.of(); // Return an empty list if no rewards are found
+        }
+
+        RedeemedRewards redeemedRewards = redeemedRewardsOpt.get();
+        if (redeemedRewards.getRedeemedRewards() == null) {
+            throw new IllegalArgumentException("Redeemed rewards data is null for customer ID: " + customerId);
+        }
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Map<String, Object>> rewardsList = objectMapper.readValue(
+                    redeemedRewards.getRedeemedRewards(),
+                    new TypeReference<>() {}
+            );
+
+            return rewardsList.stream()
+                    .filter(reward -> !Boolean.parseBoolean(reward.get("isUsed").toString()))
+                    .collect(Collectors.toList());
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Failed to parse redeemed rewards data.", e);
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ import axios from 'axios';
 const CustomerHomepage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [customer, setCustomer] = useState({});
+    const [serviceCost, setServiceCost] = useState('None');
     const [appointment, setAppointment] = useState({
         receiptId: 'None',
         serviceName: 'None',
@@ -18,6 +19,7 @@ const CustomerHomepage = () => {
         carModel: '',
         carYear: '',
         appointmentDate: 'None',
+        selectedRewards: 'None',
     });
     const navigate = useNavigate();
 
@@ -53,6 +55,7 @@ const CustomerHomepage = () => {
     useEffect(() => {
         const username = localStorage.getItem('customerUsername');
         if (username) {
+            // Fetch customer details
             axios
                 .get(`http://localhost:8080/api/customer/details/${username}`)
                 .then((response) => {
@@ -75,6 +78,7 @@ const CustomerHomepage = () => {
             axios
                 .get(`http://localhost:8080/api/appointment/details/${username}`)
                 .then((response) => {
+                    console.log('Appointment Details Response:', response.data);
                     if (response.data && !response.data.message) {
                         setAppointment({
                             receiptId: response.data.receiptId || 'No Receipt Found',
@@ -83,8 +87,22 @@ const CustomerHomepage = () => {
                             carModel: response.data.carModel || 'None',
                             carYear: response.data.carYear || 'None',
                             appointmentDate: response.data.appointmentDate || 'None',
+                            selectedReward: response.data.selectedRewards || 'None',
                             status: response.data.status || 'None',
                         });
+
+                        // Fetch cost based on serviceName
+                        if (response.data.serviceName) {
+                            axios
+                                .get(`http://localhost:8080/api/services/cost/${response.data.serviceName}`)
+                                .then((costResponse) => {
+                                    setServiceCost(costResponse.data || 'None');
+                                })
+                                .catch((error) => {
+                                    console.error('Error fetching service cost:', error);
+                                    setServiceCost('Error retrieving cost');
+                                });
+                        }
                     } else {
                         setAppointment((prev) => ({
                             ...prev,
@@ -103,6 +121,7 @@ const CustomerHomepage = () => {
                 });
         }
     }, []);
+
 
     const formatDateTime = (dateTimeString) => {
         const date = new Date(dateTimeString);
@@ -172,6 +191,12 @@ const CustomerHomepage = () => {
                         />
                         <label htmlFor="completion">Task Status:</label>
                         <InputText id="completion" value={appointment.status} readOnly/>
+                        <label htmlFor="cost">Cost:</label>
+                        <InputText
+                            id="cost"
+                            value={serviceCost !== 'None' && serviceCost !== 'Error retrieving cost' ? `$${serviceCost}` : serviceCost}
+                            readOnly
+                        />
                     </div>
 
                     {/* Contact Box */}
@@ -194,6 +219,8 @@ const CustomerHomepage = () => {
                     <div className="customer-homepage-box customer-homepage-receipt-box">
                         <label>Receipt:</label>
                         <p>ID: {appointment.receiptId}</p>
+                        <label>Reward Used:</label>
+                        <p>{appointment.selectedReward || 'None'}</p>
                     </div>
                 </section>
 

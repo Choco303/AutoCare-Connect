@@ -14,6 +14,7 @@ const RewardsOverview = () => {
     const [activityHistory, setActivityHistory] = useState([]);
     const [error, setError] = useState('');
     const customerId = localStorage.getItem('customerId');
+    const [processingRewards, setProcessingRewards] = useState([]);
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -68,6 +69,8 @@ const RewardsOverview = () => {
         }
 
         if (pointsBalance >= reward.points) {
+            setProcessingRewards((prev) => [...prev, reward.id]); // Add to processing
+
             try {
                 const response = await axios.post(
                     `http://localhost:8080/api/rewards/redeem/${customerId}`,
@@ -80,18 +83,26 @@ const RewardsOverview = () => {
                 if (response.status === 200) {
                     const newRedeemedReward = response.data;
 
-                    // parsing the rewards
                     const parsedRewards = Array.isArray(newRedeemedReward.redeemedRewards)
                         ? newRedeemedReward.redeemedRewards
                         : JSON.parse(newRedeemedReward.redeemedRewards);
 
-                    // update the points
+                    // Filter out duplicates
+                    const updatedRedeemedRewards = [
+                        ...redeemedRewards,
+                        ...parsedRewards.filter(
+                            (newReward) =>
+                                !redeemedRewards.some(
+                                    (existingReward) =>
+                                        existingReward.rewardType === newReward.rewardType &&
+                                        existingReward.isUsed === newReward.isUsed
+                                )
+                        ),
+                    ];
+
                     setPointsBalance((prev) => prev - reward.points);
+                    setRedeemedRewards(updatedRedeemedRewards);
 
-                    // put the new redeemed reward
-                    setRedeemedRewards((prev) => [...prev, ...parsedRewards]);
-
-                    // add to activity history
                     setActivityHistory((prev) => [
                         ...prev,
                         { title: reward.title, date: new Date().toLocaleDateString(), points: -reward.points },
@@ -99,11 +110,13 @@ const RewardsOverview = () => {
 
                     console.log("Reward redeemed and UI updated.");
                 } else {
-                    setError("Failed to redeem reward. Please try again later.");
+                    setError("Failed to redeem reward.");
                 }
             } catch (err) {
-                setError("Failed to redeem reward. Please try again later.");
+                setError("Failed to redeem reward.");
                 console.error("Error redeeming reward:", err);
+            } finally {
+                setProcessingRewards((prev) => prev.filter((id) => id !== reward.id)); // Remove from processing
             }
         } else {
             alert("Not enough points!");
@@ -174,7 +187,7 @@ const RewardsOverview = () => {
                                     label="Redeem"
                                     onClick={() => redeemReward(reward)}
                                     className="overview-redeem-button"
-                                    disabled={isRedeemed}
+                                    disabled={isRedeemed || processingRewards.includes(reward.id)}
                                 />
                             </Card>
                         );
