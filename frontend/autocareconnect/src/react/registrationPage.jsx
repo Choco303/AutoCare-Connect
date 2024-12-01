@@ -187,7 +187,6 @@ const RegisterPage = () => {
                         </span>
                     </div>
                     <Button label="Register" type="submit" className="register-button"/>
-                    <Button label="Login" className="register-login-button" onClick={toLoginPage}/>
                 </form>
 
                 {/* Display Message */}

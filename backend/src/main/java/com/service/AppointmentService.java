@@ -258,4 +258,18 @@ public class AppointmentService {
         }
     }
 
+    public void updateAppointmentDateByReceiptId(String receiptId, LocalDateTime newDate) {
+        Appointment appointment = appointmentRepository.findByReceiptId(receiptId)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment not found for receipt ID: " + receiptId));
+
+        appointment.setAppointmentDate(newDate);
+
+        String formattedTime = newDate.toLocalTime()
+                .format(DateTimeFormatter.ofPattern("hh:mm a"));
+        appointment.setFormattedAppointmentTime(formattedTime);
+
+        appointmentRepository.save(appointment);
+    }
+
+
 }

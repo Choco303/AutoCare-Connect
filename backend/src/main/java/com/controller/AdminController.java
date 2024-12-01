@@ -7,13 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 
     @Autowired
     private AdminRepository adminRepository;
-
+    // Admin login
     @PostMapping("/login")
     public ResponseEntity<?> adminLogin(@RequestBody Admin loginDetails) {
         Admin admin = adminRepository.findByUsernameAndPassword(
@@ -26,6 +30,7 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
+    // Register a new admin
     @PostMapping("/register")
     public ResponseEntity<?> registerAdmin(@RequestBody Admin newAdmin) {
         try {
@@ -36,8 +41,10 @@ public class AdminController {
         }
     }
 
+    // Get all admins
     @GetMapping("/all")
     public ResponseEntity<?> getAllAdmins() {
         return ResponseEntity.ok(adminRepository.findAll());
     }
+
 }

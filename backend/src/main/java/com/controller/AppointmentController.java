@@ -176,5 +176,18 @@ public class AppointmentController {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
+    @PutMapping("/{receiptId}")
+    public ResponseEntity<?> updateAppointmentDate(
+            @PathVariable String receiptId,
+            @RequestBody Map<String, String> request
+    ) {
+        try {
+            LocalDateTime newDate = LocalDateTime.parse(request.get("appointmentDate"));
+            appointmentService.updateAppointmentDateByReceiptId(receiptId, newDate);
+            return ResponseEntity.ok("Appointment date and time updated successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request: " + e.getMessage());
+        }
+    }
 
 }
