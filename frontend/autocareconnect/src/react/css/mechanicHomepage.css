@@ -227,65 +227,6 @@
     border-radius: 8px;
 }
 
-/* General Clock Modal Styling */
-.mech-clock-modal {
-    background-color: white !important;
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid #003366;
-    color: #333;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Header Styling for Clock Modal */
-.mech-clock-modal-header {
-    font-size: 1.5rem;
-    color: #003366;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Button Row Styling in Clock Modal */
-.mech-clock-modal .mech-button-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-/* Clock Modal Buttons */
-.mech-clock-modal .mech-button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px 20px;
-}
-
-/* Disabled Button Styling for Clock Modal */
-.mech-clock-modal .mech-button:disabled {
-    background-color: #0056b3;
-    color: #cccccc;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* Text Styling Inside Clock Modal */
-.mech-clock-modal p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 10px;
-    font-weight: 500;
-}
-
-/* Time Display in Clock Modal */
-.mech-clock-modal .mech-time-display {
-    font-size: 2rem;
-    color: #003366;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
 /* Available Appointments Table Styling */
 .mech-available-appointments-table {
     width: 100%;
@@ -315,9 +256,64 @@
 }
 
 .mech-available-appointments-table tbody td {
-    color: #333; /* Text color */
+    color: #333;
     font-size: 14px;
 }
+
+/* Pay Stats Table Styling */
+.mech-pay-stats-table-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mech-pay-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mech-pay-stats-table th,
+.mech-pay-stats-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.mech-pay-stats-table th {
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    border: none;
+    font-weight: bold;
+}
+
+.mech-pay-stats-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.mech-pay-stats-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: default;
+}
+
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .mech-pay-stats-table {
+        font-size: 12px;
+    }
+
+    .mech-pay-stats-table th,
+    .mech-pay-stats-table td {
+        padding: 8px;
+    }
+}
+
 
 .mech-assign-button {
     background-color: #007bff;

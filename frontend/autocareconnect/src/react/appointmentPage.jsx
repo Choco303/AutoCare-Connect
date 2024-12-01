@@ -164,7 +164,7 @@ const AppointmentPage = () => {
             const response = await axios.put(
                 `http://localhost:8080/api/rewards/use/${customerId}`,
                 null,
-                { params: { rewardType: selectedReward } }  // Send rewardType as query parameter
+                { params: { rewardType: selectedReward } }
             );
             console.log('Reward redeemed successfully:', response.data);
         } catch (err) {
@@ -189,6 +189,11 @@ const AppointmentPage = () => {
                 return;
             }
 
+            const [hour, minute, period] = selectedTime.split(/[:\s]/);
+            const adjustedHour = period === 'PM' && hour !== '12' ? parseInt(hour) + 12 : parseInt(hour);
+            const formattedDateTime = new Date(selectedDate);
+            formattedDateTime.setHours(adjustedHour, parseInt(minute));
+
             const payload = {
                 carMake: selectedMake,
                 carModel: selectedModel,
@@ -196,9 +201,8 @@ const AppointmentPage = () => {
                 serviceName: selectedService,
                 estimatedTime: selectedServiceDetails.estimatedTime,
                 resources: selectedServiceDetails.resources,
-                appointmentDate: selectedDate.toISOString(),
-                formattedAppointmentTime: selectedTime,
-                selectedReward: selectedReward || null, // Include reward only if selected
+                appointmentDate: formattedDateTime.toISOString(),
+                selectedReward: selectedReward || null,
             };
 
             console.log('Payload being sent:', payload);
@@ -209,7 +213,6 @@ const AppointmentPage = () => {
                 },
             });
 
-            // After submitting the appointment, redeem the reward
             if (selectedReward) {
                 handleRewardRedemption();
             }
@@ -220,10 +223,6 @@ const AppointmentPage = () => {
             setError(err.response?.data?.message || 'Failed to book the appointment. Please try again.');
         }
     };
-
-
-
-
 
     return (
         <div className="appointment-page">

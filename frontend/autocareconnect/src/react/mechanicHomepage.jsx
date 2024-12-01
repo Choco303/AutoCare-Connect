@@ -3,6 +3,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dialog } from 'primereact/dialog';
 import { Paginator } from 'primereact/paginator';
+import { Calendar } from 'primereact/calendar';
 import Sidebar from './sidebar';
 import Logout from './logout';
 import './css/base.css';
@@ -25,6 +26,9 @@ const MechHomepage = () => {
     const [first, setFirst] = useState(0);
     const [rows] = useState(5);
     const [serviceCost, setServiceCost] = useState('Not Assigned');
+    const [isPayStatsModalVisible, setIsPayStatsModalVisible] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [payStats, setPayStats] = useState({ clockedTime: 0, tasksCompleted: 0, totalPay: 0 });
 
     // appointment
     const [availableAppointments, setAvailableAppointments] = useState([]);
@@ -47,6 +51,53 @@ const MechHomepage = () => {
         setIsTiming(true);
     };
 
+    // function to calculate the mechanics pay
+    const fetchMechanicPayStats = async (date) => {
+        try {
+            console.log('Fetching pay stats for:', { mechanicUsername, date });
+
+            const response = await axios.get(`http://localhost:8080/api/receipts/byMechanic`, {
+                params: { username: mechanicUsername },
+            });
+
+            const receipts = response.data.filter((receipt) => {
+                const receiptDate = new Date(receipt.serviceDate).toISOString().split('T')[0];
+                return receiptDate === date;
+            });
+
+            console.log('Receipts fetched for pay stats (filtered by date):', receipts);
+
+            let totalTime = 0;
+            receipts.forEach((receipt) => {
+                const timeTaken = receipt.timeTaken;
+
+                if (timeTaken) {
+                    const matches = timeTaken.match(/(?:(\d+)\s*minutes?)?\s*(\d+)?\s*seconds?/);
+                    if (matches) {
+                        const minutes = parseInt(matches[1], 10) || 0;
+                        const seconds = parseInt(matches[2], 10) || 0;
+                        totalTime += minutes * 60 + seconds;
+                    }
+                }
+            });
+
+            const taskCount = receipts.length;
+            const hourlyRate = 2000;
+            const totalPay = (totalTime / 3600) * hourlyRate;
+
+            console.log('Pay Stats Calculated:', { totalTime, taskCount, totalPay });
+
+            setPayStats({
+                clockedTime: totalTime,
+                tasksCompleted: taskCount,
+                totalPay: totalPay.toFixed(2),
+            });
+        } catch (error) {
+            console.error('Error fetching pay stats:', error);
+        }
+    };
+
+
     // handle when mechanic click finish after starting the time and then it will put the stats into the database which then goes to the
     // information of the customer
     const handleFinishTask = async () => {
@@ -65,7 +116,7 @@ const MechHomepage = () => {
                 receiptId: assignedAppointment.receiptId,
                 carDetails: `${assignedAppointment.carMake} ${assignedAppointment.carModel} ${assignedAppointment.carYear}`,
                 task: assignedAppointment.serviceName,
-                serviceDate: new Date().toISOString().split('T')[0], // ISO date format
+                serviceDate: new Date().toLocaleDateString('en-CA'),
                 timeTaken: timeString,
                 mechanicUsername,
                 username: assignedAppointment.username,
@@ -401,15 +452,13 @@ const MechHomepage = () => {
                             className="p-button-secondary mech-button"
                             onClick={() => setIsCompletedTasksModalVisible(true)}
                         />
+                        <Button
+                            label="View Pay Stats"
+                            className="p-button-primary mech-button"
+                            onClick={() => setIsPayStatsModalVisible(true)}
+                        />
                     </div>
                 </section>
-
-                {/* Clock In/Out Button */}
-                <Button
-                    label="Clock In/Out"
-                    className="p-button-primary mech-button mech-clock-modal-button"
-                    onClick={openClockModal}
-                />
                 {/* View Available Appointments */}
                 <Button
                     label="View Available Appointments"
@@ -465,35 +514,6 @@ const MechHomepage = () => {
                 />
             </Dialog>
 
-            {/* Modal for Clock In/Out */}
-            <Dialog
-                header={<span className="mech-clock-modal-header">Clock In/Out</span>}
-                visible={isClockModalVisible}
-                onHide={closeClockModal}
-                className="mech-clock-modal"
-            >
-                <p>
-                    <strong>Status:</strong> {isClockModalTiming ? 'Clocked In' : 'Clocked Out'}
-                </p>
-                <p className="mech-time-display">
-                    {isClockModalTiming ? formatTime(clockModalElapsedTime) : '00:00'}
-                </p>
-                <div className="mech-button-row">
-                    <Button
-                        label="Clock In"
-                        className="p-button-success mech-button"
-                        onClick={clockInTimer}
-                        disabled={isClockModalTiming}
-                    />
-                    <Button
-                        label="Clock Out"
-                        className="p-button-danger mech-button"
-                        onClick={clockOutTimer}
-                        disabled={!isClockModalTiming}
-                    />
-                </div>
-            </Dialog>
-
             {/* Modal for Viewing Appointments */}
             <Dialog
                 header="Available Appointments"
@@ -534,6 +554,45 @@ const MechHomepage = () => {
                     ))}
                     </tbody>
                 </table>
+            </Dialog>
+
+            {/* pay stats for each mechanic modal */}
+            <Dialog
+                header="View Daily Pay Stats"
+                visible={isPayStatsModalVisible}
+                onHide={() => setIsPayStatsModalVisible(false)}
+                className="mech-custom-modal"
+            >
+                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px'}}>
+                    <Calendar
+                        value={selectedDate}
+                        onChange={(e) => {
+                            setSelectedDate(e.value);
+                            fetchMechanicPayStats(e.value.toISOString().split('T')[0]);
+                        }}
+                        showIcon
+                    />
+                </div>
+                {payStats && (
+                    <div className="mech-pay-stats-table-container">
+                        <table className="mech-pay-stats-table">
+                            <thead>
+                            <tr>
+                                <th>Total Time Worked</th>
+                                <th>Tasks Completed</th>
+                                <th>Total Pay</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{formatElapsedTime(payStats.clockedTime)}</td>
+                                <td>{payStats.tasksCompleted}</td>
+                                <td>${payStats.totalPay}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </Dialog>
 
             <footer className="mech-footer-banner">

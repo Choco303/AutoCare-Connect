@@ -1,15 +1,13 @@
-/* Main Container */
 .admin-homepage-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #E5F4FA;
-    color: #003366;
-    font-family: Arial, sans-serif;
+    align-items: center;
+    padding: 0;
+    background-color: #f0f4f8;
 }
 
-/* Header (Top Bar) */
-.admin-homepage-header {
+.admin-page-header-banner {
     width: 100%;
     background-color: #003366;
     color: white;
@@ -18,69 +16,254 @@
     justify-content: center;
     padding: 15px 20px;
     box-sizing: border-box;
-    height: 60px;
-    position: relative;
 }
 
-.admin-homepage-menu-icon {
+.admin-page-menu-icon {
     cursor: pointer;
     width: 30px;
     height: 30px;
     position: absolute;
     left: 20px;
-    top: 15px;
 }
 
-.admin-homepage-banner-title {
+.admin-page-banner-title {
     font-size: 1.5rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     margin: 0;
 }
 
-/* Content Section */
-.admin-homepage-content {
+.admin-task-section {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    padding: 20px;
-    color: #003366;
-    text-align: center;
+    width: 90%;
+    padding: 1rem;
+    max-width: 1200px;
+    gap: 20px;
 }
 
-.admin-homepage-title {
-    font-size: 2em;
+.admin-task-grid-section {
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.admin-completed-tasks,
+.admin-available-appointments {
+    background-color: #003366;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 600px;
+    position: relative;
+}
+
+.admin-task-section label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #e3e2e2;
+}
+
+.admin-completed-tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.admin-completed-tasks-table th,
+.admin-completed-tasks-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-completed-tasks-table th {
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    border: none;
+}
+
+.admin-completed-tasks-table td {
+    color: black;
+}
+
+.admin-completed-tasks-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.admin-completed-tasks-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-pay-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-pay-stats-table th,
+.admin-pay-stats-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-pay-stats-table th {
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    border: none;
     font-weight: bold;
 }
 
-/* Media Queries for Responsive Design */
-@media (max-width: 768px) {
-    .admin-homepage-banner-title {
-        font-size: 1.25rem;
-    }
-
-    .admin-homepage-menu-icon {
-        width: 24px;
-        height: 24px;
-    }
-
-    .admin-homepage-title {
-        font-size: 1.5em;
-    }
+.admin-pay-stats-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-@media (max-width: 480px) {
-    .admin-homepage-banner-title {
-        font-size: 1rem;
+.admin-pay-stats-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: default;
+}
+
+
+.admin-paginator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+
+.admin-custom-modal {
+    background-color: white !important;
+    border-radius: 8px;
+    padding: 20px 15px;
+    border: 1px solid #003366;
+    color: #003366;
+    width: 100%;
+    max-width: 1100px !important;
+    max-height: 95vh;
+    height: auto;
+    overflow-y: auto;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.admin-available-appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.admin-available-appointments-table th,
+.admin-available-appointments-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-available-appointments-table th {
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    border: none;
+}
+
+.admin-available-appointments-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.admin-available-appointments-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-button {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+}
+
+.admin-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.admin-available-appointments-table .admin-button {
+    padding: 10px 15px;
+    border: none;
+    width: 150px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.admin-actions .admin-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+.admin-footer-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
+}
+
+.admin-footer-description {
+    font-size: 1rem;
+}
+
+.admin-footer-logo {
+    width: 60px;
+    height: auto;
+}
+
+@media screen and (max-width: 992px) {
+    .admin-task-grid-section {
+        grid-template-columns: 1fr;
     }
 
-    .admin-homepage-menu-icon {
-        width: 20px;
-        height: 20px;
-    }
-
-    .admin-homepage-title {
-        font-size: 1.2em;
+    .admin-completed-tasks,
+    .admin-available-appointments {
+        width: 100%;
+        height: auto;
     }
 }
