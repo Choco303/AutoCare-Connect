@@ -39,7 +39,7 @@ const HomePage = () => {
                     <img src={require('./images/logo.png')} alt="Logo" className="home-page-hero-logo"/>
                     <div className="home-page-hero-description">
                         <h2>About Us</h2>
-                        <p>We provide high-quality car services to keep your vehicle running smoothly.</p>
+                        <p>Providing high-quality car services to keep your vehicle running smoothly.</p>
                     </div>
                 </div>
             </section>

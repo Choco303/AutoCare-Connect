@@ -84,10 +84,10 @@ const AdminLogin = () => {
                             <InputText
                                 id="username"
                                 value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}  //Prompts User to enter there Username
                                 required
                             />
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="username">Username</label>  
                         </span>
                     </div>
                     <div className="admin-login-field">
@@ -96,10 +96,10 @@ const AdminLogin = () => {
                                 id="password"
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}   //Prompts User to enter there password
                                 required
                             />
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Password</label>    
                         </span>
                         <Button label={showPassword ? 'Hide Password' : 'Show Password'} className="toggle-password-button" onClick={togglePasswordVisibility} type="button"/>
                     </div>
