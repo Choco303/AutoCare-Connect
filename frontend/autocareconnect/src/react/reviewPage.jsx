@@ -20,13 +20,13 @@ const ReviewPage = () => {
 
     const [reviews, setReviews] = useState([]);
 
-    // Fetch reviews on component mount
+    // get the reviews from the database
     useEffect(() => {
         console.log('Fetching reviews from backend...');
         fetchReviews();
     }, []);
 
-    // get reviews from the database and backend
+    // function to get reviews from the database and backend
     const fetchReviews = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/reviews?timestamp=${new Date().getTime()}`);
@@ -111,45 +111,53 @@ const ReviewPage = () => {
 
             <Button label="Write Review" className="review-page-write-review-button" onClick={openModal} />
 
-            <Dialog visible={displayModal} style={{ width: '50vw' }} onHide={closeModal} className="review-page-custom-modal"
-                    closable={false}>
-                <div className="review-page-modal-content">
-                    {/* Custom Close Button */}
-                    <button className="review-page-custom-close-button" onClick={closeModal}>×</button>
-
-                    <h3>Contact Us</h3>
-                    <h2 className="review-page-modal-title">Write A Review</h2>
-                    <div className="review-page-star-rating">
-                        <Rating value={rating} onChange={(e) => {
-                            setRating(e.value);
-                            console.log('Rating updated:', e.value);
-                        }} stars={5} cancel={false} />
-                    </div>
-                    <div className="p-field">
-                        <InputText
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="review-page-text-input"
+            <Dialog
+                visible={displayModal}
+                onHide={closeModal}
+                className="write-review-modal"
+                closable={false}
+            >
+                <div className="write-review-modal-container">
+                    <button
+                        className="write-review-modal-close-button"
+                        onClick={closeModal}
+                    >
+                        ×
+                    </button>
+                    <h2 className="write-review-modal-header">Write a Review</h2>
+                    <div className="write-review-modal-rating">
+                        <Rating
+                            value={rating}
+                            onChange={(e) => setRating(e.value)}
+                            stars={5}
+                            cancel={false}
                         />
-
                     </div>
-                    <div className="p-field">
-                        <InputTextarea
-                            placeholder="Write your review..."
-                            value={reviewText}
-                            onChange={handleTextChange}
-                            rows={5}
-                            cols={30}
-                            className="review-page-textarea"
-                            maxLength={maxChars}
-                        />
-
-                        <small className="character-count">{`${reviewText.length}/${maxChars} characters`}</small>
-                    </div>
-                    <Button label="Send" className="p-button-primary review-page-submit-button" onClick={handleSubmit} />
+                    <InputText
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="write-review-modal-input"
+                    />
+                    <InputTextarea
+                        placeholder="Write your review..."
+                        value={reviewText}
+                        onChange={handleTextChange}
+                        rows={5}
+                        maxLength={maxChars}
+                        className="write-review-modal-textarea"
+                    />
+                    <small className="write-review-modal-character-count">
+                        {`${reviewText.length}/${maxChars} characters`}
+                    </small>
+                    <Button
+                        label="Submit"
+                        className="write-review-modal-submit-button"
+                        onClick={handleSubmit}
+                    />
                 </div>
             </Dialog>
+
 
             <footer className="review-page-footer-banner">
                 <div className="review-page-footer-description">Providing quality car management services for your convenience.

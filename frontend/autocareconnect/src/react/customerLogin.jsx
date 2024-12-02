@@ -25,16 +25,20 @@ const CustomerLogin = () => {
         setShowPassword((prevState) => !prevState);
     };
 
-
+    // handle what happens when a customer has filled out everything and then press submit to login
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/customer/login', { username, password });
-            localStorage.setItem('customerUsername', response.data); // Store username in localStorage
+
+            const { id, username: returnedUsername } = response.data;
+
+            localStorage.setItem('customerId', id);
+            localStorage.setItem('customerUsername', returnedUsername);
+
             setLoginMessage('Login successful!');
             setIsError(false);
 
-            // Navigate to profile page after successful login
             navigate('/customerHomepage');
         } catch (error) {
             if (error.response && error.response.status === 401) {
@@ -45,7 +49,6 @@ const CustomerLogin = () => {
             setIsError(true);
         }
     };
-
 
     return (
         <div className="customer-login-page-container">

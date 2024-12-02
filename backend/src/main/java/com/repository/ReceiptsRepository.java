@@ -3,7 +3,6 @@ package com.repository;
 import com.model.Receipts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -21,5 +20,7 @@ public interface ReceiptsRepository extends JpaRepository<Receipts, Long> {
     List<Receipts> findByTaskContainingIgnoreCase(String task);
 
     List<Receipts> findByMechanicUsername(String mechanicUsername);
+
+    List<Receipts> findByUsername(String username);
 
 }

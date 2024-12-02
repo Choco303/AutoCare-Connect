@@ -8,7 +8,7 @@
     background-color: #E5F4FA;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
 }
 
 /* Header banner */
@@ -57,6 +57,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 2vh 4vw;
     min-height: 175px;
     max-width: 250px;
@@ -71,11 +72,14 @@
 .overview-points-balance-box h3 {
     font-size: 1.6em;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .overview-points-balance-box p {
     font-size: 1.6em;
+    text-align: center;
 }
+
 
 /* Offers styling */
 .overview-offers {
@@ -110,9 +114,10 @@
 }
 
 .overview-offer-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
     padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #003366;
@@ -120,13 +125,12 @@
 }
 
 .overview-offer-description {
-    flex: 1;
     font-weight: bold;
     color: #003366;
+    text-align: left;
 }
 
 .overview-offer-code {
-    flex: 1;
     font-size: 1em;
     text-align: center;
     color: #000000;
@@ -134,17 +138,18 @@
 
 .overview-copy-button {
     display: flex;
-    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
     border: none;
     padding: 5px 10px;
     font-size: 0.9em;
     cursor: pointer;
     border-radius: 5px;
-    align-items: center;
     background-color: #d4edda;
     color: #155724;
     transition: background-color 0.3s;
 }
+
 
 .overview-copy-button:hover {
     background-color: #c3e6cb;
@@ -160,18 +165,31 @@
     padding: 1.5rem;
     color: black;
     text-align: center;
-    border-top: 2px solid #003366;
     background-color: #d9e8f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .overview-reward-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    max-width: 600px;
-    column-gap: 5.5rem;
-    row-gap: 2rem;
-    justify-items: center;
-    margin: 1rem auto;
+    gap: 2rem;
+    justify-content: center;
+    align-items: start;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+
+:root {
+    --scrollbar-width: 0px;
+}
+
+@supports (scrollbar-width: thin) {
+    :root {
+        --scrollbar-width: 10px;
+    }
 }
 
 .overview-reward-card {
@@ -214,7 +232,6 @@
 /* History Section */
 .overview-history {
     padding: 20px;
-    border-top: 2px solid #003366;
     text-align: center;
     font-size: 1.5em;
     color: #000000;
@@ -222,14 +239,16 @@
 
 .overview-history-entry {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     align-items: center;
+    text-align: left;
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
-    margin: 0 25%;
+    margin: 0 auto;
+    max-width: 800px;
     gap: 10px;
-    color: #000000;
 }
+
 
 .overview-history-title, .overview-history-points, .overview-history-date {
     white-space: nowrap;
@@ -244,6 +263,21 @@
         align-items: center;
     }
 }
+
+.overview-no-rewards {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ff6b6b;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Footer Styling */
 .overview-footer {

@@ -3,20 +3,20 @@ import Sidebar from './sidebar';
 import Logout from './logout';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import './css/base.css';
 import './css/rewardsPage.css';
 
 const RewardsPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [signUpMessage, setSignUpMessage] = useState("");
-    const [isCustomer, setIsCustomer] = useState(false); // Track if the user is a customer
-    const navigate = useNavigate(); // Initialize the navigate function
+    const [isCustomer, setIsCustomer] = useState(false);
+    const navigate = useNavigate();
 
+    // checks if it is a customer logged in, if so it will go to their rewards page
     useEffect(() => {
-        // Check if the user is logged in as a customer
         const customerUsername = localStorage.getItem('customerUsername');
-        setIsCustomer(!!customerUsername); // Set to true if a customerUsername exists
+        setIsCustomer(!!customerUsername);
     }, []);
 
     const toggleSidebar = () => {
@@ -31,11 +31,12 @@ const RewardsPage = () => {
         { title: "Free set of Tires", points: 10000, image: './images/free_tires_logo.png', alt: "Free Set Of Tires" }
     ];
 
+    // handle the button click to go whether to the login page or their rewards page
     const handleButtonClick = () => {
         if (isCustomer) {
-            navigate('/rewardsOverview'); // Navigate to rewardsOverview if signed in as a customer
+            navigate('/rewardsOverview');
         } else {
-            navigate('/login'); // Navigate to login if not signed in
+            navigate('/login');
         }
     };
 
@@ -86,9 +87,9 @@ const RewardsPage = () => {
                         ))}
                     </div>
                     <Button
-                        label={isCustomer ? "My Rewards" : "Sign Up"} // Change button label based on login status
+                        label={isCustomer ? "My Rewards" : "Sign Up"}
                         className="rewards-page-sign-up-button"
-                        onClick={handleButtonClick} // Navigate based on login status
+                        onClick={handleButtonClick}
                     />
                     {signUpMessage && <p className="rewards-page-signup-message">{signUpMessage}</p>}
                 </section>

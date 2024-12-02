@@ -39,16 +39,17 @@
     align-items: center;
     flex-grow: 1;
     width: 90%;
+    padding: 1rem;
     max-width: 1200px;
     gap: 20px;
 }
 
 .mech-task-grid-section {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     width: 100%;
-    max-width: 1400px; /* Increased width for four columns */
+    max-width: 1400px;
     justify-items: stretch;
     align-items: stretch;
 }
@@ -133,10 +134,10 @@
 
 /* Darkened Style for Disabled Buttons */
 .mech-button:disabled {
-    background-color: #0056b3; /* Slightly darker shade of blue */
-    color: #cccccc; /* Lighter text for disabled state */
+    background-color: #0056b3;
+    color: #cccccc;
     cursor: not-allowed;
-    opacity: 0.7; /* Reduced opacity to indicate the disabled state */
+    opacity: 0.7;
 }
 
 /* Modal Styling */
@@ -226,63 +227,120 @@
     border-radius: 8px;
 }
 
-/* General Clock Modal Styling */
-.mech-clock-modal {
-    background-color: white !important;
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid #003366; /* Border around the modal */
-    color: #333;
-    max-width: 400px;
-    text-align: center;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Header Styling for Clock Modal */
-.mech-clock-modal-header {
-    font-size: 1.5rem;
-    color: #003366;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Button Row Styling in Clock Modal */
-.mech-clock-modal .mech-button-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-/* Clock Modal Buttons */
-.mech-clock-modal .mech-button {
+/* Available Appointments Table Styling */
+.mech-available-appointments-table {
     width: 100%;
-    font-size: 1rem;
-    padding: 10px 20px;
+    border-collapse: collapse;
+    margin: 0;
 }
 
-/* Disabled Button Styling for Clock Modal */
-.mech-clock-modal .mech-button:disabled {
+.mech-available-appointments-table th,
+.mech-available-appointments-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.mech-available-appointments-table th {
     background-color: #003366;
-    color: #ffffff;
-    cursor: not-allowed;
-    opacity: 0.6;
+    color: white;
+    border: none;
 }
 
-/* Text Styling Inside Clock Modal */
-.mech-clock-modal p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 10px;
-    font-weight: 500;
+.mech-available-appointments-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-/* Time Display in Clock Modal */
-.mech-clock-modal .mech-time-display {
-    font-size: 2rem;
-    color: #003366;
-    margin-top: 10px;
+.mech-available-appointments-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.mech-available-appointments-table tbody td {
+    color: #333;
+    font-size: 14px;
+}
+
+/* Pay Stats Table Styling */
+.mech-pay-stats-table-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mech-pay-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mech-pay-stats-table th,
+.mech-pay-stats-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.mech-pay-stats-table th {
+    background-color: #003366;
+    color: white;
+    font-size: 16px;
+    border: none;
     font-weight: bold;
+}
+
+.mech-pay-stats-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.mech-pay-stats-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: default;
+}
+
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .mech-pay-stats-table {
+        font-size: 12px;
+    }
+
+    .mech-pay-stats-table th,
+    .mech-pay-stats-table td {
+        padding: 8px;
+    }
+}
+
+
+.mech-assign-button {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+}
+
+.mech-assign-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.mech-assign-button:disabled {
+    background-color: #6c757d;
+    color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
 }
 
 .mech-footer-banner {
@@ -307,12 +365,12 @@
 
 @media screen and (max-width: 992px) {
     .mech-task-grid-section {
-        grid-template-columns: repeat(2, 1fr); /* Two equal columns for medium screens */
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media screen and (max-width: 768px) {
     .mech-task-grid-section {
-        grid-template-columns: 1fr; /* Single column for small screens */
+        grid-template-columns: 1fr;
     }
 }

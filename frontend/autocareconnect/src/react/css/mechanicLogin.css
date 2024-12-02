@@ -1,3 +1,4 @@
+/* Main Container */
 .mechanic-login-page-container {
     display: flex;
     flex-direction: column;
@@ -7,15 +8,7 @@
     font-family: Arial, sans-serif;
 }
 
-.mechanic-login-title {
-    color: red; /* Sets the text color to red */
-    font-size: 20px; /* Adjusts the font size */
-    font-weight: bold; /* Makes the text bold */
-    text-align: center; /* Centers the text */
-    margin-top: -40px; /* Adds some space above the text */
-    margin-bottom: 30px;
-}
-
+/* Header Banner */
 .mechanic-login-header-banner {
     width: 100%;
     background-color: #003366;
@@ -45,7 +38,7 @@
     margin: 0;
 }
 
-
+/* Login Container */
 .mechanic-login-container {
     display: flex;
     flex-direction: column;
@@ -57,9 +50,8 @@
     padding: 20px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 }
-
 
 .mechanic-login-logo {
     width: 50vw;
@@ -68,14 +60,22 @@
     margin-bottom: 1rem;
 }
 
+.mechanic-login-title {
+    color: blue;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -40px;
+    margin-bottom: 30px;
+}
 
+/* Login Form */
 .mechanic-login-container form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
-
 
 .mechanic-login-field {
     margin-bottom: 1.5rem;
@@ -93,12 +93,10 @@
     transition: all 0.3s ease;
 }
 
-
 .mechanic-login-float-label input:focus {
     border-color: #003366;
     box-shadow: 0 0 8px rgba(0, 51, 102, 0.2);
 }
-
 
 .mechanic-login-float-label label {
     position: absolute;
@@ -110,7 +108,7 @@
     padding: 0 4px;
 }
 
-
+/* Buttons */
 .mechanic-login-button {
     width: 100%;
     background-color: #003366;
@@ -127,23 +125,7 @@
     background-color: #002244;
 }
 
-
-.mechanic-login-register-button {
-    width: 100%;
-    background-color: #007bff;
-    border: none;
-    font-size: 1rem;
-    padding: 0.75rem;
-    border-radius: 8px;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-}
-
-.mechanic-login-register-button:hover {
-    background-color: #0056b3;
-}
-
-/* Success and error messages */
+/* Success and Error Messages */
 .mechanic-login-success-message {
     color: #53ff00;
     margin-top: 1em;
@@ -177,8 +159,7 @@
         max-width: 200px;
     }
 
-    .mechanic-login-button,
-    .mechanic-login-register-button {
+    .mechanic-login-button {
         font-size: 0.9rem;
         padding: 0.65rem;
     }

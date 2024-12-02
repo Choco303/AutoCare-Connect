@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Sidebar from './sidebar'; // Adjust the path if necessary
-import Logout from "./logout"; // Adjust the path if necessary
+import Sidebar from './sidebar';
+import Logout from "./logout";
 import './css/changeNumber.css';
 
 const ChangeNumberPage = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [newNumber, setNewNumber] = useState('');
-    const [message, setMessage] = useState(''); // Feedback message
-    const [messageType, setMessageType] = useState(''); // Success or error
+    const [message, setMessage] = useState('');
+    const [messageType, setMessageType] = useState('');
     const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+    // function to format the number
     const formatPhoneNumber = (value) => {
-        // Remove all non-numeric characters
         const numericValue = value.replace(/\D/g, '');
 
         // Format to (XXX) XXX-XXXX

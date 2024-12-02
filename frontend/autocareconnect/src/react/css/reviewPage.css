@@ -7,12 +7,13 @@
     padding: 0;
 }
 
-/* Header banner - fixed size */
+/* Header banner */
 .review-page-header-banner {
     width: 100%;
     background-color: #003366;
     color: white;
     display: flex;
+    margin-top: auto;
     align-items: center;
     justify-content: center;
     padding: 15px 20px;
@@ -34,7 +35,7 @@
     margin: 0;
 }
 
-/* Title styling for 'Reviews' */
+/* Page title */
 .review-page-title {
     font-size: 2rem;
     color: #333333;
@@ -42,67 +43,15 @@
     text-align: center;
 }
 
-/* Reviews grid container - fixed 2x3 layout */
+/* Reviews grid */
 .review-page-reviews-grid {
     display: grid;
+    flex-grow: 1;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
     gap: 20px;
     width: 90%;
     max-width: 1100px;
     margin-bottom: 40px;
-}
-
-/* Styling for Name Input */
-.review-page-text-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s ease;
-    margin-bottom: 20px;
-}
-
-.review-page-text-input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-/* Styling for Message Textarea */
-.review-page-textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    resize: none;
-    transition: border-color 0.3s ease;
-}
-
-.review-page-textarea:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-    .review-page-reviews-grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
-
-    .review-page-review-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 100%;
-    }
 }
 
 /* Review card styling */
@@ -114,19 +63,19 @@
     text-align: left;
     font-size: 1rem;
     min-height: 200px;
-}
-
-/* Review text and author */
-.review-page-review-text {
-    font-size: 1rem;
-    color: #666666;
-    margin-bottom: 8px;
+    max-height: 300px;
 }
 
 .review-page-review-author {
     font-weight: bold;
     color: #333333;
     margin-bottom: 5px;
+}
+
+.review-page-review-text {
+    font-size: 1rem;
+    color: #666666;
+    margin-bottom: 8px;
 }
 
 .review-page-review-rating {
@@ -158,86 +107,125 @@
     background-color: #0056b3;
 }
 
-/* Modal Styling */
-.review-page-custom-modal .p-dialog-content {
-    background-color: #ffffff;
+/* Modal Wrapper */
+.write-review-modal .p-dialog {
+    width: 95%;
+    max-width: 800px;
     border-radius: 12px;
-    padding: 40px;
-    border: 1px solid #000;
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: auto;
 }
 
-/* Modal content styling */
-.review-page-modal-content {
+/* Hide default dialog header */
+.write-review-modal .p-dialog-header {
+    display: none;
+}
+
+/* Modal Wrapper */
+.write-review-modal .p-dialog {
+    width: 95%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: auto;
+}
+
+/* Hide default dialog header */
+.write-review-modal .p-dialog-header {
+    display: none;
+}
+
+/* Modal Content */
+.write-review-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 40px 100px;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
     position: relative;
     text-align: center;
 }
 
-/* Custom Close Button */
-.review-page-custom-close-button {
+/* Simple Close Button */
+.write-review-modal-close-button {
     position: absolute;
-    top: -50px;
-    right: -30px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: #ffffff;
-    background-color: #ff4d4d;
+    top: 16px;
+    right: 16px;
+    font-size: 1.8rem;
+    color: #333333;
+    background: none;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 2;
 }
 
-.review-page-custom-close-button:hover {
-    background-color: #e60000;
+.write-review-modal-close-button:hover {
+    color: #000000;
 }
 
-/* Modal title styling */
-.review-page-modal-title {
+/* Modal Header Title */
+.write-review-modal-header {
     font-size: 2rem;
     font-weight: bold;
     color: #333333;
-    margin-bottom: 10px;
+    margin: 20px 0 30px;
 }
 
-.review-page-modal-subtitle {
-    font-size: 1.1rem;
-    color: #666666;
-    margin-bottom: 20px;
-}
-
-/* Star rating alignment */
-.review-page-star-rating {
+/* Star Rating Section */
+.write-review-modal-rating {
+    margin: 20px 0;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
-/* Input and Button Styles */
-.review-page-submit-button {
-    padding: 12px 24px;
-    font-size: 1.1rem;
+/* Inputs */
+.write-review-modal-input,
+.write-review-modal-textarea {
+    width: 100%;
+    max-width: 800px;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.write-review-modal-textarea {
+    resize: none;
+    min-height: 150px;
+}
+
+/* Submit Button */
+.write-review-modal-submit-button {
+    padding: 14px 24px;
+    font-size: 1.2rem;
     color: #ffffff;
     background-color: #007bff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    width: 100%;
+    max-width: 400px;
     margin-top: 20px;
 }
 
-.review-page-submit-button:hover {
-    background-color: #002244;
+.write-review-modal-submit-button:hover {
+    background-color: #0056b3;
 }
 
-/* Footer styling */
+/* Character Counter */
+.write-review-modal-character-count {
+    text-align: right;
+    font-size: 0.9rem;
+    color: #666666;
+    margin-bottom: 15px;
+}
+
+/* Footer */
 .review-page-footer-banner {
     width: 100%;
     background-color: #003366;
@@ -256,4 +244,53 @@
 .review-page-footer-logo {
     width: 60px;
     height: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .write-review-modal-container {
+        padding: 20px;
+    }
+
+    .write-review-modal-input,
+    .write-review-modal-textarea {
+        width: 100%;
+    }
+}
+
+
+
+/* Footer */
+.review-page-footer-banner {
+    width: 100%;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-sizing: border-box;
+}
+
+.review-page-footer-description {
+    font-size: 1rem;
+}
+
+.review-page-footer-logo {
+    width: 60px;
+    height: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .review-page-reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .review-page-review-card {
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
 }
