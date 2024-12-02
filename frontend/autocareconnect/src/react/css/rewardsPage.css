@@ -87,8 +87,9 @@
 }
 
 .rewards-page-reward-card {
-    width: 180px;
+    width: 275px;
     padding: 1rem;
+    color: #000000;
     background-color: white;
     text-align: center;
     border-radius: 8px;
