@@ -134,6 +134,77 @@
     color: #555;
 }
 
+.home-page-faq-section {
+    padding: 40px;
+    font-size: 1.2rem;
+    background-color: #d9e8f5;
+    text-align: center;
+}
+
+.home-page-faq h3 {
+    font-size: 2rem;
+    color: #003366;
+}
+
+.home-page-faq-item {
+    color: #003366;
+    text-align: left;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.home-page-faq-item:hover {
+    background-color: transparent;
+    transform: scale(1.02);
+}
+
+.home-page-faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003366;
+    position: absolute;
+    right: 10px;
+}
+
+.home-page-faq-answer {
+    font-size: 1rem;
+    color: #555;
+    padding-left: 20px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.faq-divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    width: 80%;
+    margin: 10px auto;
+}
+
+.home-page-contact-section {
+    font-size: 1.4rem;
+    padding: 20px;
+    text-align: center;
+    background-color: #d9e8f5;
+}
+
+.home-page-contact-section h3 {
+    font-size: 2rem;
+    color: #003366;
+}
+
 /* Footer styling */
 .home-page-footer-banner {
     width: 100%;

@@ -108,7 +108,7 @@ const RegisterPage = () => {
             {/* Top Bar */}
             <div className="register-header-banner">
                 <img
-                    src={require('./images/menu.png')}
+                    src={require('./images/menu.png')}   //Allows for User to access sidebar
                     alt="Menu Icon"
                     className="register-menu-icon"
                     onClick={toggleSidebar}
@@ -126,9 +126,9 @@ const RegisterPage = () => {
                             <InputText
                                 id="username"
                                 value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value)}  //Prompts the User to create a Username
                             />
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="username">Username</label>  
                         </span>
                     </div>
                     <div className="register-field">
@@ -136,7 +136,7 @@ const RegisterPage = () => {
                             <InputText
                                 id="email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)} //Prompts the User for there email
                             />
                             <label htmlFor="email">Email</label>
                         </span>
@@ -146,9 +146,9 @@ const RegisterPage = () => {
                             <InputText
                                 id="confirmEmail"
                                 value={confirmEmail}
-                                onChange={(e) => setConfirmEmail(e.target.value)}
+                                onChange={(e) => setConfirmEmail(e.target.value)} //Prompts user to enter email twice to ensure consistency
                             />
-                            <label htmlFor="confirmEmail">Confirm Email</label>
+                            <label htmlFor="confirmEmail">Confirm Email</label>  
                         </span>
                     </div>
                     <div className="register-field">
@@ -157,11 +157,12 @@ const RegisterPage = () => {
                                 id="password"
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}  //Prompts user to enter there password
                             />
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Password</label> 
                         </span>
-                        <Button label={showPassword ? 'Hide Password' : 'Show Password'} className="toggle-password-button" onClick={togglePasswordVisibility} type="button"/>
+                        {/* Allows for usage of hide and show passowrd button */}
+                        <Button label={showPassword ? 'Hide Password' : 'Show Password'} className="toggle-password-button" onClick={togglePasswordVisibility} type="button"/> 
                     </div>
                     <div className="register-field">
                         <span className="register-float-label">
@@ -169,7 +170,7 @@ const RegisterPage = () => {
                                 id="confirmPassword"
                                 type={showPassword ? 'text' : 'password'}
                                 value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                onChange={(e) => setConfirmPassword(e.target.value)}  //Prompts user to enter there password a 2nd time identical to the first entry
                             />
                             <label htmlFor="confirmPassword">Confirm Password</label>
                         </span>
@@ -181,9 +182,9 @@ const RegisterPage = () => {
                                 type="phone"
                                 value={phone}
                                 maxLength="14"
-                                onChange={handlePhoneChange}
+                                onChange={handlePhoneChange} //Prompts user to enter there phone number
                             />
-                            <label htmlFor="phone">Phone Number</label>
+                            <label htmlFor="phone">Phone Number</label>  
                         </span>
                     </div>
                     <Button label="Register" type="submit" className="register-button"/>
