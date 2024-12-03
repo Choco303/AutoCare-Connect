@@ -136,6 +136,7 @@ const RepairInfo = () => {
                             Date {selectedDate ? selectedDate.toLocaleDateString() : 'Select'}
                         </button>
                         {isCalendarOpen && (
+                            <div className="calendar-popup" ref={calendarRef}>
                             <Calendar
                                 value={selectedDate}
                                 onChange={handleDateChange}
@@ -145,6 +146,7 @@ const RepairInfo = () => {
                                 style={{width: '15rem'}}
                                 selectionMode="single"
                             />
+                            </div>
                         )}
                     </div>
                     <div>Receipt</div>

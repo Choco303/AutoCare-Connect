@@ -134,6 +134,7 @@
     color: #555;
 }
 
+/* FAQ header */
 .home-page-faq-section {
     padding: 40px;
     font-size: 1.2rem;
@@ -146,6 +147,7 @@
     color: #003366;
 }
 
+/* FAQ question list */
 .home-page-faq-item {
     color: #003366;
     text-align: left;
