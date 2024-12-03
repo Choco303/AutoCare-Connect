@@ -1,3 +1,4 @@
+/* Main Container and Layout */
 .mech-homepage-container {
     display: flex;
     flex-direction: column;
@@ -5,7 +6,7 @@
     align-items: center;
     padding: 0;
 }
-
+/* Header Section */
 .mech-page-header-banner {
     width: 100%;
     background-color: #003366;
@@ -16,7 +17,7 @@
     padding: 15px 20px;
     box-sizing: border-box;
 }
-
+/* Menu icon for navigation */
 .mech-page-menu-icon {
     cursor: pointer;
     width: 30px;
@@ -31,7 +32,7 @@
     font-weight: 700;
     margin: 0;
 }
-
+/* Task Management Section */
 .mech-task-section {
     display: flex;
     flex-direction: column;
@@ -43,7 +44,7 @@
     max-width: 1200px;
     gap: 20px;
 }
-
+/* Grid layout for tasks */
 .mech-task-grid-section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -53,7 +54,7 @@
     justify-items: stretch;
     align-items: stretch;
 }
-
+/* Individual task category boxes with rounded corners and consistent padding */
 .mech-assigned-tasks,
 .mech-resources,
 .mech-current-task,
@@ -75,7 +76,7 @@
     margin-bottom: 5px;
     color: #e3e2e2;
 }
-
+/* Input field styles for data entry */
 .mech-homepage-box input {
     width: 100%;
     margin-bottom: 10px;
@@ -92,7 +93,7 @@
 .mech-recently-completed .mech-completed-task p {
     margin: 5px 0;
 }
-
+/* Styling for detailed completed tasks */
 .mech-recently-completed .mech-completed-task .mech-completed-task-details {
     background-color: white;
     color: #003366;
@@ -108,7 +109,8 @@
     font-size: 14px;
     font-weight: normal;
 }
-
+/* Buttons */
+/* General button styles with primary colors */
 .mech-button-row {
     display: flex;
     gap: 10px;
@@ -141,6 +143,7 @@
 }
 
 /* Modal Styling */
+/* Custom modals with rounded corners, borders and padding */
 .mech-custom-modal {
     background-color: white !important;
     border-radius: 8px;
@@ -342,7 +345,8 @@
     opacity: 0.7;
     box-shadow: none;
 }
-
+/* Footers */
+/* Consistent footer design with primary colors and shop logo */
 .mech-footer-banner {
     width: 100%;
     background-color: #003366;
@@ -362,7 +366,8 @@
     width: 60px;
     height: auto;
 }
-
+/* Responsive Design adjustments */
+/* Adjust grid columns for smaller screens */
 @media screen and (max-width: 992px) {
     .mech-task-grid-section {
         grid-template-columns: repeat(2, 1fr);
