@@ -57,7 +57,7 @@ const MechHomepage = () => {
             console.log('Fetching pay stats for:', { mechanicUsername, date });
 
             const response = await axios.get(`http://localhost:8080/api/receipts/byMechanic`, {
-                params: { username: mechanicUsername },
+                params: { username: mechanicUsername }, // integrate api
             });
 
             const receipts = response.data.filter((receipt) => {
@@ -80,7 +80,7 @@ const MechHomepage = () => {
                     }
                 }
             });
-
+            // calculate and display the pay for mechanic
             const taskCount = receipts.length;
             const hourlyRate = 2000;
             const totalPay = (totalTime / 3600) * hourlyRate;
@@ -92,7 +92,7 @@ const MechHomepage = () => {
                 tasksCompleted: taskCount,
                 totalPay: totalPay.toFixed(2),
             });
-        } catch (error) {
+        } catch (error) { // error check
             console.error('Error fetching pay stats:', error);
         }
     };
@@ -163,7 +163,7 @@ const MechHomepage = () => {
     const onPageChange = (e) => {
         setFirst(e.first);
     };
-
+    // service methods
     const fetchServiceCosts = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/services`);
@@ -178,7 +178,7 @@ const MechHomepage = () => {
             return {};
         }
     };
-
+    // get the available appointments for mechanic to chose from
     const fetchAvailableAppointments = async () => {
         try {
             const costMap = await fetchServiceCosts();
@@ -229,9 +229,7 @@ const MechHomepage = () => {
         }
     };
 
-
-
-    // helps assign appointment
+    // helper to assign appointments
     const assignAppointment = async (receiptId) => {
         try {
             const response = await axios.post(
@@ -269,7 +267,7 @@ const MechHomepage = () => {
         }
     };
 
-
+    // effect methods
     useEffect(() => {
         fetchAvailableAppointments();
         fetchAssignedAppointment();
@@ -281,6 +279,7 @@ const MechHomepage = () => {
         fetchAvailableAppointments();
     }, [refreshKey]);
 
+    // helper for time and date display
     const formatDateTime = (dateTimeString) => {
         const date = new Date(dateTimeString);
         const options = {
@@ -474,7 +473,7 @@ const MechHomepage = () => {
                 onHide={() => setIsCompletedTasksModalVisible(false)}
                 className="mech-custom-modal"
             >
-                {receipts.length > 0 ? (
+                {receipts.length > 0 ? ( // receipt formatting
                     <table className="mech-completed-tasks-table">
                         <thead>
                         <tr>
